@@ -43,12 +43,12 @@ export function ProductCard({ product }: { product: ProductItem }) {
         <h3 className="text-sm md:text-base font-semibold text-gray-900 line-clamp-2 group-hover:text-black transition-colors min-h-10">
           {product.title}
         </h3>
-        <div className="flex flex-col gap-0.5">
-          {hasDiscount && (
-            <span className="text-xs text-gray-400 line-through">
-              {formattedOriginalPrice}
-            </span>
-          )}
+        <div className="flex flex-col gap-0.5 min-h-11">
+          <span
+            className={`text-xs text-gray-400 line-through ${hasDiscount ? "" : "invisible"}`}
+          >
+            {hasDiscount ? formattedOriginalPrice : formattedPrice}
+          </span>
           <span className="text-base md:text-lg font-bold text-gray-900">
             {formattedPrice}
           </span>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ProductsCatalogComponent, ProductItem } from "@/types/components";
 import { ProductCard } from "./ProductCard";
+import { SkeletonCard } from "./SkeletonCard";
 
 // Mock data for different categories (simulating API responses)
 const mockCatalogData: Record<string, ProductItem[]> = {
@@ -154,8 +155,10 @@ export function ProductsCatalog({ data }: { data: ProductsCatalogComponent }) {
 
         {/* Products Grid */}
         {loading ? (
-          <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {Array.from({ length: 8 }).map((_, idx) => (
+              <SkeletonCard key={idx} />
+            ))}
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
