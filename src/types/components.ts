@@ -16,6 +16,7 @@ export interface HeroComponent {
 export interface LinkItem {
   text: string;
   url: string;
+  icon?: string;
 }
 
 export interface LinktreeComponent {

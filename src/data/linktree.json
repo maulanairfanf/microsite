@@ -5,15 +5,18 @@
   "items": [
     {
       "text": "WhatsApp",
-      "url": "https://wa.me/6281234567890"
+      "url": "https://wa.me/6281234567890",
+      "icon": "whatsapp"
     },
     {
       "text": "Instagram",
-      "url": "https://instagram.com/kerabatjenggala"
+      "url": "https://instagram.com/kerabatjenggala",
+      "icon": "instagram"
     },
     {
       "text": "Full Menu",
-      "url": "https://example.com/menu"
+      "url": "https://example.com/menu",
+      "icon": "menu"
     }
   ]
 }

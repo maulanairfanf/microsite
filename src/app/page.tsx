@@ -14,10 +14,12 @@ export default function Home() {
   const components = [hero, linktree, showcase, catalog];
 
   return (
-    <main className="w-full">
-      {components.map((component) => (
-        <ComponentRenderer key={component.id} component={component} />
-      ))}
+    <main className="min-h-screen bg-gray-200 flex items-start justify-center py-0 md:pt-8">
+      <div className="w-full max-w-md bg-gray-100 shadow-2xl md:rounded-t-3xl overflow-hidden">
+        {components.map((component) => (
+          <ComponentRenderer key={component.id} component={component} />
+        ))}
+      </div>
     </main>
   );
 }

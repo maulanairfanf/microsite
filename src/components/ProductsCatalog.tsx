@@ -128,52 +128,50 @@ export function ProductsCatalog({ data }: { data: ProductsCatalogComponent }) {
   }, [activeCategory]);
 
   return (
-    <section className="w-full py-12 md:py-16 px-4 md:px-8 bg-white">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
-          {data.title}
-        </h2>
+    <section className="w-full py-4 px-6">
+      <h2 className="text-xl font-semibold mb-5 text-gray-900 text-center">
+        {data.title}
+      </h2>
 
-        {/* Tabs */}
-        <div className="mb-8 overflow-x-auto pb-2 -mx-4 px-4">
-          <div className="flex gap-2 min-w-min">
-            {data.categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`px-6 py-2.5 rounded-full font-medium text-sm whitespace-nowrap transition-all ${
-                  activeCategory === category.id
-                    ? "bg-black text-white shadow-md"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
+      {/* Tabs */}
+      <div className="mb-2 overflow-x-auto pb-2 -mx-6 px-6">
+        <div className="flex gap-2 min-w-min">
+          {data.categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setActiveCategory(category.id)}
+              className={`px-4 py-2 rounded-lg font-medium text-xs whitespace-nowrap transition-all cursor-pointer ${
+                activeCategory === category.id
+                  ? "bg-gray-900 text-white"
+                  : "bg-white text-gray-700 border border-gray-200 hover:border-gray-300"
+              }`}
+            >
+              {category.name}
+            </button>
+          ))}
         </div>
-
-        {/* Products Grid */}
-        {loading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {Array.from({ length: 8 }).map((_, idx) => (
-              <SkeletonCard key={idx} />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
-
-        {!loading && products.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
-            No products available in this category
-          </div>
-        )}
       </div>
+
+      {/* Products Grid */}
+      {loading ? (
+        <div className="grid grid-cols-2 gap-3">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <SkeletonCard key={idx} />
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
+
+      {!loading && products.length === 0 && (
+        <div className="text-center py-12 text-gray-400 text-sm">
+          No products available
+        </div>
+      )}
     </section>
   );
 }

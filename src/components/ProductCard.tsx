@@ -20,38 +20,38 @@ export function ProductCard({ product }: { product: ProductItem }) {
   return (
     <a
       href={product.url}
-      className="flex flex-col group cursor-pointer bg-white rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+      className="flex flex-col group cursor-pointer rounded-lg overflow-hidden border border-gray-100 hover:border-gray-200 shadow-md transition-all"
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-square overflow-hidden bg-gray-100">
+      <div className="relative w-full aspect-square overflow-hidden bg-gray-50">
         <Image
           src={product.image}
           alt={product.title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          sizes="200px"
         />
         {hasDiscount && (
-          <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-md">
+          <div className="absolute top-2 right-2 bg-red-500 text-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
             {product.discount}
           </div>
         )}
       </div>
 
       {/* Product Info */}
-      <div className="p-3 flex flex-col gap-1">
-        <h3 className="text-sm md:text-base font-semibold text-gray-900 line-clamp-2 group-hover:text-black transition-colors ">
+      <div className="p-2.5 flex flex-col gap-0.5">
+        <h3 className="text-xs font-medium text-gray-900 line-clamp-2 leading-tight">
           {product.title}
         </h3>
-        <div className="flex items-center gap-1">
-          <span className="text-sm md:text-lg font-bold text-gray-900">
+        <div className="flex items-baseline gap-1.5 mt-0.5">
+          <span className="text-sm font-bold text-gray-900">
             {formattedPrice}
           </span>
-          <span
-            className={`text-xs text-gray-400 line-through ${hasDiscount ? "" : "invisible"}`}
-          >
-            {hasDiscount ? formattedOriginalPrice : formattedPrice}
-          </span>
+          {hasDiscount && (
+            <span className="text-[10px] text-gray-400 line-through">
+              {formattedOriginalPrice}
+            </span>
+          )}
         </div>
       </div>
     </a>
