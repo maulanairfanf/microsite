@@ -1,13 +1,21 @@
-import { ComponentsData } from "@/types/components";
+import { HeroComponent, LinktreeComponent, ProductsShowcaseComponent, ProductsCatalogComponent } from "@/types/components";
 import { ComponentRenderer } from "@/components/ComponentRenderer";
-import componentsData from "@/data/components.json";
+import heroData from "@/data/hero.json";
+import linktreeData from "@/data/linktree.json";
+import showcaseData from "@/data/products_showcase.json";
+import catalogData from "@/data/products_catalog.json";
 
 export default function Home() {
-  const data: ComponentsData = componentsData as ComponentsData;
+  const hero = heroData as HeroComponent;
+  const linktree = linktreeData as LinktreeComponent;
+  const showcase = showcaseData as ProductsShowcaseComponent;
+  const catalog = catalogData as ProductsCatalogComponent;
+
+  const components = [hero, linktree, showcase, catalog];
 
   return (
     <main className="w-full">
-      {data.components.map((component) => (
+      {components.map((component) => (
         <ComponentRenderer key={component.id} component={component} />
       ))}
     </main>

@@ -1,0 +1,19 @@
+{
+  "id": "linktree-1",
+  "type": "linktree",
+  "title": "Quick Links",
+  "items": [
+    {
+      "text": "WhatsApp",
+      "url": "https://wa.me/6281234567890"
+    },
+    {
+      "text": "Instagram",
+      "url": "https://instagram.com/kerabatjenggala"
+    },
+    {
+      "text": "Full Menu",
+      "url": "https://example.com/menu"
+    }
+  ]
+}

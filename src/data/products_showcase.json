@@ -1,0 +1,55 @@
+{
+  "id": "showcase-1",
+  "type": "products_showcase",
+  "title": "Best Seller",
+  "items": [
+    {
+      "id": "prod-1",
+      "title": "Espresso Classico",
+      "image": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=1170&auto=format&fit=crop",
+      "price": 35000,
+      "originalPrice": 45000,
+      "discount": "22%",
+      "url": "https://example.com/product/1"
+    },
+    {
+      "id": "prod-2",
+      "title": "Cappuccino Creamy",
+      "image": "https://images.unsplash.com/photo-1594261956806-3ad03785c9b4?q=80&w=1170&auto=format&fit=crop",
+      "price": 45000,
+      "url": "https://example.com/product/2"
+    },
+    {
+      "id": "prod-3",
+      "title": "Latte Vanilla",
+      "image": "https://images.unsplash.com/photo-1596151163116-98a5033814c2?q=80&w=1170&auto=format&fit=crop",
+      "price": 50000,
+      "originalPrice": 60000,
+      "discount": "17%",
+      "url": "https://example.com/product/3"
+    },
+    {
+      "id": "prod-4",
+      "title": "Cold Brew Premium",
+      "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&h=500&fit=crop",
+      "price": 40000,
+      "url": "https://example.com/product/4"
+    },
+    {
+      "id": "prod-5",
+      "title": "Affogato Special",
+      "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&h=500&fit=crop",
+      "price": 55000,
+      "originalPrice": 70000,
+      "discount": "21%",
+      "url": "https://example.com/product/5"
+    },
+    {
+      "id": "prod-6",
+      "title": "Caramel Macchiato",
+      "image": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=500&h=500&fit=crop",
+      "price": 48000,
+      "url": "https://example.com/product/6"
+    }
+  ]
+}

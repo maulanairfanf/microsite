@@ -1,7 +1,8 @@
 import { Component } from "@/types/components";
 import { Hero } from "./Hero";
 import { Linktree } from "./Linktree";
-import { ProductCatalog } from "./ProductCatalog";
+import { ProductsShowcase } from "./ProductsShowcase";
+import { ProductsCatalog } from "./ProductsCatalog";
 
 export function ComponentRenderer({ component }: { component: Component }) {
   switch (component.type) {
@@ -9,8 +10,10 @@ export function ComponentRenderer({ component }: { component: Component }) {
       return <Hero data={component} />;
     case "linktree":
       return <Linktree data={component} />;
-    case "product_catalog":
-      return <ProductCatalog data={component} />;
+    case "products_showcase":
+      return <ProductsShowcase data={component} />;
+    case "products_catalog":
+      return <ProductsCatalog data={component} />;
     default:
       return null;
   }

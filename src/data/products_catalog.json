@@ -1,0 +1,23 @@
+{
+  "id": "catalog-1",
+  "type": "products_catalog",
+  "title": "Our Menu",
+  "categories": [
+    {
+      "id": "coffee",
+      "name": "Coffee"
+    },
+    {
+      "id": "non-coffee",
+      "name": "Non Coffee"
+    },
+    {
+      "id": "pastry",
+      "name": "Pastry"
+    },
+    {
+      "id": "snacks",
+      "name": "Snacks"
+    }
+  ]
+}

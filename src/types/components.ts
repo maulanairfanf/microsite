@@ -29,18 +29,36 @@ export interface ProductItem {
   id: string;
   title: string;
   image: string;
-  price: string;
+  price: number;
+  originalPrice?: number;
+  discount?: string;
   url: string;
 }
 
-export interface ProductCatalogComponent {
+export interface ProductsShowcaseComponent {
   id: string;
-  type: "product_catalog";
+  type: "products_showcase";
   title: string;
   items: ProductItem[];
 }
 
-export type Component = HeroComponent | LinktreeComponent | ProductCatalogComponent;
+export interface CategoryItem {
+  id: string;
+  name: string;
+}
+
+export interface ProductsCatalogComponent {
+  id: string;
+  type: "products_catalog";
+  title: string;
+  categories: CategoryItem[];
+}
+
+export type Component =
+  | HeroComponent
+  | LinktreeComponent
+  | ProductsShowcaseComponent
+  | ProductsCatalogComponent;
 
 export interface ComponentsData {
   components: Component[];
