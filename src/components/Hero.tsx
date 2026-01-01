@@ -18,7 +18,7 @@ export function Hero({ data }: { data: HeroComponent }) {
   )}`;
 
   return (
-    <section className="relative w-full min-h-[60vh] flex items-center justify-center overflow-hidden ">
+    <section className="relative w-full min-h-[10vh] flex items-center justify-center overflow-hidden ">
       {/* Background Image */}
       {data.image && (
         <Image
@@ -34,7 +34,7 @@ export function Hero({ data }: { data: HeroComponent }) {
       <button
         type="button"
         onClick={() => setIsShareOpen(true)}
-        className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white shadow-md transition-all"
+        className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white shadow-md transition-all cursor-pointer"
         aria-label="Share"
       >
         <IoShareOutline className="w-5 h-5 text-gray-700" />

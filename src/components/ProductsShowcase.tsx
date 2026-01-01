@@ -2,6 +2,7 @@
 
 import { ProductsShowcaseComponent } from "@/types/components";
 import { ProductCard } from "./ProductCard";
+import { HorizontalScroll } from "./HorizontalScroll";
 
 export function ProductsShowcase({ data }: { data: ProductsShowcaseComponent }) {
   return (
@@ -10,8 +11,7 @@ export function ProductsShowcase({ data }: { data: ProductsShowcaseComponent }) 
         {data.title}
       </h2>
       
-      {/* Horizontal Scroll Container */}
-      <div className="overflow-x-auto pb-3 -mx-6 px-6 scrollbar-hide">
+      <HorizontalScroll>
         <div className="flex gap-3 min-w-min">
           {data.items.map((product) => (
             <div
@@ -22,17 +22,7 @@ export function ProductsShowcase({ data }: { data: ProductsShowcaseComponent }) 
             </div>
           ))}
         </div>
-      </div>
-
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
+      </HorizontalScroll>
     </section>
   );
 }

@@ -3,6 +3,7 @@ import { Hero } from "./Hero";
 import { Linktree } from "./Linktree";
 import { ProductsShowcase } from "./ProductsShowcase";
 import { ProductsCatalog } from "./ProductsCatalog";
+import { Banner } from "./Banner";
 
 export function ComponentRenderer({ component }: { component: Component }) {
   switch (component.type) {
@@ -14,6 +15,8 @@ export function ComponentRenderer({ component }: { component: Component }) {
       return <ProductsShowcase data={component} />;
     case "products_catalog":
       return <ProductsCatalog data={component} />;
+    case "banner":
+      return <Banner data={component} />;
     default:
       return null;
   }

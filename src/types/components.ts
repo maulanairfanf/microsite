@@ -55,11 +55,25 @@ export interface ProductsCatalogComponent {
   categories: CategoryItem[];
 }
 
+export interface BannerItem {
+  id: string;
+  section_id: string;
+  image_url: string;
+  cta: CTA;
+}
+
+export interface BannerComponent {
+  id: string;
+  type: "banner";
+  data: BannerItem[];
+}
+
 export type Component =
   | HeroComponent
   | LinktreeComponent
   | ProductsShowcaseComponent
-  | ProductsCatalogComponent;
+  | ProductsCatalogComponent
+  | BannerComponent;
 
 export interface ComponentsData {
   components: Component[];

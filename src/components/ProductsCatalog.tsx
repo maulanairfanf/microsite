@@ -143,7 +143,7 @@ export function ProductsCatalog({ data }: { data: ProductsCatalogComponent }) {
               className={`px-4 py-2 rounded-lg font-medium text-xs whitespace-nowrap transition-all cursor-pointer ${
                 activeCategory === category.id
                   ? "bg-gray-900 text-white"
-                  : "bg-white text-gray-700 border border-gray-200 hover:border-gray-300"
+                  : "bg-white text-gray-700 "
               }`}
             >
               {category.name}
