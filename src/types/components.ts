@@ -64,6 +64,7 @@ export interface BannerItem {
 
 export interface BannerComponent {
   id: string;
+  title: string;
   type: "banner";
   data: BannerItem[];
 }

@@ -20,7 +20,7 @@ export function Linktree({ data }: { data: LinktreeComponent }) {
             <a
               key={item.url}
               href={item.url}
-              className="flex items-center gap-4 p-2 bg-white rounded-lg hover:bg-gray-200 transition-all"
+              className="flex items-center gap-4 p-2 bg-white rounded-lg shadow-sm hover:bg-gray-200 transition-all"
             >
               {Icon && (
                 <div className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0">

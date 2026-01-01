@@ -5,18 +5,19 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 interface HorizontalScrollProps {
   children: ReactNode;
+  scrollAmount?: number;
 }
 
-export function HorizontalScroll({ children }: HorizontalScrollProps) {
+export function HorizontalScroll({ children, scrollAmount = 300 }: HorizontalScrollProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 300;
+      console.log("scrollAmount:", scrollAmount);
       const container = scrollContainerRef.current;
       const start = container.scrollLeft;
       const target = direction === "left" ? start - scrollAmount : start + scrollAmount;
-      const duration = 500; // 500ms for smooth scroll
+      const duration = 500; 
       const startTime = Date.now();
 
       const animate = () => {
