@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Microsite",
-  description: "A beautiful microsite built with Next.js and Tailwind CSS",
+  title: "Kerabat Jenggal",
+  description: "Jenggala Coffee & Brew",
 };
 
 export default function RootLayout({
