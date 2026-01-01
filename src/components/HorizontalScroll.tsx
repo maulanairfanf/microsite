@@ -39,7 +39,7 @@ export function HorizontalScroll({ children, scrollAmount = 300 }: HorizontalScr
       {/* Horizontal Scroll Container */}
       <div
         ref={scrollContainerRef}
-        className="overflow-x-auto pb-3 -mx-6 px-6 scrollbar-hide"
+        className=" pb-3 -mx-6 px-6 overflow-x-hidden"
       >
         {children}
       </div>
@@ -60,16 +60,6 @@ export function HorizontalScroll({ children, scrollAmount = 300 }: HorizontalScr
       >
         <MdChevronRight size={20} className="text-gray-700" />
       </button>
-
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </div>
   );
 }
