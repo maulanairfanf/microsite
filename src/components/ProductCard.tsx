@@ -20,7 +20,7 @@ export function ProductCard({ product }: { product: ProductItem }) {
   return (
     <a
       href={product.url}
-      className="flex flex-col group/card cursor-pointer rounded-lg overflow-hidden transition-all shadow-sm hover:bg-gray-200 h-full"
+      className="flex flex-col group/card cursor-pointer rounded-lg overflow-hidden transition-all h-full"
     >
       {/* Image Container */}
       <div className="relative w-full aspect-square overflow-hidden">
@@ -40,7 +40,7 @@ export function ProductCard({ product }: { product: ProductItem }) {
       </div>
 
       {/* Product Info */}
-      <div className="p-2.5 flex flex-col gap-0.5 bg-white grow">
+      <div className="p-2.5 flex flex-col gap-0.5 bg-white group-hover/card:bg-gray-200/30 transition-colors duration-300 ">
         <h3 className="text-xs font-medium text-gray-900 line-clamp-3 leading-tight">
           {product.title}
         </h3>
