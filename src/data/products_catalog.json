@@ -1,23 +1,23 @@
 {
   "id": "catalog-1",
   "type": "products_catalog",
-  "title": "Our Menu",
+  "title": "Menu Kami",
   "categories": [
     {
-      "id": "coffee",
-      "name": "Coffee"
+      "id": "pempek-lenjer",
+      "name": "Pempek Lenjer"
     },
     {
-      "id": "non-coffee",
-      "name": "Non Coffee"
+      "id": "pempek-kapal-selam",
+      "name": "Pempek Kapal Selam"
     },
     {
-      "id": "pastry",
-      "name": "Pastry"
+      "id": "pempek-adaan",
+      "name": "Pempek Adaan"
     },
     {
-      "id": "snacks",
-      "name": "Snacks"
+      "id": "pempek-kulit",
+      "name": "Pempek Kulit"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "id": "linktree-1",
   "type": "linktree",
-  "title": "Quick Links",
+  "title": "Contact",
   "items": [
     {
       "text": "WhatsApp",
@@ -12,11 +12,6 @@
       "text": "Instagram",
       "url": "https://instagram.com/kerabatjenggala",
       "icon": "instagram"
-    },
-    {
-      "text": "Full Menu",
-      "url": "https://example.com/menu",
-      "icon": "menu"
     }
   ]
 }

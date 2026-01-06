@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Kerabat Jenggal",
-  description: "Jenggala Coffee & Brew",
+  title: "Pempek Ibu Wati",
+  description: "Pempek Rumahan Ibu Wati",
 };
 
 export default function RootLayout({

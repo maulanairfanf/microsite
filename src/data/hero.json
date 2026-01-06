@@ -1,10 +1,10 @@
 {
   "id": "hero-1",
   "type": "hero",
-  "title": "Kerabat Jenggala",
-  "subtitle": "Jenggala Coffee & Brew",
-  "image": "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "logo": "https://instagram.fcgk18-2.fna.fbcdn.net/v/t51.2885-19/543000058_18390121789193914_7416688559094799404_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fcgk18-2.fna.fbcdn.net&_nc_cat=110&_nc_oc=Q6cZ2QH0QSxo22mJGnV9vdrt_5-mNLAvjDUp4XiZ7socXexrjsiRUNpb61Roar26180jIZI&_nc_ohc=jWG_DbYA83sQ7kNvwFkl6-g&_nc_gid=wD0s5wXeAoSIA66qw_l8JA&edm=APoiHPcBAAAA&ccb=7-5&oh=00_AfklSV3l-RiXlIoHFt6MGPfUJwhpy-z0JtJd-9VJtpzhfQ&oe=6959C00E&_nc_sid=22de04",
+  "title": "Pempek Ibu Wati",
+  "subtitle": "Pempek Rumahan Ibu Wati🏡",
+  "image": "",
+  "logo": "https://scontent-cgk1-2.cdninstagram.com/v/t51.2885-19/583214472_17842496079618191_3190940054742188893_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4zNDMuYzEifQ&_nc_ht=scontent-cgk1-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QHeBAoVsiTYTgufTibBpHMhF8GQunPtS_CVwKaeomwXMRUPcEC7naUKig2-Yrasggc&_nc_ohc=go4U5ocJWsUQ7kNvwGASj6w&_nc_gid=ceHjSZtkiQ5shzXKnRxBgA&edm=AEYEu-QBAAAA&ccb=7-5&oh=00_AfqFCdO9_AYSp4jC9ckRbEQYeKz320PscQSLhQg0OmWokw&oe=6962FAD0&_nc_sid=ead929",
   "cta": {
     "text": "Get Started",
     "url": "https://example.com"

@@ -1,15 +1,43 @@
 "use client";
 
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, useState, useEffect } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 interface HorizontalScrollProps {
   children: ReactNode;
   scrollAmount?: number;
+  chevronSize?: number;
 }
 
-export function HorizontalScroll({ children, scrollAmount = 300 }: HorizontalScrollProps) {
+export function HorizontalScroll({ 
+  children, 
+  scrollAmount = 300, 
+  chevronSize = 24 
+}: HorizontalScrollProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateScrollButtons = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    updateScrollButtons();
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", updateScrollButtons);
+      window.addEventListener("resize", updateScrollButtons);
+      return () => {
+        container.removeEventListener("scroll", updateScrollButtons);
+        window.removeEventListener("resize", updateScrollButtons);
+      };
+    }
+  }, []);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -39,27 +67,31 @@ export function HorizontalScroll({ children, scrollAmount = 300 }: HorizontalScr
       {/* Horizontal Scroll Container */}
       <div
         ref={scrollContainerRef}
-        className="overflow-x-auto pb-3 -mx-6 px-6 scrollbar-hide md:overflow-hidden"
+        className="overflow-x-auto py-3 -mx-6 px-6 scrollbar-hide md:overflow-hidden"
       >
         {children}
       </div>
 
       {/* Navigation Buttons - Hidden on mobile, visible on desktop */}
-      <button
-        onClick={() => scroll("left")}
-        className="absolute left-0 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 cursor-pointer hover:bg-gray-50"
-        aria-label="Scroll left"
-      >
-        <MdChevronLeft size={20} className="text-gray-700" />
-      </button>
+      {canScrollLeft && (
+        <button
+          onClick={() => scroll("left")}
+          className="absolute left-0 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 cursor-pointer hover:bg-gray-50"
+          aria-label="Scroll left"
+        >
+          <MdChevronLeft size={chevronSize} className="text-gray-700" />
+        </button>
+      )}
 
-      <button
-        onClick={() => scroll("right")}
-        className="absolute right-0 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 cursor-pointer hover:bg-gray-50"
-        aria-label="Scroll right"
-      >
-        <MdChevronRight size={20} className="text-gray-700" />
-      </button>
+      {canScrollRight && (
+        <button
+          onClick={() => scroll("right")}
+          className="absolute right-0 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 cursor-pointer hover:bg-gray-50"
+          aria-label="Scroll right"
+        >
+          <MdChevronRight size={chevronSize} className="text-gray-700" />
+        </button>
+      )}
 
       <style jsx>{`
         .scrollbar-hide::-webkit-scrollbar {

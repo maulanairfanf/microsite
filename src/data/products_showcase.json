@@ -5,50 +5,50 @@
   "items": [
     {
       "id": "prod-1",
-      "title": "Espresso Classico",
-      "image": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=1170&auto=format&fit=crop",
-      "price": 35000,
-      "originalPrice": 45000,
-      "discount": "22%",
+      "title": "Pempek Kapal Selam Jumbo",
+      "image": "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=1170&auto=format&fit=crop",
+      "price": 15000,
+      "originalPrice": 18000,
+      "discount": "17%",
       "url": "https://example.com/product/1"
     },
     {
       "id": "prod-2",
-      "title": "Cappuccino Creamy",
-      "image": "https://images.unsplash.com/photo-1594261956806-3ad03785c9b4?q=80&w=1170&auto=format&fit=crop",
-      "price": 45000,
+      "title": "Pempek Lenjer Original",
+      "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1170&auto=format&fit=crop",
+      "price": 8000,
       "url": "https://example.com/product/2"
     },
     {
       "id": "prod-3",
-      "title": "Latte Vanilla",
-      "image": "https://images.unsplash.com/photo-1596151163116-98a5033814c2?q=80&w=1170&auto=format&fit=crop",
-      "price": 50000,
-      "originalPrice": 60000,
-      "discount": "17%",
+      "title": "Pempek Adaan Isi Telur",
+      "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1170&auto=format&fit=crop",
+      "price": 12000,
+      "originalPrice": 15000,
+      "discount": "20%",
       "url": "https://example.com/product/3"
     },
     {
       "id": "prod-4",
-      "title": "Cold Brew Premium",
-      "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&h=500&fit=crop",
-      "price": 40000,
+      "title": "Pempek Kulit Crispy",
+      "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=500&fit=crop",
+      "price": 10000,
       "url": "https://example.com/product/4"
     },
     {
       "id": "prod-5",
-      "title": "Affogato Special",
-      "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&h=500&fit=crop",
-      "price": 55000,
-      "originalPrice": 70000,
-      "discount": "21%",
+      "title": "Paket Pempek Family",
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=500&fit=crop",
+      "price": 75000,
+      "originalPrice": 90000,
+      "discount": "17%",
       "url": "https://example.com/product/5"
     },
     {
       "id": "prod-6",
-      "title": "Caramel Macchiato",
-      "image": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=500&h=500&fit=crop",
-      "price": 48000,
+      "title": "Pempek Keriting Special",
+      "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=500&fit=crop",
+      "price": 9000,
       "url": "https://example.com/product/6"
     }
   ]
