@@ -1,7 +1,13 @@
+'use client';
+
 import { ProductItem } from "@/types/components";
 import Image from "next/image";
+import { useState } from "react";
+import { BottomSheet } from "./BottomSheet";
 
 export function ProductCard({ product }: { product: ProductItem }) {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
   const hasDiscount = product.originalPrice && product.discount;
   const formattedPrice = new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -18,10 +24,11 @@ export function ProductCard({ product }: { product: ProductItem }) {
     : null;
 
   return (
-    <a
-      href={product.url}
-      className="flex flex-col group/card cursor-pointer rounded-lg overflow-hidden transition-all h-full"
-    >
+    <>
+      <div
+        onClick={() => setIsBottomSheetOpen(true)}
+        className="flex flex-col group/card cursor-pointer rounded-lg overflow-hidden transition-all h-full"
+      >
       {/* Image Container */}
       <div className="relative w-full aspect-square overflow-hidden">
         <Image
@@ -40,7 +47,7 @@ export function ProductCard({ product }: { product: ProductItem }) {
       </div>
 
       {/* Product Info */}
-      <div className="p-2.5 flex flex-col gap-0.5 bg-white group-hover/card:bg-gray-200/30 transition-colors duration-300 ">
+      <div className="p-2.5 flex flex-col gap-0.5 bg-white group-hover/card:bg-gray-200/30  transition-colors duration-300 ">
         <h3 className="text-xs font-medium text-gray-900 line-clamp-3 leading-tight">
           {product.title}
         </h3>
@@ -55,6 +62,13 @@ export function ProductCard({ product }: { product: ProductItem }) {
           )}
         </div>
       </div>
-    </a>
+      </div>
+
+      <BottomSheet
+        isOpen={isBottomSheetOpen}
+        onClose={() => setIsBottomSheetOpen(false)}
+        product={product}
+      />
+    </>
   );
 }

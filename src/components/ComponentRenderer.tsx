@@ -4,6 +4,7 @@ import { Linktree } from "./Linktree";
 import { ProductsShowcase } from "./ProductsShowcase";
 import { ProductsCatalog } from "./ProductsCatalog";
 import { Banner } from "./Banner";
+import { Footer } from "./Footer";
 
 export function ComponentRenderer({ component }: { component: Component }) {
   switch (component.type) {
@@ -17,6 +18,8 @@ export function ComponentRenderer({ component }: { component: Component }) {
       return <ProductsCatalog data={component} />;
     case "banner":
       return <Banner data={component} />;
+    case "footer":
+      return <Footer {...component} />;
     default:
       return null;
   }

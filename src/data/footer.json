@@ -1,0 +1,59 @@
+{
+  "id": "footer-1",
+  "type": "footer",
+  "socialMedia": [
+    {
+      "name": "Facebook",
+      "url": "https://facebook.com",
+      "icon": "facebook"
+    },
+    {
+      "name": "Instagram",
+      "url": "https://instagram.com/kerabatjenggala",
+      "icon": "instagram"
+    },
+    {
+      "name": "TikTok",
+      "url": "https://tiktok.com",
+      "icon": "tiktok"
+    },
+    {
+      "name": "Spotify",
+      "url": "https://spotify.com",
+      "icon": "spotify"
+    },
+    {
+      "name": "YouTube",
+      "url": "https://youtube.com",
+      "icon": "youtube"
+    },
+    {
+      "name": "Apple Music",
+      "url": "https://music.apple.com",
+      "icon": "apple"
+    },
+    {
+      "name": "X (Twitter)",
+      "url": "https://x.com",
+      "icon": "x"
+    }
+  ],
+  "joinButton": {
+    "text": "Join Pempek Ibu Wati on Halamanku",
+    "url": "https://linktr.ee"
+  },
+  "footerLinks": [
+    {
+      "text": "Cookie Preferences",
+      "url": "#"
+    },
+    {
+      "text": "Report",
+      "url": "#"
+    },
+    {
+      "text": "Privacy",
+      "url": "#"
+    }
+  ]
+}

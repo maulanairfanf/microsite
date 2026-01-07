@@ -69,12 +69,35 @@ export interface BannerComponent {
   data: BannerItem[];
 }
 
+export interface SocialLink {
+  name: string;
+  url: string;
+  icon: string;
+}
+
+export interface FooterLink {
+  text: string;
+  url: string;
+}
+
+export interface FooterComponent {
+  id: string;
+  type: "footer";
+  socialMedia: SocialLink[];
+  joinButton: {
+    text: string;
+    url: string;
+  };
+  footerLinks: FooterLink[];
+}
+
 export type Component =
   | HeroComponent
   | LinktreeComponent
   | ProductsShowcaseComponent
   | ProductsCatalogComponent
-  | BannerComponent;
+  | BannerComponent
+  | FooterComponent;
 
 export interface ComponentsData {
   components: Component[];
