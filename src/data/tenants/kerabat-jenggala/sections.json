@@ -1,0 +1,167 @@
+{
+  "sections": [
+    {
+      "id": "hero-1",
+      "type": "hero",
+      "title": "Kerabat Jenggala",
+      "subtitle": "Specialty Coffee & Pastries ☕",
+      "image": "",
+      "logo": "https://instagram.fbdo7-1.fna.fbcdn.net/v/t51.2885-19/543000058_18390121789193914_7416688559094799404_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fbdo7-1.fna.fbcdn.net&_nc_cat=110&_nc_oc=Q6cZ2QGtA2JGvb3StYsVMEtvo_GSNbpYE-TvyTGgr4I601GKpsO9MBI51aKAyfJ7iASKvIwBCotwIrGXE82SkuGqous9&_nc_ohc=jCGifCvfQgcQ7kNvwHrHkSP&_nc_gid=7TWP3Qe7UraIxMVR3vbv7w&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_Afr9DIB3iKS8xc9L2H4ci4Cr99qVPO_zLyNViUE7_S0QZA&oe=69644C0E&_nc_sid=7a9f4b",
+      "cta": { "text": "Visit Us", "url": "https://maps.google.com" }
+    },
+    {
+      "id": "banner-1",
+      "type": "banner",
+      "title": "Promo & Penawaran",
+      "data": [
+        {
+          "id": "banner-1",
+          "section_id": "promo_coffee_special",
+          "image_url": "https://images.unsplash.com/photo-1495521821757-a1efb6729352?q=80&w=800&auto=format&fit=crop",
+          "cta": { "text": "Buy 2 Get 1", "url": "https://example.com/promo" }
+        },
+        {
+          "id": "banner-2",
+          "section_id": "loyalty_program",
+          "image_url": "https://images.unsplash.com/photo-1469022563149-aa64dbd37dae?q=80&w=800&auto=format&fit=crop",
+          "cta": { "text": "Member Rewards", "url": "https://example.com/rewards" }
+        },
+        {
+          "id": "banner-3",
+          "section_id": "new_pastries",
+          "image_url": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=800&auto=format&fit=crop",
+          "cta": { "text": "New Pastries", "url": "https://example.com/pastries" }
+        }
+      ]
+    },
+    {
+      "id": "linktree-1",
+      "type": "linktree",
+      "title": "Contact & Follow",
+      "items": [
+        { "text": "WhatsApp Order", "url": "https://wa.me/62815xxxx1234", "icon": "whatsapp" },
+        { "text": "Instagram", "url": "https://instagram.com/kerabat.jenggala", "icon": "instagram" },
+        { "text": "Google Maps", "url": "https://maps.google.com", "icon": "whatsapp" }
+      ]
+    },
+    {
+      "id": "showcase-1",
+      "type": "products_showcase",
+      "title": "Menu Favorit",
+      "items": [
+        {
+          "id": "prod-1",
+          "title": "Arabica Single Origin",
+          "image": "https://images.unsplash.com/photo-1668923570518-9eb1f838f19b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "price": 45000,
+          "originalPrice": 55000,
+          "discount": "18%",
+          "url": "https://example.com/coffee/1"
+        },
+        {
+          "id": "prod-2",
+          "title": "Iced Caramel Latte",
+          "image": "https://images.unsplash.com/photo-1517668808822-9ebb02ae2a0e",
+          "price": 38000,
+          "url": "https://example.com/coffee/2"
+        },
+        {
+          "id": "prod-3",
+          "title": "Matcha Latte",
+          "image": "https://images.unsplash.com/photo-1599599810694-200fd4bea2a8",
+          "price": 42000,
+          "url": "https://example.com/coffee/3"
+        },
+        {
+          "id": "prod-4",
+          "title": "Chocolate Croissant",
+          "image": "https://images.unsplash.com/photo-1535920527894-b8f12008185d",
+          "price": 28000,
+          "url": "https://example.com/pastry/1"
+        },
+        {
+          "id": "prod-5",
+          "title": "Seasonal Bundle",
+          "image": "https://images.unsplash.com/photo-1557804506-669714d2e6e9",
+          "price": 120000,
+          "originalPrice": 150000,
+          "discount": "20%",
+          "url": "https://example.com/bundle/1"
+        },
+        {
+          "id": "prod-6",
+          "title": "Affogato",
+          "image": "https://images.unsplash.com/photo-1495501050516-a1d912f9c08f",
+          "price": 32000,
+          "url": "https://example.com/coffee/4"
+        }
+      ]
+    },
+    {
+      "id": "catalog-1",
+      "type": "products_catalog",
+      "title": "Menu Lengkap",
+      "categories": [
+        {
+          "id": "espresso",
+          "name": "Espresso",
+          "products": [
+            { "id": "esp1", "title": "Single Shot Espresso", "image": "https://images.unsplash.com/photo-1610889556528-9a770e32642f?q=80&w=500&auto=format&fit=crop", "price": 25000, "url": "#" },
+            { "id": "esp2", "title": "Double Shot Espresso", "image": "https://images.unsplash.com/photo-1514432324607-2e467f4af445?q=80&w=500&auto=format&fit=crop", "price": 30000, "url": "#" },
+            { "id": "esp3", "title": "Espresso Lungo", "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=500&auto=format&fit=crop", "price": 28000, "url": "#" }
+          ]
+        },
+        {
+          "id": "milk-coffee",
+          "name": "Milk Coffee",
+          "products": [
+            { "id": "mc1", "title": "Cappuccino", "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=500&auto=format&fit=crop", "price": 38000, "url": "#" },
+            { "id": "mc2", "title": "Latte", "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=500&auto=format&fit=crop", "price": 40000, "url": "#" },
+            { "id": "mc3", "title": "Macchiato", "image": "https://images.unsplash.com/photo-1557006021-b85faa2bc5e2?q=80&w=500&auto=format&fit=crop", "price": 35000, "url": "#" },
+            { "id": "mc4", "title": "Flat White", "image": "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?q=80&w=500&auto=format&fit=crop", "price": 42000, "url": "#" }
+          ]
+        },
+        {
+          "id": "cold-brew",
+          "name": "Cold Brew",
+          "products": [
+            { "id": "cb1", "title": "Iced Americano", "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=500&auto=format&fit=crop", "price": 32000, "url": "#" },
+            { "id": "cb2", "title": "Cold Brew Classic", "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=500&auto=format&fit=crop", "price": 35000, "url": "#" },
+            { "id": "cb3", "title": "Iced Latte", "image": "https://images.unsplash.com/photo-1517668808822-9ebb02ae2a0e?q=80&w=500&auto=format&fit=crop", "price": 40000, "originalPrice": 45000, "discount": "11%", "url": "#" }
+          ]
+        },
+        {
+          "id": "specialty",
+          "name": "Specialty Drinks",
+          "products": [
+            { "id": "sp1", "title": "Matcha Latte", "image": "https://images.unsplash.com/photo-1536599424071-4c456c50768e?q=80&w=500&auto=format&fit=crop", "price": 42000, "url": "#" },
+            { "id": "sp2", "title": "Affogato", "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=500&auto=format&fit=crop", "price": 32000, "url": "#" },
+            { "id": "sp3", "title": "Mocha", "image": "https://images.unsplash.com/photo-1607260550778-aa9d29444ce1?q=80&w=500&auto=format&fit=crop", "price": 45000, "url": "#" }
+          ]
+        },
+        {
+          "id": "pastries",
+          "name": "Pastries & Snacks",
+          "products": [
+            { "id": "past1", "title": "Chocolate Croissant", "image": "https://images.unsplash.com/photo-1530610476181-d83430b64dcd?q=80&w=500&auto=format&fit=crop", "price": 28000, "url": "#" },
+            { "id": "past2", "title": "Blueberry Muffin", "image": "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?q=80&w=500&auto=format&fit=crop", "price": 25000, "url": "#" },
+            { "id": "past3", "title": "Danish Pastry", "image": "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=500&auto=format&fit=crop", "price": 32000, "url": "#" },
+            { "id": "past4", "title": "Banana Bread", "image": "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=500&auto=format&fit=crop", "price": 22000, "originalPrice": 27000, "discount": "19%", "url": "#" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-1",
+      "type": "social_media",
+      "socialMedia": [
+        { "name": "Instagram", "url": "https://instagram.com/kerabat.jenggala", "icon": "instagram" },
+        { "name": "TikTok", "url": "https://tiktok.com/@kerabatjenggala", "icon": "tiktok" },
+        { "name": "Facebook", "url": "https://facebook.com/kerabatjenggala", "icon": "facebook" },
+        { "name": "YouTube", "url": "https://youtube.com/@kerabatjenggala", "icon": "youtube" }
+      ],
+      "joinButton": { "text": "Follow Kerabat Jenggala", "url": "https://linktr.ee/kerabatjenggala" }
+    },
+    { "id": "footer-1", "type": "footer" }
+  ]
+}

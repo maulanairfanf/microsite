@@ -5,6 +5,7 @@ import { ProductsShowcase } from "./ProductsShowcase";
 import { ProductsCatalog } from "./ProductsCatalog";
 import { Banner } from "./Banner";
 import { Footer } from "./Footer";
+import { SocialMedia } from "./SocialMedia";
 
 export function ComponentRenderer({ component }: { component: Component }) {
   switch (component.type) {
@@ -18,6 +19,8 @@ export function ComponentRenderer({ component }: { component: Component }) {
       return <ProductsCatalog data={component} />;
     case "banner":
       return <Banner data={component} />;
+    case "social_media":
+      return <SocialMedia links={component.socialMedia} />;
     case "footer":
       return <Footer {...component} />;
     default:

@@ -1,0 +1,117 @@
+{
+  "sections": [
+    {
+      "id": "hero-1",
+      "type": "hero",
+      "title": "Pempek Ibu Wati",
+      "subtitle": "Pempek Rumahan Ibu Wati🏡",
+      "image": "",
+      "logo": "https://scontent-cgk1-2.cdninstagram.com/v/t51.2885-19/583214472_17842496079618191_3190940054742188893_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4zNDMuYzEifQ&_nc_ht=scontent-cgk1-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QHeBAoVsiTYTgufTibBpHMhF8GQunPtS_CVwKaeomwXMRUPcEC7naUKig2-Yrasggc&_nc_ohc=go4U5ocJWsUQ7kNvwGASj6w&_nc_gid=ceHjSZtkiQ5shzXKnRxBgA&edm=AEYEu-QBAAAA&ccb=7-5&oh=00_AfqFCdO9_AYSp4jC9ckRbEQYeKz320PscQSLhQg0OmWokw&oe=6962FAD0&_nc_sid=ead929",
+      "cta": { "text": "Get Started", "url": "https://example.com" }
+    },
+    {
+      "id": "banner-1",
+      "type": "banner",
+      "title": "Promo Spesial",
+      "data": [
+        {
+          "id": "banner-1",
+          "section_id": "promo_pempek_special",
+          "image_url": "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=1470&auto=format&fit=crop",
+          "cta": { "text": "Pesan Sekarang", "url": "https://example.com/pempek-special" }
+        },
+        {
+          "id": "banner-2",
+          "section_id": "promo_kapal_selam",
+          "image_url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1470&auto=format&fit=crop",
+          "cta": { "text": "Lihat Menu", "url": "https://example.com/kapal-selam" }
+        },
+        {
+          "id": "banner-3",
+          "section_id": "diskon_pempek",
+          "image_url": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1470&auto=format&fit=crop",
+          "cta": { "text": "Dapatkan Diskon", "url": "https://example.com/diskon" }
+        }
+      ]
+    },
+    {
+      "id": "linktree-1",
+      "type": "linktree",
+      "title": "Contact",
+      "items": [
+        { "text": "WhatsApp", "url": "https://wa.me/6281234567890", "icon": "whatsapp" },
+        { "text": "Instagram", "url": "https://instagram.com/kerabatjenggala", "icon": "instagram" }
+      ]
+    },
+    {
+      "id": "showcase-1",
+      "type": "products_showcase",
+      "title": "Best Seller",
+      "items": [
+        { "id": "prod-1", "title": "Pempek Kapal Selam Jumbo", "image": "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=1170&auto=format&fit=crop", "price": 15000, "originalPrice": 18000, "discount": "17%", "url": "https://example.com/product/1" },
+        { "id": "prod-2", "title": "Pempek Lenjer Original", "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1170&auto=format&fit=crop", "price": 8000, "url": "https://example.com/product/2" },
+        { "id": "prod-3", "title": "Pempek Adaan Isi Telur", "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1170&auto=format&fit=crop", "price": 12000, "originalPrice": 15000, "discount": "20%", "url": "https://example.com/product/3" },
+        { "id": "prod-4", "title": "Pempek Kulit Crispy", "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=500&fit=crop", "price": 10000, "url": "https://example.com/product/4" },
+        { "id": "prod-5", "title": "Paket Pempek Family", "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=500&fit=crop", "price": 75000, "originalPrice": 90000, "discount": "17%", "url": "https://example.com/product/5" },
+        { "id": "prod-6", "title": "Pempek Keriting Special", "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=500&fit=crop", "price": 9000, "url": "https://example.com/product/6" }
+      ]
+    },
+    {
+      "id": "catalog-1",
+      "type": "products_catalog",
+      "title": "Menu Kami",
+      "categories": [
+        { 
+          "id": "pempek-lenjer", 
+          "name": "Pempek Lenjer",
+          "products": [
+            { "id": "pl1", "title": "Pempek Lenjer Original", "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=500&auto=format&fit=crop", "price": 8000, "url": "#" },
+            { "id": "pl2", "title": "Pempek Lenjer Jumbo", "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=500&auto=format&fit=crop", "price": 12000, "originalPrice": 15000, "discount": "20%", "url": "#" },
+            { "id": "pl3", "title": "Pempek Lenjer Kecil", "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=500&auto=format&fit=crop", "price": 5000, "url": "#" }
+          ]
+        },
+        { 
+          "id": "pempek-kapal-selam", 
+          "name": "Pempek Kapal Selam",
+          "products": [
+            { "id": "pks1", "title": "Kapal Selam Telur Ayam", "image": "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=500&auto=format&fit=crop", "price": 15000, "url": "#" },
+            { "id": "pks2", "title": "Kapal Selam Telur Bebek", "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=500&auto=format&fit=crop", "price": 18000, "originalPrice": 20000, "discount": "10%", "url": "#" },
+            { "id": "pks3", "title": "Kapal Selam Jumbo", "image": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=500&auto=format&fit=crop", "price": 22000, "originalPrice": 25000, "discount": "12%", "url": "#" }
+          ]
+        },
+        { 
+          "id": "pempek-adaan", 
+          "name": "Pempek Adaan",
+          "products": [
+            { "id": "pa1", "title": "Pempek Adaan Bulat", "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=500&auto=format&fit=crop", "price": 10000, "url": "#" },
+            { "id": "pa2", "title": "Pempek Adaan Isi Telur", "image": "https://images.unsplash.com/photo-1515823064-d6e0c04616a7?q=80&w=500&auto=format&fit=crop", "price": 12000, "url": "#" },
+            { "id": "pa3", "title": "Pempek Adaan Paket", "image": "https://images.unsplash.com/photo-1542990253-a781e04c0082?q=80&w=500&auto=format&fit=crop", "price": 45000, "originalPrice": 55000, "discount": "18%", "url": "#" }
+          ]
+        },
+        { 
+          "id": "pempek-kulit", 
+          "name": "Pempek Kulit",
+          "products": [
+            { "id": "pk1", "title": "Pempek Kulit Crispy", "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=500&auto=format&fit=crop", "price": 10000, "url": "#" },
+            { "id": "pk2", "title": "Pempek Kulit Goreng", "image": "https://images.unsplash.com/photo-1527477396000-e27163b481c2?q=80&w=500&auto=format&fit=crop", "price": 9000, "url": "#" },
+            { "id": "pk3", "title": "Pempek Kulit Bumbu Rujak", "image": "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?q=80&w=500&auto=format&fit=crop", "price": 11000, "originalPrice": 13000, "discount": "15%", "url": "#" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-1",
+      "type": "social_media",
+      "socialMedia": [
+        { "name": "Facebook", "url": "https://facebook.com", "icon": "facebook" },
+        { "name": "Instagram", "url": "https://instagram.com/kerabatjenggala", "icon": "instagram" },
+        { "name": "TikTok", "url": "https://tiktok.com", "icon": "tiktok" },
+        { "name": "Spotify", "url": "https://spotify.com", "icon": "spotify" },
+        { "name": "YouTube", "url": "https://youtube.com", "icon": "youtube" },
+        { "name": "Apple Music", "url": "https://music.apple.com", "icon": "apple" },
+        { "name": "X (Twitter)", "url": "https://x.com", "icon": "x" }
+      ]
+    },
+    { "id": "footer-1", "type": "footer" }
+  ]
+}

@@ -46,6 +46,7 @@ export interface ProductsShowcaseComponent {
 export interface CategoryItem {
   id: string;
   name: string;
+  products: ProductItem[];
 }
 
 export interface ProductsCatalogComponent {
@@ -91,13 +92,25 @@ export interface FooterComponent {
   footerLinks: FooterLink[];
 }
 
+export interface SocialMediaComponent {
+  id: string;
+  type: "social_media";
+  socialMedia: SocialLink[];
+  joinButton?: {
+    text: string;
+    url: string;
+  };
+  footerLinks?: FooterLink[];
+}
+
 export type Component =
   | HeroComponent
   | LinktreeComponent
   | ProductsShowcaseComponent
   | ProductsCatalogComponent
   | BannerComponent
-  | FooterComponent;
+  | FooterComponent
+  | SocialMediaComponent;
 
 export interface ComponentsData {
   components: Component[];
