@@ -1,0 +1,9 @@
+{
+  "name": "cleanGray",
+  "fontFamily": "Inter",
+  "colorScheme": "gray",
+  "background": {
+    "type": "solid",
+    "color": "#f3f4f6"
+  }
+}

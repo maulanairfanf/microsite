@@ -1,0 +1,9 @@
+{
+  "name": "purplePink",
+  "fontFamily": "Poppins",
+  "colorScheme": "purple",
+  "background": {
+    "type": "solid",
+    "color": "#7f2aeb"
+  }
+}

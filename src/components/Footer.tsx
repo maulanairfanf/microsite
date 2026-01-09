@@ -31,24 +31,25 @@ export function Footer({ joinButton, footerLinks }: FooterProps) {
           href={resolvedJoin.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-white hover:bg-gray-50 text-gray-900 font-medium text-sm px-6 py-3 rounded-full shadow-sm transition-colors"
+          className="font-medium text-sm px-6 py-3 shadow-xl bg-white rounded-md text-black"
         >
           {resolvedJoin.text}
         </a>
       </div>
 
       {/* Footer Links Section */}
-      <div className="flex justify-center items-center gap-3 text-xs text-gray-600">
+      <div className="flex justify-center items-center gap-3 text-xs" style={{ color: "var(--cardText)", opacity: 0.8 }}>
         {resolvedFooterLinks.map((link, index) => (
           <div key={link.text} className="flex items-center gap-3">
             <a
               href={link.url}
-              className="hover:text-gray-900 transition-colors"
+              className="transition-colors hover:opacity-80"
+              style={{ color: "var(--cardText)" }}
             >
               {link.text}
             </a>
             {index < resolvedFooterLinks.length - 1 && (
-              <span className="text-gray-400">•</span>
+              <span style={{ color: "var(--cardText)", opacity: 0.3 }}>•</span>
             )}
           </div>
         ))}

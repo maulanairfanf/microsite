@@ -115,3 +115,19 @@ export type Component =
 export interface ComponentsData {
   components: Component[];
 }
+
+// Theme types
+export interface ThemeBackground {
+  type: 'solid' | 'gradient' | 'image';
+  color?: string;
+  url?: string;
+  blur?: number;
+  overlay?: string;
+}
+
+export interface Theme {
+  name: string;
+  fontFamily: string;
+  colorScheme: string;
+  background: ThemeBackground;
+}

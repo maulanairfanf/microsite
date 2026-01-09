@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base UI fallback (overridden by ThemeProvider) */
+  /* Page vs Container */
+  --pageBackground: #f3f4f6;
+  --bodyText: #111827;
+  --headerTextColor: #111827;
+  --headerFontFamily: 'Inter', sans-serif;
+
+  --containerBackground: #ffffff;
+  --containerRadius: 16px;
+  --containerBorder: 1px solid #e5e7eb;
+  --containerShadow: 0 1px 0 rgba(0,0,0,0.04);
+
+  /* Card / Link items */
+  --cardBackground: #ffffff;
+  --cardHoverBackground: color-mix(in srgb, #ffffff 93%, #000000 7%);
+  --cardText: #111827;
+  --cardBorder: 0; /* set to '1px solid #...' to enable */
+  --cardShadow: none; /* set to '0 2px 0 rgba(...)' to enable */
+  --cardRadius: 12px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--pageBackground);
+  --color-foreground: var(--bodyText);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--pageBackground);
+  color: var(--bodyText);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Composable utilities */
+/* Container (mobile frame) */
+.container-bg { background: var(--containerBackground); border-radius: var(--containerRadius); }
+.container-border { border: var(--containerBorder); }
+.container-shadow { box-shadow: var(--containerShadow); }
+
+/* Card / Link items */
+.card-bg { background: var(--cardBackground); color: var(--cardText); border-radius: var(--cardRadius); }
+.card-hover-bg:hover { background: var(--cardHoverBackground); }
+.card-border { border: var(--cardBorder); }
+.card-shadow { box-shadow: var(--cardShadow); }
+

@@ -1,7 +1,8 @@
 "use server";
 
 import { ComponentRenderer } from "@/components/ComponentRenderer";
-import { loadTenantSections } from "@/lib/tenantLoader";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { loadTenantSections, loadTenantTheme } from "@/lib/tenantLoader";
 import { redirect } from "next/navigation";
 
 export default async function TenantPage({ 
@@ -17,13 +18,18 @@ export default async function TenantPage({
   }
 
   const sections = loadTenantSections(tenant);
+  const theme = loadTenantTheme(tenant);
+
   return (
-    <main className="min-h-screen bg-gray-200 flex items-start justify-center py-0 md:pt-8">
-      <div className="w-full max-w-lg bg-gray-100 shadow-2xl md:rounded-t-3xl overflow-hidden">
-        {sections?.map((component: any, index: number) => (
-          <ComponentRenderer key={component.id ?? index} component={component} />
-        ))}
-      </div>
-    </main>
+    <>
+      {theme && <ThemeProvider theme={theme} />}
+        <main className="min-h-screen flex items-start justify-center py-0 md:pt-8" style={{ background: "var(--pageBackground)" }}>
+            <div className="w-full max-w-lg overflow-hidden container-bg container-border container-shadow" style={{ fontFamily: "var(--headerFontFamily)" }}>
+          {sections?.map((component: any, index: number) => (
+            <ComponentRenderer key={component.id ?? index} component={component} />
+          ))}
+        </div>
+      </main>
+    </>
   );
 }

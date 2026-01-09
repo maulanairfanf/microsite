@@ -13,7 +13,7 @@ export function ProductsCatalog({ data }: { data: ProductsCatalogComponent }) {
 
   return (
     <section className="w-full py-4 px-6">
-      <h2 className="text-xl font-semibold mb-2 text-gray-900 text-center">
+      <h2 className="text-xl font-semibold mb-2 text-center" style={{ color: "var(--headerTextColor)", fontFamily: "var(--headerFontFamily)" }}>
         {data.title}
       </h2>
 
@@ -25,11 +25,14 @@ export function ProductsCatalog({ data }: { data: ProductsCatalogComponent }) {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`px-4 py-2 rounded-lg font-medium text-xs whitespace-nowrap transition-all cursor-pointer ${
-                  activeCategory === category.id
-                    ? "bg-gray-900 text-white"
-                    : "bg-white text-gray-700 "
-                }`}
+                className="px-4 py-2 rounded-lg font-medium text-xs whitespace-nowrap transition-all cursor-pointer"
+                style={{
+                  backgroundColor: activeCategory === category.id ? "var(--cardText)" : "var(--cardBackground)",
+                  color: activeCategory === category.id ? "var(--pageBackground)" : "var(--cardText)",
+                  border: "var(--cardBorder)",
+                  boxShadow: "var(--cardShadow)",
+                  borderRadius: "var(--cardRadius)"
+                }}
               >
                 {category.name}
               </button>

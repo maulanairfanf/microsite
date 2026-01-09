@@ -8,7 +8,7 @@ export function Banner({ data }: { data: BannerComponent }) {
 
   return (
     <section className="w-full py-4 px-6">
-      <h2 className="text-xl font-semibold mb-2 text-gray-900 text-center">
+      <h2 className="text-xl font-semibold mb-2 text-center" style={{ color: "var(--headerTextColor)", fontFamily: "var(--headerFontFamily)" }}>
         {data.title}
       </h2>
       <HorizontalScroll scrollAmount={480}>
