@@ -27,12 +27,7 @@ export function ProductCard({ product }: { product: ProductItem }) {
     <>
       <div
         onClick={() => setIsBottomSheetOpen(true)}
-        style={{
-            border: "var(--cardBorder)",
-            boxShadow: "var(--cardShadow)",
-            borderRadius: "var(--cardRadius)"
-          }}
-        className="flex flex-col group/card cursor-pointer overflow-hidden transition-all h-full card-bg card-hover-bg"
+        className="flex flex-col group/card cursor-pointer overflow-hidden transition-all h-full card-bg card-hover-bg card-style"
       >
       {/* Image Container */}
       <div className="relative w-full aspect-square overflow-hidden">
@@ -45,7 +40,7 @@ export function ProductCard({ product }: { product: ProductItem }) {
         />
         <div className="absolute inset-0 opacity-0 group-hover/card:opacity-30 transition-opacity duration-300" style={{ backgroundColor: "rgba(0,0,0,0.15)" }} />
         {hasDiscount && (
-          <div className="absolute top-2 right-2 text-[10px] font-semibold px-1.5 py-0.5 rounded" style={{ backgroundColor: "var(--cardText)", color: "var(--pageBackground)" }}>
+          <div className="absolute top-2 right-2 text-sm font-semibold px-2 py-1 rounded bg-card-text">
             {product.discount}
           </div>
         )}
@@ -53,15 +48,15 @@ export function ProductCard({ product }: { product: ProductItem }) {
 
       {/* Product Info */}
       <div className="p-2.5 flex flex-col gap-0.5 transition-colors duration-300">
-        <h3 className="text-xs font-medium line-clamp-3 leading-tight" style={{ color: "var(--cardText)" }}>
+        <h3 className="text-xs font-medium line-clamp-3 leading-tight text-card">
           {product.title}
         </h3>
         <div className="flex items-baseline gap-1.5 mt-0.5">
-          <span className="text-sm font-bold" style={{ color: "var(--cardText)" }}>
+          <span className="text-sm font-bold text-card">
             {formattedPrice}
           </span>
           {hasDiscount && (
-            <span className="text-[10px] line-through" style={{ color: "var(--cardText)", opacity: 0.5 }}>
+            <span className="text-[10px] line-through text-card opacity-50">
               {formattedOriginalPrice}
             </span>
           )}

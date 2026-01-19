@@ -23,8 +23,8 @@ export default async function TenantPage({
   return (
     <>
       {theme && <ThemeProvider theme={theme} />}
-        <main className="min-h-screen flex items-start justify-center py-0 md:pt-8" style={{ background: "var(--pageBackground)" }}>
-            <div className="w-full max-w-lg overflow-hidden container-bg container-border container-shadow" style={{ fontFamily: "var(--headerFontFamily)" }}>
+        <main className="min-h-screen flex items-start justify-center py-0 md:pt-8 bg-page">
+            <div className="w-full max-w-lg overflow-hidden container-bg container-border container-shadow header-font">
           {sections?.map((component: any, index: number) => (
             <ComponentRenderer key={component.id ?? index} component={component} />
           ))}

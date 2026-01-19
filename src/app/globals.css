@@ -3,23 +3,23 @@
 :root {
   /* Base UI fallback (overridden by ThemeProvider) */
   /* Page vs Container */
-  --pageBackground: #f3f4f6;
+  --pageBackground: #e5e7eb;
   --bodyText: #111827;
   --headerTextColor: #111827;
   --headerFontFamily: 'Inter', sans-serif;
 
-  --containerBackground: #ffffff;
+  --containerBackground: #f3f4f6;
   --containerRadius: 16px;
-  --containerBorder: 1px solid #e5e7eb;
-  --containerShadow: 0 1px 0 rgba(0,0,0,0.04);
+  --containerBorder: 0;
+  --containerShadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 
   /* Card / Link items */
   --cardBackground: #ffffff;
-  --cardHoverBackground: color-mix(in srgb, #ffffff 93%, #000000 7%);
+  --cardHoverBackground: #f3f4f6;
   --cardText: #111827;
-  --cardBorder: 0; /* set to '1px solid #...' to enable */
-  --cardShadow: none; /* set to '0 2px 0 rgba(...)' to enable */
-  --cardRadius: 12px;
+  --cardBorder: 0;
+  --cardShadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --cardRadius: 8px;
 }
 
 @theme inline {
@@ -46,4 +46,17 @@ body {
 .card-hover-bg:hover { background: var(--cardHoverBackground); }
 .card-border { border: var(--cardBorder); }
 .card-shadow { box-shadow: var(--cardShadow); }
+.card-style { border: var(--cardBorder); box-shadow: var(--cardShadow); border-radius: var(--cardRadius); }
+
+/* Text utilities */
+.text-card { color: var(--cardText); }
+.text-header { color: var(--headerTextColor); }
+.text-body { color: var(--bodyText); }
+
+/* Background utilities */
+.bg-page { background: var(--pageBackground); }
+.bg-card-text { background: var(--cardText); color: var(--pageBackground); }
+
+/* Font utilities */
+.header-font { font-family: var(--headerFontFamily); }
 

@@ -36,8 +36,7 @@ export function SocialMedia({ links }: SocialMediaProps) {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:opacity-80"
-              style={{ color: "var(--cardText)" }}
+              className="transition-colors hover:opacity-80 text-card"
               aria-label={social.name}
             >
               <Icon className="w-6 h-6 hover:scale-125 transition-all" />

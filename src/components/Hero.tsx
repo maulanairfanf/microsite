@@ -56,10 +56,10 @@ export function Hero({ data }: { data: HeroComponent }) {
             </div>
           </div>
         )}
-        <h1 className="text-2xl font-bold mb-1" style={{ color: "var(--headerTextColor)", fontFamily: "var(--headerFontFamily)" }}>
+        <h1 className="text-2xl font-bold mb-1 text-header header-font">
           {data.title}
         </h1>
-        <p className="text-sm max-w-xs font-semibold" style={{ color: "var(--bodyText)", opacity: 0.85 }}>
+        <p className="text-sm max-w-xs font-semibold text-body opacity-85">
           {data.subtitle}
         </p>
       </div>
@@ -68,12 +68,11 @@ export function Hero({ data }: { data: HeroComponent }) {
         <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm px-6" onClick={() => setIsShareOpen(false)}>
           <div className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="mb-5 flex items-center justify-between">
-              <h2 className="text-lg font-semibold" style={{ color: "var(--headerTextColor)" }}>Share</h2>
+              <h2 className="text-lg font-semibol text-black!">Share</h2>
               <button
                 type="button"
                 onClick={() => setIsShareOpen(false)}
-                className="text-2xl leading-none"
-                style={{ color: "var(--bodyText)", opacity: 0.6 }}
+                className="text-2xl leading-none text-body opacity-60 text-black! cursor-pointer"
                 aria-label="Close"
               >
                 ×
@@ -84,14 +83,14 @@ export function Hero({ data }: { data: HeroComponent }) {
               href={shareHref}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-3 rounded-2xl px-5 py-4 transition-colors card-bg card-hover-bg"
+              className="flex items-center gap-3 rounded-2xl px-5 py-4 transition-colors"
             >
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500">
                 <span className="text-white text-xl">💬</span>
               </div>
               <div className="flex-1">
-                <p className="text-sm font-semibold" style={{ color: "var(--cardText)" }}>WhatsApp</p>
-                <p className="text-xs" style={{ color: "var(--cardText)", opacity: 0.6 }}>Share via WhatsApp</p>
+                <p className="text-sm font-semibold text-card">WhatsApp</p>
+                <p className="text-xs text-card opacity-60">Share via WhatsApp</p>
               </div>
             </a>
           </div>

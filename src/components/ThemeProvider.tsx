@@ -1,6 +1,7 @@
 "use client";
 
-import { Theme } from "@/types/components";
+import { Theme, ThemeTokens } from "@/types/components";
+import { defaultTokens } from "@/lib/themeDefaults";
 import { useEffect } from "react";
 
 // Google Fonts mapping
@@ -18,50 +19,6 @@ const fontFamilies: Record<string, string> = {
 
 type TokenPreset = Record<string, string>;
 
-// Two initial presets: cleanGray and purplePink
-const presets: Record<string, TokenPreset> = {
-  cleanGray: {
-    "--pageBackground": "#e5e7eb",
-    "--bodyText": "#111827",
-    "--headerTextColor": "#111827",
-    "--headerFontFamily": fontFamilies.Inter,
-
-    // Container (mobile frame)
-    "--containerBackground": "#f3f4f6",
-    "--containerRadius": "16px",
-    "--containerBorder": "0",
-    "--containerShadow": "0 25px 50px -12px rgb(0 0 0 / 0.25)",
-
-    // Card/link items
-    "--cardBackground": "#ffffff",
-    "--cardHoverBackground": "#f3f4f6",
-    "--cardText": "#111827",
-    "--cardBorder": "0",
-    "--cardShadow": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-    "--cardRadius": "8px",
-  },
-  purplePink: {
-    "--pageBackground": "#7f2aeb",
-    "--bodyText": "#ffffff",
-    "--headerTextColor": "#ffffff",
-    "--headerFontFamily": fontFamilies.Poppins,
-
-    // Container (mobile frame)
-    "--containerBackground": "color-mix(in srgb, #7f2aeb 88%, white 12%)",
-    "--containerRadius": "18px",
-    "--containerBorder": "0",
-    "--containerShadow": "0 4px 0 #000000",
-
-    // Card/link items
-    "--cardBackground": "#e058d6",
-    "--cardHoverBackground": "color-mix(in srgb, #e058d6 93%, #000000 7%)",
-    "--cardText": "#000000",
-    "--cardBorder": "2px solid #000000",
-    "--cardShadow": "3px 4px 0 #000000",
-    "--cardRadius": "0px",
-  },
-};
-
 interface ThemeProviderProps {
   theme: Theme;
 }
@@ -70,20 +27,96 @@ export function ThemeProvider({ theme }: ThemeProviderProps) {
   useEffect(() => {
     const root = document.documentElement;
 
-    // Choose preset by name or colorScheme fallback
-    const name = (theme.name || "cleanGray").replace(/\s+/g, "");
-    const chosen: TokenPreset =
-      presets[name] || (theme.colorScheme === "purple" || theme.colorScheme === "pink" ? presets.purplePink : presets.cleanGray);
+    const merged = mergeThemeWithDefaults(theme);
 
-    // Apply tokens
-    Object.entries(chosen).forEach(([k, v]) => root.style.setProperty(k, v));
+    const pageBg = normalizeColor(merged.theme.page.background);
 
-    // Load Google Font dynamically for headers
-    const headerFont = (theme.fontFamily && fontFamilies[theme.fontFamily]) || chosen["--headerFontFamily"] || fontFamilies.Inter;
+    const cardBg = normalizeColor(merged.theme.card.background);
+    const cardHoverBg = normalizeColor(merged.theme.card.hoverBackground ?? merged.theme.card.background);
+
+    const bodyText = merged.theme.page.text || merged.theme.card.text || defaultTokens.page.text || "#111827";
+    const headerText = merged.theme.page.headerText || merged.theme.page.text || defaultTokens.page.headerText || bodyText;
+    const headerFont = resolveFontStack(merged.fontFamily || "Inter");
+
+    const tokenMap: TokenPreset = {
+      "--pageBackground": pageBg,
+      "--bodyText": bodyText,
+      "--headerTextColor": headerText,
+      "--headerFontFamily": headerFont,
+      "--containerBackground": merged.theme.container.background,
+      "--containerRadius": merged.theme.container.radius || defaultTokens.container.radius!,
+      "--containerBorder": merged.theme.container.border || defaultTokens.container.border!,
+      "--containerShadow": merged.theme.container.shadow || defaultTokens.container.shadow!,
+      "--cardBackground": cardBg,
+      "--cardHoverBackground": cardHoverBg,
+      "--cardText": merged.theme.card.text || defaultTokens.card.text!,
+      "--cardBorder": merged.theme.card.border || defaultTokens.card.border!,
+      "--cardShadow": merged.theme.card.shadow || defaultTokens.card.shadow!,
+      "--cardRadius": merged.theme.card.radius || defaultTokens.card.radius!,
+    };
+
+    Object.entries(tokenMap).forEach(([k, v]) => root.style.setProperty(k, v));
+
     loadGoogleFontFromStack(headerFont);
   }, [theme]);
 
   return null;
+}
+
+function mergeThemeWithDefaults(theme: Theme): Theme {
+  const safeTheme = theme || ({ name: "cleanGray", fontFamily: "Inter", theme: defaultTokens } as Theme);
+  return {
+    ...safeTheme,
+    theme: {
+      page: { ...defaultTokens.page, ...(safeTheme.theme?.page || {}) },
+      container: { ...defaultTokens.container, ...(safeTheme.theme?.container || {}) },
+      card: { ...defaultTokens.card, ...(safeTheme.theme?.card || {}) },
+    },
+  };
+}
+
+function resolveFontStack(fontFamily: string) {
+  if (fontFamilies[fontFamily]) return fontFamilies[fontFamily];
+  const trimmed = fontFamily.trim();
+  if (!trimmed) return fontFamilies.Inter;
+  return `'${trimmed}', sans-serif`;
+}
+
+function hexToRgb(hex: string) {
+  const normalized = hex.replace("#", "");
+  const full = normalized.length === 3
+    ? normalized.split("").map((c) => c + c).join("")
+    : normalized;
+  const int = parseInt(full, 16);
+  return {
+    r: (int >> 16) & 255,
+    g: (int >> 8) & 255,
+    b: int & 255,
+  };
+}
+
+function normalizeColor(value: string, opacity = 1) {
+  if (!value) return "";
+  const trimmed = value.trim();
+
+  const rgbMatch = trimmed.match(/^(\d{1,3})\s+(\d{1,3})\s+(\d{1,3})$/);
+  if (rgbMatch) {
+    const [r, g, b] = rgbMatch.slice(1).map(Number);
+    return opacity < 1 ? `rgba(${r}, ${g}, ${b}, ${opacity})` : `rgb(${r} ${g} ${b})`;
+  }
+
+  const hexMatch = trimmed.match(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/);
+  if (hexMatch) {
+    const { r, g, b } = hexToRgb(trimmed);
+    return opacity < 1 ? `rgba(${r}, ${g}, ${b}, ${opacity})` : trimmed;
+  }
+
+  if (opacity < 1) {
+    const pct = Math.round(opacity * 100);
+    return `color-mix(in srgb, ${trimmed} ${pct}%, transparent)`;
+  }
+
+  return trimmed;
 }
 
 function loadGoogleFontFromStack(fontStack: string) {

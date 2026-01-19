@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import type { Theme } from "@/types/components";
+import { defaultTheme } from "@/lib/themeDefaults";
 
 export function loadTenantSections(slugParts: string[]) {
   const tenantSlug = slugParts.join("/");
@@ -16,20 +17,16 @@ export function loadTenantSections(slugParts: string[]) {
 export function loadTenantTheme(slugParts: string[]): Theme | null {
   const tenantSlug = slugParts.join("/");
   const themePath = path.join(process.cwd(), "src", "data", "tenants", tenantSlug, "theme.json");
-  
+
   if (!fs.existsSync(themePath)) {
-    // Return default cleanGray theme if theme.json doesn't exist
-    return {
-      name: "cleanGray",
-      fontFamily: "Inter",
-      colorScheme: "gray",
-      background: {
-        type: "solid",
-        color: "#f3f4f6"
-      }
-    };
+    return defaultTheme;
   }
-  
-  const data = fs.readFileSync(themePath, "utf-8");
-  return JSON.parse(data);
+
+  try {
+    const data = fs.readFileSync(themePath, "utf-8");
+    return JSON.parse(data) as Theme;
+  } catch (err) {
+    console.error("Failed to load tenant theme", err);
+    return defaultTheme;
+  }
 }

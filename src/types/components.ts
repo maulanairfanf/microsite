@@ -116,18 +116,39 @@ export interface ComponentsData {
   components: Component[];
 }
 
-// Theme types
-export interface ThemeBackground {
-  type: 'solid' | 'gradient' | 'image';
-  color?: string;
-  url?: string;
-  blur?: number;
-  overlay?: string;
+// Theme types aligned with API response
+export interface ThemePalette {
+  background: string;
+  text?: string;
+  headerText?: string;
+}
+
+export interface ThemeContainer {
+  background: string;
+  backgroundOpacity?: number;
+  radius?: string;
+  border?: string;
+  shadow?: string;
+}
+
+export interface ThemeCard {
+  background: string;
+  hoverBackground?: string;
+  text?: string;
+  radius?: string;
+  border?: string;
+  shadow?: string;
+}
+
+export interface ThemeTokens {
+  page: ThemePalette;
+  container: ThemeContainer;
+  card: ThemeCard;
 }
 
 export interface Theme {
+  id?: string;
   name: string;
-  fontFamily: string;
-  colorScheme: string;
-  background: ThemeBackground;
+  fontFamily?: string;
+  theme: ThemeTokens;
 }

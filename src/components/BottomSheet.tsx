@@ -73,7 +73,7 @@ export function BottomSheet({ isOpen, onClose, product }: BottomSheetProps) {
       {/* Bottom Sheet */}
       <div
         className={cn(
-          'fixed bottom-0 left-0 right-0 rounded-t-2xl z-50 max-w-lg mx-auto transition-transform duration-300 container-bg',
+          'fixed bottom-0 left-0 right-0 rounded-t-2xl z-50 max-w-lg mx-auto transition-transform duration-300 card-bg',
           isClosing || !isMounted ? 'translate-y-full' : 'translate-y-0'
         )}
         style={{
@@ -94,34 +94,35 @@ export function BottomSheet({ isOpen, onClose, product }: BottomSheetProps) {
               sizes="400px"
             />
             {product.discount && (
-              <div className="absolute top-2 right-2 text-xs font-semibold px-2 py-0.5 rounded" style={{ backgroundColor: "var(--cardText)", color: "var(--pageBackground)" }}>
+              <div className="absolute top-2 right-2 text-xs font-semibold px-2 py-0.5 rounded bg-card-text">
                 {product.discount}
               </div>
             )}
           </div>
 
           {/* Product Title */}
-          <h2 className="text-base font-bold mb-2" style={{ color: "var(--headerTextColor)" }}>{product.title}</h2>
+          <h2 className="text-base font-bold text-card">{product.title}</h2>
+          <p className="text-xs font-bold mb-2 text-card">lorem ipsum color amet lorem ipsum color amet lorem ipsum color amet lorem ipsum color amet</p>
 
           {/* Product Price */}
           <div className="flex items-baseline gap-2 mb-4">
-            <span className="text-lg font-bold" style={{ color: "var(--cardText)" }}>{formattedPrice}</span>
+            <span className="text-lg font-bold text-card">{formattedPrice}</span>
             {formattedOriginalPrice && (
-              <span className="text-sm line-through" style={{ color: "var(--cardText)", opacity: 0.5 }}>
+              <span className="text-sm line-through text-card opacity-50">
                 {formattedOriginalPrice}
               </span>
             )}
           </div>
 
           {/* Product Description / URL */}
-          <a
+          {/* <a
             href={product.url}
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full btn card-border card-shadow card-bg card-hover-bg font-semibold py-2.5 px-4 mb-3 text-center"
           >
             Pesan Sekarang
-          </a>
+          </a> */}
         </div>
       </div>
     </>

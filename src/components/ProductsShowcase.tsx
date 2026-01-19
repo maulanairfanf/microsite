@@ -7,7 +7,7 @@ import { HorizontalScroll } from "./HorizontalScroll";
 export function ProductsShowcase({ data }: { data: ProductsShowcaseComponent }) {
   return (
     <section className="w-full py-4 px-6">
-      <h2 className="text-xl font-semibold mb-2 text-center" style={{ color: "var(--headerTextColor)", fontFamily: "var(--headerFontFamily)" }}>
+      <h2 className="text-xl font-semibold mb-2 text-center text-header header-font">
         {data.title}
       </h2>
       

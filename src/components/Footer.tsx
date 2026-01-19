@@ -38,18 +38,17 @@ export function Footer({ joinButton, footerLinks }: FooterProps) {
       </div>
 
       {/* Footer Links Section */}
-      <div className="flex justify-center items-center gap-3 text-xs" style={{ color: "var(--cardText)", opacity: 0.8 }}>
+      <div className="flex justify-center items-center gap-3 text-xs text-card opacity-80">
         {resolvedFooterLinks.map((link, index) => (
           <div key={link.text} className="flex items-center gap-3">
             <a
               href={link.url}
-              className="transition-colors hover:opacity-80"
-              style={{ color: "var(--cardText)" }}
+              className="transition-colors hover:opacity-80 text-card"
             >
               {link.text}
             </a>
             {index < resolvedFooterLinks.length - 1 && (
-              <span style={{ color: "var(--cardText)", opacity: 0.3 }}>•</span>
+              <span className="text-card opacity-30">•</span>
             )}
           </div>
         ))}
