@@ -40,7 +40,7 @@ export function ProductCard({ product }: { product: ProductItem }) {
         />
         <div className="absolute inset-0 opacity-0 group-hover/card:opacity-30 transition-opacity duration-300" style={{ backgroundColor: "rgba(0,0,0,0.15)" }} />
         {hasDiscount && (
-          <div className="absolute top-2 right-2 text-sm font-semibold px-2 py-1 rounded bg-card-text">
+          <div className="absolute top-2 right-2 text-xs font-semibold px-1.5 py-0.5 rounded text-white" style={{ backgroundColor: "#ef4444", boxShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
             {product.discount}
           </div>
         )}
