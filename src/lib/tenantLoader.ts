@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import type { Theme } from "@/types/components";
 import { defaultTheme } from "@/lib/themeDefaults";
+import { loadTenantById, parseThemeJson, parseConfigJson } from "@/lib/sheetLoader";
 
 export function loadTenantSections(slugParts: string[]) {
   const tenantSlug = slugParts.join("/");
@@ -29,4 +30,30 @@ export function loadTenantTheme(slugParts: string[]): Theme | null {
     console.error("Failed to load tenant theme", err);
     return defaultTheme;
   }
+}
+
+export async function loadTenantSectionsFromSheets(slugParts: string[]) {
+  const tenantSlug = slugParts.join("/");
+  const data = await loadTenantById(tenantSlug);
+  console.log('data', data)
+
+  if (!data || !data.sections.length) {
+    return null;
+  }
+
+  return data.sections.map((section) => ({
+    ...parseConfigJson(section.config_json as string),
+    order: section.order,
+  }));
+}
+
+export async function loadTenantThemeFromSheets(slugParts: string[]) {
+  const tenantSlug = slugParts.join("/");
+  const data = await loadTenantById(tenantSlug);
+
+  if (!data || !data.tenant) {
+    return null;
+  }
+
+  return parseThemeJson(data.tenant.theme_json as string) as Theme;
 }

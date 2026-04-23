@@ -1,7 +1,9 @@
 import { LinktreeComponent } from "@/types/components";
-import { IoLogoWhatsapp, IoLogoInstagram, IoRestaurantOutline } from "react-icons/io5";
+import { IoLogoWhatsapp, IoLogoInstagram, IoRestaurantOutline, IoCartOutline } from "react-icons/io5";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
+  shopee: IoCartOutline,
+  tokopedia: IoCartOutline,
   whatsapp: IoLogoWhatsapp,
   instagram: IoLogoInstagram,
   menu: IoRestaurantOutline,
