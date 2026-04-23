@@ -42,7 +42,7 @@ export async function loadTenantSectionsFromSheets(slugParts: string[]) {
   }
 
   return data.sections.map((section) => ({
-    ...parseConfigJson(section.config_json as string),
+    ...parseConfigJson(section.config_json as string) as Record<string, unknown>,
     order: section.order,
   }));
 }

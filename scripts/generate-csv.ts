@@ -3,7 +3,7 @@ import path from 'path';
 
 const tenantsDir = path.join(process.cwd(), 'src/data/tenants');
 
-function escapeCSV(value) {
+function escapeCSV(value: string) {
   if (typeof value !== 'string') {
     return value;
   }

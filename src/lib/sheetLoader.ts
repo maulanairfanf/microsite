@@ -37,7 +37,7 @@ function parseCSV(csvText: string): SheetRow[] {
       obj[headers[j]] = values[j] || '';
     }
 
-    rows.push(obj as SheetRow);
+    rows.push(obj as unknown as SheetRow);
   }
 
   return rows;
