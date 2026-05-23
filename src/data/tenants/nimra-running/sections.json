@@ -1,0 +1,35 @@
+{
+  "sections": [
+    {
+      "id": "hero-1",
+      "type": "hero",
+      "title": "Nimra Running",
+      "subtitle": "Run Light Move Far",
+      "image": "",
+      "logo": "https://scontent.cdninstagram.com/v/t51.82787-19/675293260_18048819914568356_6618328943584276660_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=105&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy42NDAuQzMifQ%3D%3D&_nc_ohc=coFMmaw8UucQ7kNvwFDphCH&_nc_oc=AdqYGvjLM7F9DK2e_xC5YnT0TR8WoT3VcRdDfeuBrbb1X8ZhWQwdsUUL39QG8zWjINA&_nc_zt=24&_nc_ht=scontent.cdninstagram.com&_nc_gid=ewnGYlqmWEeL9VKtBdvB3Q&_nc_ss=7b6a8&oh=00_Af4UnHYflnAJi6k9ikPZoX-2WPQ5fJPmswH1UBvPBvQ1Iw&oe=6A17698D",
+      "cta": { "text": "Get Started", "url": "https://example.com" }
+    },
+    {
+      "id": "linktree-1",
+      "type": "linktree",
+      "title": "Contact & Social Media",
+      "items": [
+        {
+          "text": "WhatsApp",
+          "url": "https://wa.me/628893789676",
+          "icon": "whatsapp"
+        },
+        {
+          "text": "Instagram",
+          "url": "https://www.instagram.com/nimra.running",
+          "icon": "instagram"
+        },
+        {
+          "text": "Shopee",
+          "url": "https://shopee.co.id/nimra.running",
+          "icon": "shopee"
+        }
+      ]
+    }
+  ]
+}
