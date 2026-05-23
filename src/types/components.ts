@@ -149,6 +149,7 @@ export interface ThemeTokens {
 export interface Theme {
   id?: string;
   name: string;
+  slug?: string;
   fontFamily?: string;
   theme: ThemeTokens;
 }

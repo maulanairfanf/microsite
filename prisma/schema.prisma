@@ -1,0 +1,72 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin-arm64"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id        String    @id @default(cuid())
+  tenantId  String    @unique
+  name      String
+  themeId   String?
+  status    String    @default("active")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  sections  Section[]
+  users     User[]
+
+  @@map("tenants")
+}
+
+model Theme {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  config    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+
+  @@map("themes")
+}
+
+model Section {
+  id          String    @id @default(cuid())
+  tenantId    String
+  component   Component? @relation(fields: [componentId], references: [id])
+  componentId String?
+  order       Int       @default(0)
+  configJson  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+  tenant      Tenant    @relation(fields: [tenantId], references: [tenantId], onDelete: Cascade)
+
+  @@map("sections")
+}
+
+model Component {
+  id           String    @id @default(cuid())
+  name         String    @unique
+  configSchema String?
+  createdAt    DateTime  @default(now())
+  sections     Section[]
+
+  @@map("components")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("tenant_main_admin")
+  tenantId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime?
+  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
+
+  @@map("users")
+}

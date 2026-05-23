@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Pempek Ibu Wati",
-  description: "Pempek Rumahan Ibu Wati",
+  title: "Halamanku",
+  description: "Link-in-bio platform for creators",
 };
 
 export default function RootLayout({
@@ -19,7 +20,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-        {children}
+        <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
   );
