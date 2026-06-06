@@ -60,13 +60,18 @@ export default async function TenantPage({
       {theme && <ThemeProvider theme={theme} />}
       <main className="min-h-screen flex items-start justify-center py-0 md:pt-8 bg-page">
         <div className="w-full max-w-lg overflow-hidden container-bg container-border container-shadow header-font">
-          {sections.map((section: any, index: number) => (
-            <ComponentRenderer key={section.id ?? index} component={{
-              id: section.id,
-              type: section.component,
-              ...(section.configJson ? JSON.parse(section.configJson) : {})
-            }} />
-          ))}
+          {sections.map((section: any, index: number) => {
+            const componentType = section.component?.name
+              ? section.component.name.toLowerCase().replace(/\s+/g, "_")
+              : section.component;
+            return (
+              <ComponentRenderer key={section.id ?? index} component={{
+                id: section.id,
+                type: componentType,
+                ...(section.configJson ? JSON.parse(section.configJson) : {})
+              }} />
+            );
+          })}
         </div>
       </main>
     </>
