@@ -51,7 +51,10 @@ function PhoneMockup({
     <div className="phone-mockup w-[260px] mx-auto animate-float shadow-2xl">
       <div className="phone-screen p-5" style={{ background: bgGradient }}>
         <div className="text-center text-white mb-5">
-          <div className="w-14 h-14 mx-auto rounded-full mb-3 backdrop-blur" style={{ background: linkBg }} />
+          <div
+            className="w-14 h-14 mx-auto rounded-full mb-3 backdrop-blur"
+            style={{ background: linkBg }}
+          />
           <h3 className="font-bold text-lg drop-shadow">{name}</h3>
           <p className="text-sm text-white/80">@{username}</p>
         </div>
@@ -75,7 +78,7 @@ export function Showcase() {
   const [hoveredTenant, setHoveredTenant] = useState<string | null>(null);
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section id="contoh-halaman" className="py-24 bg-white relative overflow-hidden scroll-mt-20">
       {/* Bright background decorations */}
       <div className="absolute top-20 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-violet-200 via-pink-200 to-rose-200 rounded-full blur-[150px] translate-x-1/3 opacity-50" />
       <div className="absolute bottom-20 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-200 via-blue-200 to-violet-200 rounded-full blur-[150px] -translate-x-1/3 opacity-50" />
@@ -86,7 +89,10 @@ export function Showcase() {
             📱 Lihat Contoh
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-            Contoh <span className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">Halaman</span>
+            Contoh{" "}
+            <span className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
+              Halaman
+            </span>
           </h2>
           <p className="mt-4 text-xl text-gray-600">
             Lihat bagaimana Halamanku membantu mereka yang membutuhkan
@@ -134,15 +140,27 @@ export function Showcase() {
                   {/* Info overlay on hover */}
                   <div
                     className={`absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/70 to-transparent transition-all duration-500 ${
-                      hoveredTenant === tenant.tenant_id ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                      hoveredTenant === tenant.tenant_id
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-4"
                     }`}
                   >
                     <h3 className="text-xl font-bold text-white">{tenant.name}</h3>
                     <p className="text-white/80 text-sm mt-1">{tenant.description}</p>
                     <div className="flex items-center gap-2 mt-3 text-sm text-white/90">
                       <span>Klik untuk melihat</span>
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
                       </svg>
                     </div>
                   </div>
@@ -155,17 +173,30 @@ export function Showcase() {
           <div className="flex items-center justify-center">
             <Card className="text-center p-12 bg-gradient-to-br from-violet-50 via-pink-50 to-rose-50 border-2 border-dashed border-violet-300 hover:border-violet-500 transition-colors">
               <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 bg-gradient-to-br from-violet-500 to-pink-500 shadow-lg shadow-violet-500/30">
-                <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                <svg
+                  className="w-10 h-10 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4v16m8-8H4"
+                  />
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900">Jadilah yang berikutnya!</h3>
-              <p className="mt-3 text-gray-600">Buat halamanmu sendiri dan mulai bangun kehadiran digital</p>
-              <button
-                className="mt-6 px-8 py-3 rounded-xl font-semibold text-white transition-all hover:scale-105 bg-gradient-to-r from-violet-500 to-pink-500 shadow-lg shadow-violet-500/30"
+              <p className="mt-3 text-gray-600">
+                Buat halamanmu sendiri dan mulai bangun kehadiran digital
+              </p>
+              <Link
+                href="/sign-up"
+                className="mt-6 inline-block px-8 py-3 rounded-xl font-semibold text-white transition-all hover:scale-105 bg-gradient-to-r from-violet-500 to-pink-500 shadow-lg shadow-violet-500/30"
               >
                 Daftar Gratis
-              </button>
+              </Link>
             </Card>
           </div>
         </div>

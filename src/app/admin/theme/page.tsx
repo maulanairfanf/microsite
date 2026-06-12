@@ -49,10 +49,7 @@ export default async function AdminThemePage() {
 
   return (
     <div>
-      <PageHeader
-        title="Theme"
-        description="Choose a theme for your microsite"
-      />
+      <PageHeader title="Theme" description="Choose a theme for your microsite" />
       <ThemeClient
         themes={parsedThemes}
         currentThemeId={tenant.themeId}

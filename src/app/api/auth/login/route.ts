@@ -1,41 +1,32 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getUserByEmail, verifyPassword } from '@/lib/db/users';
-import { setSession, Role } from '@/lib/auth';
-import { getTenantByTenantId } from '@/lib/db/tenants';
+import { NextRequest, NextResponse } from "next/server";
+import { getUserByEmail, verifyPassword } from "@/lib/db/users";
+import { setSession, Role } from "@/lib/auth";
+import { getTenant } from "@/lib/db/tenants";
 
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
 
     if (!email || !password) {
-      return NextResponse.json(
-        { error: 'Email and password required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Email and password required" }, { status: 400 });
     }
 
     const user = await getUserByEmail(email);
 
     if (!user) {
-      return NextResponse.json(
-        { error: 'Invalid credentials' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
     const isValid = await verifyPassword(user, password);
 
     if (!isValid) {
-      return NextResponse.json(
-        { error: 'Invalid credentials' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
     let tenantId: string | undefined;
 
     if (user.tenantId) {
-      const tenant = await getTenantByTenantId(user.tenantId);
+      const tenant = await getTenant(user.tenantId);
       if (tenant) {
         tenantId = tenant.tenantId;
       }
@@ -53,10 +44,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, session });
   } catch (error) {
-    console.error('Login error:', error);
-    return NextResponse.json(
-      { error: 'Login failed' },
-      { status: 500 }
-    );
+    console.error("Login error:", error);
+    return NextResponse.json({ error: "Login failed" }, { status: 500 });
   }
 }

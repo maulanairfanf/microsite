@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
 
 export interface Tenant {
   id: string;
@@ -12,12 +12,12 @@ export interface Tenant {
 
 export async function listTenants(options: { includeInactive?: boolean } = {}): Promise<Tenant[]> {
   const tenants = await prisma.tenant.findMany({
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 
   if (options.includeInactive) return tenants;
 
-  return tenants.filter((t) => t.status === 'active');
+  return tenants.filter((t) => t.status === "active");
 }
 
 export async function getTenant(id: string): Promise<Tenant | null> {
@@ -38,14 +38,14 @@ export async function createTenant(data: {
       tenantId: data.tenantId,
       name: data.name,
       themeId: data.themeId || null,
-      status: 'active',
+      status: "active",
     },
   });
 }
 
 export async function updateTenant(
   id: string,
-  data: { name?: string; themeId?: string | null }
+  data: { name?: string; themeId?: string | null },
 ): Promise<Tenant> {
   const updateData: Record<string, any> = {};
   if (data.name !== undefined) updateData.name = data.name;
@@ -61,13 +61,20 @@ export async function updateTenant(
 export async function archiveTenant(id: string): Promise<Tenant> {
   return prisma.tenant.update({
     where: { id },
-    data: { status: 'archived', updatedAt: new Date() },
+    data: { status: "archived", updatedAt: new Date() },
   });
 }
 
 export async function restoreTenant(id: string): Promise<Tenant> {
   return prisma.tenant.update({
     where: { id },
-    data: { status: 'active', updatedAt: new Date() },
+    data: { status: "active", updatedAt: new Date() },
+  });
+}
+
+export async function deleteTenant(id: string): Promise<void> {
+  await prisma.$transaction(async (tx) => {
+    await tx.user.deleteMany({ where: { tenantId: id } });
+    await tx.tenant.delete({ where: { id } });
   });
 }

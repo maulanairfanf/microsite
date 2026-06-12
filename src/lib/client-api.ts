@@ -1,11 +1,8 @@
-async function clientApiRequest<T>(
-  endpoint: string,
-  options: RequestInit = {}
-): Promise<T> {
+async function clientApiRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const res = await fetch(endpoint, {
     ...options,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...options.headers,
     },
   });
@@ -13,7 +10,7 @@ async function clientApiRequest<T>(
   const data = await res.json();
 
   if (!res.ok) {
-    throw new Error(data.error || data.message || 'Request failed');
+    throw new Error(data.error || data.message || "Request failed");
   }
 
   return data;
@@ -21,13 +18,13 @@ async function clientApiRequest<T>(
 
 export const clientApi = {
   get<T>(endpoint: string, options?: RequestInit): Promise<T> {
-    return clientApiRequest<T>(endpoint, { ...options, method: 'GET' });
+    return clientApiRequest<T>(endpoint, { ...options, method: "GET" });
   },
 
   post<T>(endpoint: string, data?: unknown, options?: RequestInit): Promise<T> {
     return clientApiRequest<T>(endpoint, {
       ...options,
-      method: 'POST',
+      method: "POST",
       body: data ? JSON.stringify(data) : undefined,
     });
   },
@@ -35,12 +32,12 @@ export const clientApi = {
   put<T>(endpoint: string, data?: unknown, options?: RequestInit): Promise<T> {
     return clientApiRequest<T>(endpoint, {
       ...options,
-      method: 'PUT',
+      method: "PUT",
       body: data ? JSON.stringify(data) : undefined,
     });
   },
 
   delete<T>(endpoint: string, options?: RequestInit): Promise<T> {
-    return clientApiRequest<T>(endpoint, { ...options, method: 'DELETE' });
+    return clientApiRequest<T>(endpoint, { ...options, method: "DELETE" });
   },
 };

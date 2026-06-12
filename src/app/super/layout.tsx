@@ -1,16 +1,12 @@
-import { redirect } from 'next/navigation';
-import { getSession } from '@/lib/auth';
-import { Sidebar } from '@/components/admin/Sidebar';
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
+import { Sidebar } from "@/components/admin/Sidebar";
 
-export default async function SuperLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function SuperLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
 
-  if (!session || session.role !== 'super_admin') {
-    redirect('/login');
+  if (!session || session.role !== "super_admin") {
+    redirect("/login");
   }
 
   return (
@@ -23,9 +19,7 @@ export default async function SuperLayout({
         isImpersonating={false}
       />
       <div className="flex-1 flex flex-col min-w-0">
-        <main className="flex-1 p-4 md:p-6 lg:p-8">
-          {children}
-        </main>
+        <main className="flex-1 p-4 md:p-6 lg:p-8">{children}</main>
       </div>
     </div>
   );

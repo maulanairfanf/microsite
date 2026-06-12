@@ -76,9 +76,7 @@ export function ThemePreview({ theme, onSelect, isSelected }: ThemePreviewProps)
           <div className="flex items-center gap-2">
             <h3 className="font-semibold text-foreground">{theme.name}</h3>
             {isSelected && (
-              <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">
-                Active
-              </span>
+              <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Active</span>
             )}
           </div>
           <p className="text-sm text-muted-foreground mt-1">Slug: {theme.slug}</p>

@@ -11,12 +11,7 @@ export function EmptyState({ title, description, action }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-12 text-center">
       <div className="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center mb-4">
-        <svg
-          className="w-7 h-7 text-primary"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
+        <svg className="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -26,9 +21,7 @@ export function EmptyState({ title, description, action }: EmptyStateProps) {
         </svg>
       </div>
       <h3 className="text-lg font-semibold text-foreground">{title}</h3>
-      {description && (
-        <p className="mt-1 text-sm text-muted-foreground max-w-sm">{description}</p>
-      )}
+      {description && <p className="mt-1 text-sm text-muted-foreground max-w-sm">{description}</p>}
       {action && <div className="mt-4">{action}</div>}
     </div>
   );

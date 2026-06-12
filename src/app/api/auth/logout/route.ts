@@ -1,13 +1,8 @@
-import { redirect } from 'next/navigation';
-import { clearSession } from '@/lib/auth';
-import { NextRequest } from 'next/server';
+import { redirect } from "next/navigation";
+import { clearSession } from "@/lib/auth";
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   await clearSession();
 
-  const referer = request.headers.get('referer') || '';
-  if (referer.includes('/tenant')) {
-    redirect('/login/tenant');
-  }
-  redirect('/login/admin');
+  redirect("/login");
 }

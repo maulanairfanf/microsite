@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
 :root {
   --pageBackground: #e5e7eb;
   --bodyText: #111827;
   --headerTextColor: #111827;
-  --headerFontFamily: 'Inter', sans-serif;
+  --headerFontFamily: "Inter", sans-serif;
 
   --containerBackground: #f3f4f6;
   --containerRadius: 16px;
@@ -72,88 +77,196 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.container-bg { background: var(--containerBackground); border-radius: var(--containerRadius); }
-.container-border { border: var(--containerBorder); }
-.container-shadow { box-shadow: var(--containerShadow); }
+.container-bg {
+  background: var(--containerBackground);
+  border-radius: var(--containerRadius);
+}
+.container-border {
+  border: var(--containerBorder);
+}
+.container-shadow {
+  box-shadow: var(--containerShadow);
+}
 
-.card-bg { background: var(--cardBackground); color: var(--cardText); border-radius: var(--cardRadius); }
-.card-hover-bg:hover { background: var(--cardHoverBackground); }
-.card-border { border: var(--cardBorder); }
-.card-shadow { box-shadow: var(--cardShadow); }
-.card-style { border: var(--cardBorder); box-shadow: var(--cardShadow); border-radius: var(--cardRadius); }
+.card-bg {
+  background: var(--cardBackground);
+  color: var(--cardText);
+  border-radius: var(--cardRadius);
+}
+.card-hover-bg:hover {
+  background: var(--cardHoverBackground);
+}
+.card-border {
+  border: var(--cardBorder);
+}
+.card-shadow {
+  box-shadow: var(--cardShadow);
+}
+.card-style {
+  border: var(--cardBorder);
+  box-shadow: var(--cardShadow);
+  border-radius: var(--cardRadius);
+}
 
-.text-card { color: var(--cardText); }
-.text-header { color: var(--headerTextColor); }
-.text-body { color: var(--bodyText); }
+.text-card {
+  color: var(--cardText);
+}
+.text-header {
+  color: var(--headerTextColor);
+}
+.text-body {
+  color: var(--bodyText);
+}
 
-.bg-page { background: var(--pageBackground); }
-.bg-card-text { background: var(--cardText); color: var(--pageBackground); }
+.bg-page {
+  background: var(--pageBackground);
+}
+.bg-card-text {
+  background: var(--cardText);
+  color: var(--pageBackground);
+}
 
-.header-font { font-family: var(--headerFontFamily); }
+.header-font {
+  font-family: var(--headerFontFamily);
+}
 
 /* Animation Keyframes */
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
 }
 
 @keyframes float-delayed {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(-5deg); }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-5deg);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.1); }
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
 }
 
 @keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-30px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes bounce-in {
-  0% { opacity: 0; transform: scale(0.3); }
-  50% { transform: scale(1.05); }
-  70% { transform: scale(0.9); }
-  100% { opacity: 1; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes wiggle {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
 }
 
 /* Animation Classes */
-.animate-float { animation: float 6s ease-in-out infinite; }
-.animate-float-delayed { animation: float-delayed 8s ease-in-out infinite; }
-.animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
-.animate-gradient { 
-  background-size: 200% 200%;
-  animation: gradient-shift 8s ease infinite; 
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }
-.animate-slide-up { animation: slide-up 0.6s ease-out forwards; }
-.animate-slide-in-left { animation: slide-in-left 0.6s ease-out forwards; }
-.animate-bounce-in { animation: bounce-in 0.8s ease-out forwards; }
-.animate-wiggle { animation: wiggle 1s ease-in-out infinite; }
+.animate-float-delayed {
+  animation: float-delayed 8s ease-in-out infinite;
+}
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+.animate-slide-in-left {
+  animation: slide-in-left 0.6s ease-out forwards;
+}
+.animate-bounce-in {
+  animation: bounce-in 0.8s ease-out forwards;
+}
+.animate-wiggle {
+  animation: wiggle 1s ease-in-out infinite;
+}
 
 /* Delay utilities */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
+.delay-500 {
+  animation-delay: 500ms;
+}
 
 /* Phone mockup styles */
 .phone-mockup {
@@ -165,7 +278,7 @@ body {
 }
 
 .phone-mockup::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 20px;
   left: 50%;
@@ -235,7 +348,9 @@ body {
 .faq-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+  transition:
+    max-height 0.4s ease-out,
+    padding 0.4s ease-out;
 }
 
 .faq-content.open {
@@ -250,7 +365,7 @@ body {
 }
 
 .cta-button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -259,10 +374,22 @@ body {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition: width 0.6s ease, height 0.6s ease;
+  transition:
+    width 0.6s ease,
+    height 0.6s ease;
 }
 
 .cta-button:hover::before {
   width: 300px;
   height: 300px;
+}
+
+/* Allow body scrollbar when Radix dropdowns (Select, Dialog, etc.) are open
+   Double-attribute selector for higher specificity (0,2,1) than the
+   runtime-injected `body[data-scroll-locked]` rule from react-remove-scroll-bar */
+body[data-scroll-locked][data-scroll-locked] {
+  overflow: auto !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  position: static !important;
 }

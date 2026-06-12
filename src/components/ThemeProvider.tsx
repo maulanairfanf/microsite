@@ -1,6 +1,6 @@
 "use client";
 
-import { Theme, ThemeTokens } from "@/types/components";
+import { Theme, ThemeCard, ThemeTokens } from "@/types/components";
 import { defaultTokens } from "@/lib/themeDefaults";
 import { useEffect } from "react";
 
@@ -32,10 +32,15 @@ export function ThemeProvider({ theme }: ThemeProviderProps) {
     const pageBg = normalizeColor(merged.theme.page.background);
 
     const cardBg = normalizeColor(merged.theme.card.background);
-    const cardHoverBg = normalizeColor(merged.theme.card.hoverBackground ?? merged.theme.card.background);
+    const cardHoverBg = computeHoverBackground(merged.theme.card, cardBg);
 
-    const bodyText = merged.theme.page.text || merged.theme.card.text || defaultTokens.page.text || "#111827";
-    const headerText = merged.theme.page.headerText || merged.theme.page.text || defaultTokens.page.headerText || bodyText;
+    const bodyText =
+      merged.theme.page.text || merged.theme.card.text || defaultTokens.page.text || "#111827";
+    const headerText =
+      merged.theme.page.headerText ||
+      merged.theme.page.text ||
+      defaultTokens.page.headerText ||
+      bodyText;
     const headerFont = resolveFontStack(merged.fontFamily || "Inter");
 
     const tokenMap: TokenPreset = {
@@ -64,7 +69,8 @@ export function ThemeProvider({ theme }: ThemeProviderProps) {
 }
 
 function mergeThemeWithDefaults(theme: Theme): Theme {
-  const safeTheme = theme || ({ name: "cleanGray", fontFamily: "Inter", theme: defaultTokens } as Theme);
+  const safeTheme =
+    theme || ({ name: "cleanGray", fontFamily: "Inter", theme: defaultTokens } as Theme);
   return {
     ...safeTheme,
     theme: {
@@ -84,9 +90,13 @@ function resolveFontStack(fontFamily: string) {
 
 function hexToRgb(hex: string) {
   const normalized = hex.replace("#", "");
-  const full = normalized.length === 3
-    ? normalized.split("").map((c) => c + c).join("")
-    : normalized;
+  const full =
+    normalized.length === 3
+      ? normalized
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : normalized;
   const int = parseInt(full, 16);
   return {
     r: (int >> 16) & 255,
@@ -117,6 +127,18 @@ function normalizeColor(value: string, opacity = 1) {
   }
 
   return trimmed;
+}
+
+function computeHoverBackground(card: ThemeCard, cardBg: string): string {
+  if (typeof card.hoverOpacity === "number") {
+    const opacity = Math.min(Math.max(card.hoverOpacity, 0), 100);
+    const colorPart = card.background || "#000000";
+    return `color-mix(in srgb, ${colorPart} ${100 - opacity}%, #000000 ${opacity}%)`;
+  }
+  if (card.hoverBackground) {
+    return normalizeColor(card.hoverBackground);
+  }
+  return cardBg;
 }
 
 function loadGoogleFontFromStack(fontStack: string) {

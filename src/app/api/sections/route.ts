@@ -1,20 +1,23 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { listSections, createSection } from '@/lib/db/sections';
+import { NextRequest, NextResponse } from "next/server";
+import {
+  listSections,
+  createSection,
+  countHeroSectionsForTenant,
+} from "@/lib/db/sections";
+import { getComponent } from "@/lib/db/components";
+import { HERO_COMPONENT_NAME } from "@/lib/heroDefaults";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const tenantId = searchParams.get('tenantId') || undefined;
+    const tenantId = searchParams.get("tenantId") || undefined;
 
     const sections = await listSections({ tenantId });
 
     return NextResponse.json({ data: sections });
   } catch (error) {
-    console.error('GET /api/sections error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch sections' },
-      { status: 500 }
-    );
+    console.error("GET /api/sections error:", error);
+    return NextResponse.json({ error: "Failed to fetch sections" }, { status: 500 });
   }
 }
 
@@ -25,9 +28,20 @@ export async function POST(request: NextRequest) {
 
     if (!tenantId || !componentId) {
       return NextResponse.json(
-        { error: 'Missing required fields: tenantId, componentId' },
-        { status: 400 }
+        { error: "Missing required fields: tenantId, componentId" },
+        { status: 400 },
       );
+    }
+
+    const component = await getComponent(componentId);
+    if (component?.name === HERO_COMPONENT_NAME) {
+      const existing = await countHeroSectionsForTenant(tenantId);
+      if (existing > 0) {
+        return NextResponse.json(
+          { error: "You can only have one Hero section per tenant." },
+          { status: 409 },
+        );
+      }
     }
 
     const section = await createSection({
@@ -39,10 +53,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ data: section }, { status: 201 });
   } catch (error: any) {
-    console.error('POST /api/sections error:', error);
-    return NextResponse.json(
-      { error: 'Failed to create section' },
-      { status: 500 }
-    );
+    console.error("POST /api/sections error:", error);
+    return NextResponse.json({ error: "Failed to create section" }, { status: 500 });
   }
 }

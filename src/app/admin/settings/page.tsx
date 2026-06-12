@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import { Card } from '@/components/ui/card';
-import { PageHeader } from '@/components/admin/PageHeader';
-import { getSession } from '@/lib/auth';
-import { getTenantByTenantId } from '@/lib/db/tenants';
-import { listThemes } from '@/lib/db/themes';
-import { TenantSettingsForm } from '@/components/admin/TenantSettingsForm';
+import Link from "next/link";
+import { Card } from "@/components/ui/card";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { getSession } from "@/lib/auth";
+import { getTenantByTenantId } from "@/lib/db/tenants";
+import { listThemes } from "@/lib/db/themes";
+import { TenantSettingsForm } from "@/components/admin/TenantSettingsForm";
 
 export default async function AdminSettingsPage() {
   const session = await getSession();
@@ -29,10 +29,7 @@ export default async function AdminSettingsPage() {
 
   return (
     <div>
-      <PageHeader
-        title="Settings"
-        description="Manage your tenant settings"
-      />
+      <PageHeader title="Settings" description="Manage your tenant settings" />
       <Card className="p-6 max-w-2xl">
         <TenantSettingsForm tenant={tenant} themes={themeOptions} />
       </Card>

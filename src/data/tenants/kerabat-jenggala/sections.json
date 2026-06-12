@@ -40,7 +40,11 @@
       "title": "Contact & Follow",
       "items": [
         { "text": "WhatsApp Order", "url": "https://wa.me/62815xxxx1234", "icon": "whatsapp" },
-        { "text": "Instagram", "url": "https://instagram.com/kerabat.jenggala", "icon": "instagram" },
+        {
+          "text": "Instagram",
+          "url": "https://instagram.com/kerabat.jenggala",
+          "icon": "instagram"
+        },
         { "text": "Google Maps", "url": "https://maps.google.com", "icon": "whatsapp" }
       ]
     },
@@ -99,47 +103,153 @@
           "id": "espresso",
           "name": "Espresso",
           "products": [
-            { "id": "esp1", "title": "Single Shot Espresso", "image": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "price": 25000, "url": "#" },
-            { "id": "esp2", "title": "Double Shot Espresso", "image": "https://images.unsplash.com/photo-1612183515105-8c737ba7585d?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "price": 30000, "url": "#" },
-            { "id": "esp3", "title": "Espresso Lungo", "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=500&auto=format&fit=crop", "price": 28000, "url": "#" }
+            {
+              "id": "esp1",
+              "title": "Single Shot Espresso",
+              "image": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+              "price": 25000,
+              "url": "#"
+            },
+            {
+              "id": "esp2",
+              "title": "Double Shot Espresso",
+              "image": "https://images.unsplash.com/photo-1612183515105-8c737ba7585d?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+              "price": 30000,
+              "url": "#"
+            },
+            {
+              "id": "esp3",
+              "title": "Espresso Lungo",
+              "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=500&auto=format&fit=crop",
+              "price": 28000,
+              "url": "#"
+            }
           ]
         },
         {
           "id": "milk-coffee",
           "name": "Milk Coffee",
           "products": [
-            { "id": "mc1", "title": "Cappuccino", "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=500&auto=format&fit=crop", "price": 38000, "url": "#" },
-            { "id": "mc2", "title": "Latte", "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=500&auto=format&fit=crop", "price": 40000, "url": "#" },
-            { "id": "mc3", "title": "Macchiato", "image": "https://images.unsplash.com/photo-1557006021-b85faa2bc5e2?q=80&w=500&auto=format&fit=crop", "price": 35000, "url": "#" },
-            { "id": "mc4", "title": "Flat White", "image": "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?q=80&w=500&auto=format&fit=crop", "price": 42000, "url": "#" }
+            {
+              "id": "mc1",
+              "title": "Cappuccino",
+              "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=500&auto=format&fit=crop",
+              "price": 38000,
+              "url": "#"
+            },
+            {
+              "id": "mc2",
+              "title": "Latte",
+              "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=500&auto=format&fit=crop",
+              "price": 40000,
+              "url": "#"
+            },
+            {
+              "id": "mc3",
+              "title": "Macchiato",
+              "image": "https://images.unsplash.com/photo-1557006021-b85faa2bc5e2?q=80&w=500&auto=format&fit=crop",
+              "price": 35000,
+              "url": "#"
+            },
+            {
+              "id": "mc4",
+              "title": "Flat White",
+              "image": "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?q=80&w=500&auto=format&fit=crop",
+              "price": 42000,
+              "url": "#"
+            }
           ]
         },
         {
           "id": "cold-brew",
           "name": "Cold Brew",
           "products": [
-            { "id": "cb1", "title": "Iced Americano", "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=500&auto=format&fit=crop", "price": 32000, "url": "#" },
-            { "id": "cb2", "title": "Cold Brew Classic", "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=500&auto=format&fit=crop", "price": 35000, "url": "#" },
-            { "id": "cb3", "title": "Iced Latte", "image": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "price": 40000, "originalPrice": 45000, "discount": "11%", "url": "#" }
+            {
+              "id": "cb1",
+              "title": "Iced Americano",
+              "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=500&auto=format&fit=crop",
+              "price": 32000,
+              "url": "#"
+            },
+            {
+              "id": "cb2",
+              "title": "Cold Brew Classic",
+              "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=500&auto=format&fit=crop",
+              "price": 35000,
+              "url": "#"
+            },
+            {
+              "id": "cb3",
+              "title": "Iced Latte",
+              "image": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+              "price": 40000,
+              "originalPrice": 45000,
+              "discount": "11%",
+              "url": "#"
+            }
           ]
         },
         {
           "id": "specialty",
           "name": "Specialty Drinks",
           "products": [
-            { "id": "sp1", "title": "Matcha Latte", "image": "https://images.unsplash.com/photo-1717603545758-88cc454db69b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "price": 42000, "url": "#" },
-            { "id": "sp2", "title": "Affogato", "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=500&auto=format&fit=crop", "price": 32000, "url": "#" },
-            { "id": "sp3", "title": "Mocha", "image": "https://images.unsplash.com/photo-1607260550778-aa9d29444ce1?q=80&w=500&auto=format&fit=crop", "price": 45000, "url": "#" }
+            {
+              "id": "sp1",
+              "title": "Matcha Latte",
+              "image": "https://images.unsplash.com/photo-1717603545758-88cc454db69b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+              "price": 42000,
+              "url": "#"
+            },
+            {
+              "id": "sp2",
+              "title": "Affogato",
+              "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=500&auto=format&fit=crop",
+              "price": 32000,
+              "url": "#"
+            },
+            {
+              "id": "sp3",
+              "title": "Mocha",
+              "image": "https://images.unsplash.com/photo-1607260550778-aa9d29444ce1?q=80&w=500&auto=format&fit=crop",
+              "price": 45000,
+              "url": "#"
+            }
           ]
         },
         {
           "id": "pastries",
           "name": "Pastries & Snacks",
           "products": [
-            { "id": "past1", "title": "Chocolate Croissant", "image": "https://images.unsplash.com/photo-1530610476181-d83430b64dcd?q=80&w=500&auto=format&fit=crop", "price": 28000, "url": "#" },
-            { "id": "past2", "title": "Blueberry Muffin", "image": "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?q=80&w=500&auto=format&fit=crop", "price": 25000, "url": "#" },
-            { "id": "past3", "title": "Danish Pastry", "image": "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=500&auto=format&fit=crop", "price": 32000, "url": "#" },
-            { "id": "past4", "title": "Banana Bread", "image": "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=500&auto=format&fit=crop", "price": 22000, "originalPrice": 27000, "discount": "19%", "url": "#" }
+            {
+              "id": "past1",
+              "title": "Chocolate Croissant",
+              "image": "https://images.unsplash.com/photo-1530610476181-d83430b64dcd?q=80&w=500&auto=format&fit=crop",
+              "price": 28000,
+              "url": "#"
+            },
+            {
+              "id": "past2",
+              "title": "Blueberry Muffin",
+              "image": "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?q=80&w=500&auto=format&fit=crop",
+              "price": 25000,
+              "url": "#"
+            },
+            {
+              "id": "past3",
+              "title": "Danish Pastry",
+              "image": "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=500&auto=format&fit=crop",
+              "price": 32000,
+              "url": "#"
+            },
+            {
+              "id": "past4",
+              "title": "Banana Bread",
+              "image": "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=500&auto=format&fit=crop",
+              "price": 22000,
+              "originalPrice": 27000,
+              "discount": "19%",
+              "url": "#"
+            }
           ]
         }
       ]
@@ -148,12 +258,19 @@
       "id": "social-1",
       "type": "social_media",
       "socialMedia": [
-        { "name": "Instagram", "url": "https://instagram.com/kerabat.jenggala", "icon": "instagram" },
+        {
+          "name": "Instagram",
+          "url": "https://instagram.com/kerabat.jenggala",
+          "icon": "instagram"
+        },
         { "name": "TikTok", "url": "https://tiktok.com/@kerabatjenggala", "icon": "tiktok" },
         { "name": "Facebook", "url": "https://facebook.com/kerabatjenggala", "icon": "facebook" },
         { "name": "YouTube", "url": "https://youtube.com/@kerabatjenggala", "icon": "youtube" }
       ],
-      "joinButton": { "text": "Follow Kerabat Jenggala", "url": "https://linktr.ee/kerabatjenggala" }
+      "joinButton": {
+        "text": "Follow Kerabat Jenggala",
+        "url": "https://linktr.ee/kerabatjenggala"
+      }
     },
     { "id": "footer-1", "type": "footer" }
   ]

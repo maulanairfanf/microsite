@@ -7,8 +7,8 @@ import { HorizontalScroll } from "./HorizontalScroll";
 
 export function ProductsCatalog({ data }: { data: ProductsCatalogComponent }) {
   const [activeCategory, setActiveCategory] = useState(data.categories[0]?.id || "");
-  
-  const currentCategory = data.categories.find(cat => cat.id === activeCategory);
+
+  const currentCategory = data.categories.find((cat) => cat.id === activeCategory);
   const products = currentCategory?.products || [];
 
   return (
@@ -27,8 +27,10 @@ export function ProductsCatalog({ data }: { data: ProductsCatalogComponent }) {
                 onClick={() => setActiveCategory(category.id)}
                 className="px-4 py-2 rounded-lg font-medium text-xs whitespace-nowrap transition-all cursor-pointer card-style"
                 style={{
-                  backgroundColor: activeCategory === category.id ? "var(--cardText)" : "var(--cardBackground)",
-                  color: activeCategory === category.id ? "var(--pageBackground)" : "var(--cardText)"
+                  backgroundColor:
+                    activeCategory === category.id ? "var(--cardText)" : "var(--cardBackground)",
+                  color:
+                    activeCategory === category.id ? "var(--pageBackground)" : "var(--cardText)",
                 }}
               >
                 {category.name}
@@ -46,9 +48,7 @@ export function ProductsCatalog({ data }: { data: ProductsCatalogComponent }) {
       </div>
 
       {products.length === 0 && (
-        <div className="text-center py-12 text-gray-400 text-sm">
-          No products available
-        </div>
+        <div className="text-center py-12 text-gray-400 text-sm">No products available</div>
       )}
     </section>
   );

@@ -1,12 +1,12 @@
-import { prisma } from '@/lib/prisma';
-import type { User } from '@prisma/client';
-import bcrypt from 'bcryptjs';
+import { prisma } from "@/lib/prisma";
+import type { User } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 export type { User };
 
 export async function getUsers(): Promise<User[]> {
   return prisma.user.findMany({
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 }
 
@@ -35,7 +35,7 @@ export async function createUser(data: {
       email: data.email,
       password: hashedPassword,
       name: data.name,
-      role: data.role || 'tenant',
+      role: data.role || "tenant",
       tenantId: data.tenantId,
     },
   });
@@ -45,12 +45,15 @@ export async function verifyPassword(user: User, password: string): Promise<bool
   return bcrypt.compare(password, user.password);
 }
 
-export async function updateUser(id: string, data: Partial<{
-  email: string;
-  name: string;
-  role: string;
-  tenantId: string;
-}>): Promise<User> {
+export async function updateUser(
+  id: string,
+  data: Partial<{
+    email: string;
+    name: string;
+    role: string;
+    tenantId: string;
+  }>,
+): Promise<User> {
   return prisma.user.update({
     where: { id },
     data,

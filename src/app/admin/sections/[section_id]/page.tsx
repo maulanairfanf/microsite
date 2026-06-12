@@ -1,22 +1,23 @@
-import Link from 'next/link';
-import { Card } from '@/components/ui/card';
-import { PageHeader } from '@/components/admin/PageHeader';
-import { getSession } from '@/lib/auth';
-import { getSection } from '@/lib/db/sections';
-import { listComponents } from '@/lib/db/components';
-import { TenantSectionForm } from '@/components/admin/TenantSectionForm';
+import Link from "next/link";
+import { Card } from "@/components/ui/card";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { getSession } from "@/lib/auth";
+import { getSection, countHeroSectionsForTenant } from "@/lib/db/sections";
+import { listComponents } from "@/lib/db/components";
+import { TenantSectionForm } from "@/components/admin/TenantSectionForm";
+import { HERO_COMPONENT_NAME } from "@/lib/heroDefaults";
 
 interface Props {
   params: Promise<{ section_id: string }>;
 }
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default async function AdminSectionFormPage({ params }: Props) {
   const { section_id } = await params;
   const session = await getSession();
   const tenantId = session?.tenantId;
-  const isEdit = section_id && section_id !== 'new';
+  const isEdit = section_id && section_id !== "new";
 
   if (!tenantId) {
     return (
@@ -29,34 +30,43 @@ export default async function AdminSectionFormPage({ params }: Props) {
     );
   }
 
-  const [section, components] = await Promise.all([
+  const [section, components, heroCount] = await Promise.all([
     isEdit ? getSection(section_id) : Promise.resolve(null),
     listComponents(),
+    countHeroSectionsForTenant(tenantId, isEdit ? section_id : undefined),
   ]);
-  console.log('section', section);
 
-  const componentOptions = components.map((c) => ({
-    value: c.id,
-    label: c.name,
-    configSchema: c.configSchema || undefined,
-  }));
+  const isEditingHero = section?.component?.name === HERO_COMPONENT_NAME;
+  const hideHeroOption = heroCount > 0 && !isEditingHero;
+
+  const componentOptions = components
+    .filter((c) => !(hideHeroOption && c.name === HERO_COMPONENT_NAME))
+    .map((c) => ({
+      value: c.id,
+      label: c.name,
+      configSchema: c.configSchema || undefined,
+    }));
 
   return (
     <div>
       <PageHeader
-        title={isEdit ? 'Edit Section' : 'Add New Section'}
+        title={isEdit ? "Edit Section" : "Add New Section"}
         description="Configure your section component and settings"
       />
       <Card className="p-6 max-w-2xl">
         <TenantSectionForm
           tenantId={tenantId}
-          section={section ? {
-            id: section.id,
-            component: section.component,
-            componentId: section.component?.id || null,
-            order: section.order,
-            configJson: section.configJson || undefined,
-          } : undefined}
+          section={
+            section
+              ? {
+                  id: section.id,
+                  component: section.component,
+                  componentId: section.component?.id || null,
+                  order: section.order,
+                  configJson: section.configJson || undefined,
+                }
+              : undefined
+          }
           components={componentOptions}
           isEdit={!!isEdit}
         />

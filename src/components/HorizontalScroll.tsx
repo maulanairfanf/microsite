@@ -9,10 +9,10 @@ interface HorizontalScrollProps {
   chevronSize?: number;
 }
 
-export function HorizontalScroll({ 
-  children, 
-  scrollAmount = 300, 
-  chevronSize = 24 
+export function HorizontalScroll({
+  children,
+  scrollAmount = 300,
+  chevronSize = 24,
 }: HorizontalScrollProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -45,7 +45,7 @@ export function HorizontalScroll({
       const container = scrollContainerRef.current;
       const start = container.scrollLeft;
       const target = direction === "left" ? start - scrollAmount : start + scrollAmount;
-      const duration = 500; 
+      const duration = 500;
       const startTime = Date.now();
 
       const animate = () => {

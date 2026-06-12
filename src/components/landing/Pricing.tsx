@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Card } from "@/components/landing/Components";
 
 const plans = [
@@ -19,6 +20,7 @@ const plans = [
       { text: "Priority Support", included: false },
     ],
     cta: "Mulai Gratis",
+    ctaHref: "/sign-up",
     highlighted: false,
     gradient: "from-gray-400 to-gray-500",
   },
@@ -37,6 +39,7 @@ const plans = [
       { text: "Priority Support", included: true },
     ],
     cta: "Berlangganan",
+    ctaHref: "/sign-up?plan=premium",
     highlighted: true,
     gradient: "from-violet-500 via-pink-500 to-orange-500",
   },
@@ -59,11 +62,13 @@ export function Pricing() {
             💰 Harga Transparan
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-            Pilih <span className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">Paket</span>Mu
+            Pilih{" "}
+            <span className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
+              Paket
+            </span>
+            Mu
           </h2>
-          <p className="mt-4 text-xl text-gray-600">
-            Paket yang sesuai dengan kebutuhanmu
-          </p>
+          <p className="mt-4 text-xl text-gray-600">Paket yang sesuai dengan kebutuhanmu</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -85,7 +90,8 @@ export function Pricing() {
                     <div
                       className="px-6 py-2 rounded-b-2xl text-white font-bold text-sm shadow-xl"
                       style={{
-                        background: "linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #f97316 100%)",
+                        background:
+                          "linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #f97316 100%)",
                         boxShadow: "0 10px 30px -5px rgba(124, 58, 237, 0.5)",
                       }}
                     >
@@ -96,9 +102,7 @@ export function Pricing() {
 
                 <Card
                   className={`relative overflow-hidden h-full ${
-                    plan.highlighted
-                      ? "border-2 shadow-xl"
-                      : "border border-gray-200"
+                    plan.highlighted ? "border-2 shadow-xl" : "border border-gray-200"
                   }`}
                   style={
                     plan.highlighted
@@ -153,12 +157,32 @@ export function Pricing() {
                             }`}
                           >
                             {feature.included ? (
-                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                              <svg
+                                className="w-4 h-4"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={3}
+                                  d="M5 13l4 4L19 7"
+                                />
                               </svg>
                             ) : (
-                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                              <svg
+                                className="w-4 h-4"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={3}
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
                               </svg>
                             )}
                           </div>
@@ -174,8 +198,9 @@ export function Pricing() {
                     </ul>
 
                     {/* CTA Button */}
-                    <button
-                      className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                    <Link
+                      href={plan.ctaHref}
+                      className={`block w-full py-4 rounded-xl font-bold text-lg text-center transition-all duration-300 ${
                         plan.highlighted
                           ? "text-white shadow-lg hover:shadow-xl hover:scale-[1.02]"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -183,14 +208,15 @@ export function Pricing() {
                       style={
                         plan.highlighted
                           ? {
-                              background: "linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%)",
+                              background:
+                                "linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%)",
                               boxShadow: "0 15px 30px -5px rgba(124, 58, 237, 0.4)",
                             }
                           : {}
                       }
                     >
                       {plan.cta}
-                    </button>
+                    </Link>
                   </div>
                 </Card>
               </div>
@@ -201,7 +227,12 @@ export function Pricing() {
         {/* Bottom note */}
         <p className="text-center mt-10 text-gray-500 flex items-center justify-center gap-2">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
           Semua paket sudah termasuk fitur dasar. Upgrade kapan saja.
         </p>

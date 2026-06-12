@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getSession } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
+import { NextRequest, NextResponse } from "next/server";
+import { getSession } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest, { params }: Params) {
     const { id } = await params;
 
     if (!session || !session.tenantId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const user = await prisma.user.findUnique({
@@ -28,18 +28,18 @@ export async function GET(request: NextRequest, { params }: Params) {
     });
 
     if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     // Check access
-    if (session.role === 'tenant_main_admin' && user.tenantId !== session.tenantId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    if (session.role === "tenant_main_admin" && user.tenantId !== session.tenantId) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     return NextResponse.json({ data: user });
   } catch (error) {
-    console.error('GET /api/users/[id] error:', error);
-    return NextResponse.json({ error: 'Failed to fetch user' }, { status: 500 });
+    console.error("GET /api/users/[id] error:", error);
+    return NextResponse.json({ error: "Failed to fetch user" }, { status: 500 });
   }
 }
 
@@ -49,7 +49,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     const { id } = await params;
 
     if (!session || !session.tenantId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await request.json();
@@ -61,24 +61,24 @@ export async function PUT(request: NextRequest, { params }: Params) {
     });
 
     if (!targetUser) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     // Only super_admin or tenant_main_admin can update users
-    if (session.role !== 'super_admin' && session.role !== 'tenant_main_admin') {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    if (session.role !== "super_admin" && session.role !== "tenant_main_admin") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // tenant_main_admin can only update users in their own tenant
-    if (session.role === 'tenant_main_admin' && targetUser.tenantId !== session.tenantId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    if (session.role === "tenant_main_admin" && targetUser.tenantId !== session.tenantId) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // Only super_admin can change role to tenant_main_admin
-    if (role === 'tenant_main_admin' && session.role !== 'super_admin') {
+    if (role === "tenant_main_admin" && session.role !== "super_admin") {
       return NextResponse.json(
-        { error: 'Only super_admin can assign tenant_main_admin role' },
-        { status: 403 }
+        { error: "Only super_admin can assign tenant_main_admin role" },
+        { status: 403 },
       );
     }
 
@@ -101,8 +101,8 @@ export async function PUT(request: NextRequest, { params }: Params) {
 
     return NextResponse.json({ data: user });
   } catch (error) {
-    console.error('PUT /api/users/[id] error:', error);
-    return NextResponse.json({ error: 'Failed to update user' }, { status: 500 });
+    console.error("PUT /api/users/[id] error:", error);
+    return NextResponse.json({ error: "Failed to update user" }, { status: 500 });
   }
 }
 
@@ -112,7 +112,7 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     const { id } = await params;
 
     if (!session || !session.tenantId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Get target user
@@ -121,29 +121,29 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     });
 
     if (!targetUser) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     // Cannot delete yourself
     if (session.userId === id) {
-      return NextResponse.json({ error: 'Cannot delete yourself' }, { status: 400 });
+      return NextResponse.json({ error: "Cannot delete yourself" }, { status: 400 });
     }
 
     // Only super_admin or tenant_main_admin can delete users
-    if (session.role !== 'super_admin' && session.role !== 'tenant_main_admin') {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    if (session.role !== "super_admin" && session.role !== "tenant_main_admin") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // tenant_main_admin can only delete users in their own tenant
-    if (session.role === 'tenant_main_admin' && targetUser.tenantId !== session.tenantId) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    if (session.role === "tenant_main_admin" && targetUser.tenantId !== session.tenantId) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // tenant_main_admin cannot be deleted by tenant_main_admin (only super_admin)
-    if (targetUser.role === 'tenant_main_admin' && session.role !== 'super_admin') {
+    if (targetUser.role === "tenant_main_admin" && session.role !== "super_admin") {
       return NextResponse.json(
-        { error: 'Only super_admin can delete tenant_main_admin' },
-        { status: 403 }
+        { error: "Only super_admin can delete tenant_main_admin" },
+        { status: 403 },
       );
     }
 
@@ -151,7 +151,7 @@ export async function DELETE(request: NextRequest, { params }: Params) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('DELETE /api/users/[id] error:', error);
-    return NextResponse.json({ error: 'Failed to delete user' }, { status: 500 });
+    console.error("DELETE /api/users/[id] error:", error);
+    return NextResponse.json({ error: "Failed to delete user" }, { status: 500 });
   }
 }

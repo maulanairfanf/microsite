@@ -1,7 +1,15 @@
 import { LinktreeComponent } from "@/types/components";
-import { IoLogoWhatsapp, IoLogoInstagram, IoRestaurantOutline, IoCartOutline } from "react-icons/io5";
+import {
+  IoLogoWhatsapp,
+  IoLogoInstagram,
+  IoRestaurantOutline,
+  IoCartOutline,
+} from "react-icons/io5";
 
-const iconMap: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
+const iconMap: Record<
+  string,
+  React.ComponentType<{ className?: string; style?: React.CSSProperties }>
+> = {
   shopee: IoCartOutline,
   tokopedia: IoCartOutline,
   whatsapp: IoLogoWhatsapp,
@@ -20,7 +28,7 @@ export function Linktree({ data }: { data: LinktreeComponent }) {
           const Icon = item.icon ? iconMap[item.icon] : null;
           return (
             <a
-              key={item.url}
+              key={item.id ?? item.text}
               href={item.url}
               className="flex items-center gap-4 p-2 rounded-lg transition-all card-bg card-hover-bg card-style"
             >
@@ -29,9 +37,7 @@ export function Linktree({ data }: { data: LinktreeComponent }) {
                   <Icon className="w-6 h-6 text-card" />
                 </div>
               )}
-              <span className="text-sm font-medium flex-1 text-card">
-                {item.text}
-              </span>
+              <span className="text-sm font-medium flex-1 text-card">{item.text}</span>
             </a>
           );
         })}

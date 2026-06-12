@@ -1,5 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getSection, updateSection, deleteSection } from '@/lib/db/sections';
+import { NextRequest, NextResponse } from "next/server";
+import {
+  getSection,
+  updateSection,
+  deleteSection,
+  countHeroSectionsForTenant,
+} from "@/lib/db/sections";
+import { getComponent } from "@/lib/db/components";
+import { HERO_COMPONENT_NAME } from "@/lib/heroDefaults";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -11,19 +18,13 @@ export async function GET(request: NextRequest, { params }: Params) {
     const section = await getSection(id);
 
     if (!section) {
-      return NextResponse.json(
-        { error: 'Section not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Section not found" }, { status: 404 });
     }
 
     return NextResponse.json({ data: section });
   } catch (error) {
-    console.error('GET /api/sections/[id] error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch section' },
-      { status: 500 }
-    );
+    console.error("GET /api/sections/[id] error:", error);
+    return NextResponse.json({ error: "Failed to fetch section" }, { status: 500 });
   }
 }
 
@@ -33,38 +34,66 @@ export async function PUT(request: NextRequest, { params }: Params) {
     const body = await request.json();
     const { componentId, order, configJson } = body;
 
+    const existing = await getSection(id);
+    if (!existing) {
+      return NextResponse.json({ error: "Section not found" }, { status: 404 });
+    }
+
+    if (componentId) {
+      const target = await getComponent(componentId);
+      if (
+        target?.name === HERO_COMPONENT_NAME &&
+        existing.component?.name !== HERO_COMPONENT_NAME
+      ) {
+        const heroCount = await countHeroSectionsForTenant(existing.tenantId, id);
+        if (heroCount > 0) {
+          return NextResponse.json(
+            { error: "You can only have one Hero section per tenant." },
+            { status: 409 },
+          );
+        }
+      }
+    }
+
     const section = await updateSection(id, {
-      componentId: componentId || null,
+      componentId: componentId === undefined ? undefined : componentId || null,
       order,
       configJson,
     });
 
     return NextResponse.json({ data: section });
   } catch (error: any) {
-    console.error('PUT /api/sections/[id] error:', error);
+    console.error("PUT /api/sections/[id] error:", error);
 
-    return NextResponse.json(
-      { error: 'Failed to update section' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update section" }, { status: 500 });
   }
 }
 
 export async function DELETE(request: NextRequest, { params }: Params) {
   try {
     const { id } = await params;
+
+    const existing = await getSection(id);
+    if (!existing) {
+      return NextResponse.json({ error: "Section not found" }, { status: 404 });
+    }
+
+    if (existing.component?.name === HERO_COMPONENT_NAME) {
+      return NextResponse.json(
+        { error: "Hero section cannot be deleted." },
+        { status: 403 },
+      );
+    }
+
     await deleteSection(id);
 
     return NextResponse.json({
       success: true,
-      message: 'Section deleted successfully',
+      message: "Section deleted successfully",
     });
   } catch (error: any) {
-    console.error('DELETE /api/sections/[id] error:', error);
+    console.error("DELETE /api/sections/[id] error:", error);
 
-    return NextResponse.json(
-      { error: 'Failed to delete section' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete section" }, { status: 500 });
   }
 }

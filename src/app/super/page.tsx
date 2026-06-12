@@ -1,23 +1,18 @@
-import Link from 'next/link';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { PageHeader } from '@/components/admin/PageHeader';
-import { getSession } from '@/lib/auth';
-import { listTenants } from '@/lib/db/tenants';
-import { listThemes } from '@/lib/db/themes';
+import Link from "next/link";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { listTenants } from "@/lib/db/tenants";
+import { listThemes } from "@/lib/db/themes";
 
 export default async function SuperDashboard() {
-  const session = await getSession();
   const tenants = await listTenants();
   const themes = await listThemes();
 
   return (
     <div>
-      <PageHeader
-        title="Dashboard"
-        description="Welcome back, manage your platform"
-      />
+      <PageHeader title="Dashboard" description="Welcome back, manage your platform" />
 
       <div className="grid gap-4 md:grid-cols-3 mb-8">
         <Card className="p-6">
@@ -30,7 +25,7 @@ export default async function SuperDashboard() {
         </Card>
         <Card className="p-6">
           <div className="text-3xl font-bold text-primary">
-            {tenants.filter(t => t.status === 'active').length}
+            {tenants.filter((t) => t.status === "active").length}
           </div>
           <div className="text-sm text-gray-500 mt-1">Active Tenants</div>
         </Card>
@@ -54,9 +49,15 @@ export default async function SuperDashboard() {
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">URL</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Name
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  URL
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -66,10 +67,10 @@ export default async function SuperDashboard() {
                   <td className="px-4 py-3 text-sm text-gray-500">/{tenant.tenantId}</td>
                   <td className="px-4 py-3">
                     <Badge
-                      variant={tenant.status === 'active' ? 'default' : 'secondary'}
-                      className={tenant.status === 'archived' ? 'bg-gray-100 text-gray-600' : ''}
+                      variant={tenant.status === "active" ? "default" : "secondary"}
+                      className={tenant.status === "archived" ? "bg-gray-100 text-gray-600" : ""}
                     >
-                      {tenant.status === 'active' ? (
+                      {tenant.status === "active" ? (
                         <span className="flex items-center gap-1">
                           <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
                           Active

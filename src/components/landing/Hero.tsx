@@ -1,13 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useIsClient } from "@/lib/useIsClient";
 
 export function Hero() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useIsClient();
 
   return (
     <section className="relative overflow-hidden min-h-[90vh] flex items-center">
@@ -37,8 +34,9 @@ export function Hero() {
         <div className="text-center max-w-4xl mx-auto">
           {/* Animated badge */}
           <div
-            className={`inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/25 backdrop-blur-md mb-8 transition-all duration-700 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
+            className={`inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/25 backdrop-blur-md mb-8 transition-all duration-700 ${
+              mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
           >
             <span className="w-3 h-3 bg-green-400 rounded-full animate-ping" />
             <span className="text-white text-sm font-semibold">Gratis untuk memulai</span>
@@ -46,44 +44,55 @@ export function Hero() {
 
           {/* Main headline */}
           <h1
-            className={`text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight drop-shadow-lg transition-all duration-700 delay-100 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
+            className={`text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight drop-shadow-lg transition-all duration-700 delay-100 ${
+              mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
           >
             Halamanku
           </h1>
 
           <p
-            className={`text-2xl md:text-3xl text-white/90 mt-4 font-medium drop-shadow-sm transition-all duration-700 delay-200 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
+            className={`text-2xl md:text-3xl text-white/90 mt-4 font-medium drop-shadow-sm transition-all duration-700 delay-200 ${
+              mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
           >
             Buat Halamanmu, Ceritakan Dirimu
           </p>
 
           <p
-            className={`text-white/80 mt-6 text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-sm transition-all duration-700 delay-300 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
+            className={`text-white/80 mt-6 text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-sm transition-all duration-700 delay-300 ${
+              mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
           >
-            Solusi sederhana untuk membuat link-in-bio yang menarik.
-            Tampilkan semua tautan pentingmu dalam satu halaman yang elegan dan mudah diingat.
+            Solusi sederhana untuk membuat link-in-bio yang menarik. Tampilkan semua tautan
+            pentingmu dalam satu halaman yang elegan dan mudah diingat.
           </p>
 
           {/* CTA Buttons */}
           <div
-            className={`flex flex-col sm:flex-row gap-4 justify-center mt-10 transition-all duration-700 delay-400 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
+            className={`flex flex-col sm:flex-row gap-4 justify-center mt-10 transition-all duration-700 delay-400 ${
+              mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
           >
-            <button className="cta-button px-8 py-4 bg-white text-purple-700 rounded-xl font-bold text-lg hover:bg-yellow-300 hover:text-purple-800 shadow-xl transition-all hover:scale-105">
+            <Link
+              href="/sign-up"
+              className="cta-button px-8 py-4 bg-white text-purple-700 rounded-xl font-bold text-lg hover:bg-yellow-300 hover:text-purple-800 shadow-xl transition-all hover:scale-105"
+            >
               Mulai Gratis
-            </button>
-            <button className="cta-button px-8 py-4 border-2 border-white/50 text-white rounded-xl font-bold text-lg hover:bg-white/20 backdrop-blur transition-all hover:scale-105">
+            </Link>
+            <Link
+              href="#contoh-halaman"
+              className="cta-button px-8 py-4 border-2 border-white/50 text-white rounded-xl font-bold text-lg hover:bg-white/20 backdrop-blur transition-all hover:scale-105"
+            >
               Lihat Contoh
-            </button>
+            </Link>
           </div>
 
           {/* Animated stats */}
           <div
-            className={`mt-20 flex items-center justify-center gap-4 md:gap-12 transition-all duration-700 delay-500 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
+            className={`mt-20 flex items-center justify-center gap-4 md:gap-12 transition-all duration-700 delay-500 ${
+              mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
           >
             {[
               { value: "3+", label: "Tenant Aktif", bg: "bg-yellow-400/30" },
@@ -104,8 +113,9 @@ export function Hero() {
 
           {/* Phone mockup preview */}
           <div
-            className={`mt-16 flex justify-center transition-all duration-700 delay-600 ${mounted ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
-              }`}
+            className={`mt-16 flex justify-center transition-all duration-700 delay-600 ${
+              mounted ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
+            }`}
           >
             <div className="phone-mockup w-70 md:w-[320px] animate-float shadow-2xl">
               <div className="phone-screen p-6">

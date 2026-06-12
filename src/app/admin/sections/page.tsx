@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { PageHeader } from '@/components/admin/PageHeader';
-import { DraggableSections } from '@/components/admin/DraggableSections';
-import { getSession } from '@/lib/auth';
-import { listSections } from '@/lib/db/sections';
+import Link from "next/link";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { DraggableSections } from "@/components/admin/DraggableSections";
+import { getSession } from "@/lib/auth";
+import { listSections } from "@/lib/db/sections";
 
 export default async function AdminSectionsPage() {
   const session = await getSession();
@@ -31,10 +31,7 @@ export default async function AdminSectionsPage() {
           </Link>
         </Card>
       ) : (
-        <DraggableSections
-          initialSections={sections}
-          tenantId={tenantId || ''}
-        />
+        <DraggableSections initialSections={sections} tenantId={tenantId || ""} />
       )}
     </div>
   );

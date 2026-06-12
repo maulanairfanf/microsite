@@ -18,7 +18,8 @@ export function Button({
     secondary: "bg-white text-violet-700 border-2 border-violet-200 hover:bg-violet-50",
     outline: "border-2 border-current text-violet-700 hover:bg-violet-50",
     ghost: "text-violet-700 hover:bg-violet-50",
-    colorful: "bg-gradient-to-r from-violet-500 via-pink-500 to-orange-500 text-white hover:shadow-xl hover:scale-105 transition-all",
+    colorful:
+      "bg-gradient-to-r from-violet-500 via-pink-500 to-orange-500 text-white hover:shadow-xl hover:scale-105 transition-all",
   };
 
   const sizes = {
@@ -33,7 +34,7 @@ export function Button({
         "inline-flex items-center justify-center rounded-xl font-semibold transition-all",
         variants[variant],
         sizes[size],
-        className
+        className,
       )}
       {...props}
     >
@@ -55,21 +56,11 @@ export function SectionHeader({
 }) {
   return (
     <div className={cn("mb-12", centered && "text-center")}>
-      <h2
-        className={cn(
-          "text-3xl md:text-4xl font-bold",
-          light ? "text-white" : "text-gray-900"
-        )}
-      >
+      <h2 className={cn("text-3xl md:text-4xl font-bold", light ? "text-white" : "text-gray-900")}>
         {title}
       </h2>
       {subtitle && (
-        <p
-          className={cn(
-            "mt-4 text-lg",
-            light ? "text-purple-200" : "text-gray-600"
-          )}
-        >
+        <p className={cn("mt-4 text-lg", light ? "text-purple-200" : "text-gray-600")}>
           {subtitle}
         </p>
       )}
@@ -93,7 +84,7 @@ export function Card({
       className={cn(
         "bg-white rounded-2xl border border-gray-100 shadow-sm p-6",
         hover && "hover:shadow-lg hover:-translate-y-1 transition-all duration-300",
-        className
+        className,
       )}
       style={style}
     >
@@ -117,12 +108,7 @@ export function FeatureIcon({
   };
 
   return (
-    <div
-      className={cn(
-        "w-14 h-14 rounded-xl flex items-center justify-center",
-        colors[color]
-      )}
-    >
+    <div className={cn("w-14 h-14 rounded-xl flex items-center justify-center", colors[color])}>
       {children}
     </div>
   );

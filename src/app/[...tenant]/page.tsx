@@ -65,11 +65,14 @@ export default async function TenantPage({
               ? section.component.name.toLowerCase().replace(/\s+/g, "_")
               : section.component;
             return (
-              <ComponentRenderer key={section.id ?? index} component={{
-                id: section.id,
-                type: componentType,
-                ...(section.configJson ? JSON.parse(section.configJson) : {})
-              }} />
+              <ComponentRenderer
+                key={section.id ?? index}
+                component={{
+                  id: section.id,
+                  type: componentType,
+                  ...(section.configJson ? JSON.parse(section.configJson) : {}),
+                }}
+              />
             );
           })}
         </div>

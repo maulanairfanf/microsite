@@ -1,6 +1,6 @@
-import { cookies } from 'next/headers';
+import { cookies } from "next/headers";
 
-export type Role = 'super_admin' | 'tenant_main_admin' | 'tenant_admin';
+export type Role = "super_admin" | "tenant_main_admin" | "tenant_admin";
 
 export interface Session {
   userId: string;
@@ -15,7 +15,7 @@ export interface Session {
 
 export async function getSession(): Promise<Session | null> {
   const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get('session');
+  const sessionCookie = cookieStore.get("session");
   if (!sessionCookie) return null;
 
   try {
@@ -27,26 +27,26 @@ export async function getSession(): Promise<Session | null> {
 
 export async function setSession(session: Session) {
   const cookieStore = await cookies();
-  cookieStore.set('session', JSON.stringify(session), {
+  cookieStore.set("session", JSON.stringify(session), {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
     maxAge: 60 * 60 * 24,
-    path: '/',
+    path: "/",
   });
 }
 
 export async function clearSession() {
   const cookieStore = await cookies();
-  cookieStore.delete('session');
+  cookieStore.delete("session");
 }
 
-export function isAuthenticated(session: Session | null, requiredRole: Role | 'any'): boolean {
+export function isAuthenticated(session: Session | null, requiredRole: Role | "any"): boolean {
   if (!session) return false;
-  if (requiredRole === 'any') return true;
+  if (requiredRole === "any") return true;
   return session.role === requiredRole;
 }
 
 export function canManageUsers(role: Role): boolean {
-  return role === 'tenant_main_admin' || role === 'super_admin';
+  return role === "tenant_main_admin" || role === "super_admin";
 }

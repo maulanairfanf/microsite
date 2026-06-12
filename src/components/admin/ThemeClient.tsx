@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useCallback, useTransition, useRef, useEffect } from "react";
-import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemePreview, ThemePreviewSkeleton } from "@/components/admin/ThemePreview";
+import { ThemePreview, ThemePreviewSkeleton } from "@/components/admin/ThemePreviewCard";
+import { ThemePreviewFrame } from "@/components/admin/ThemePreviewFrame";
 import { Theme } from "@/types/components";
 import { setTenantTheme } from "@/app/admin/theme/actions";
 
@@ -59,7 +59,7 @@ export function ThemeClient({ themes, currentThemeId, tenantId, tenantSlug }: Th
     };
   }, []);
 
-  const iframeSrc = `/${tenantSlug}${previewThemeId ? `?preview=${previewThemeId}` : ''}`;
+  const iframeSrc = `/${tenantSlug}${previewThemeId ? `?preview=${previewThemeId}` : ""}`;
 
   return (
     <div className="flex gap-6 h-[calc(100vh-150px)]">
@@ -85,38 +85,25 @@ export function ThemeClient({ themes, currentThemeId, tenantId, tenantSlug }: Th
       </div>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">
-            Preview
-          </h3>
-          <div className="flex gap-2">
-            {previewThemeId !== currentThemeId && !isDebouncing && (
-              <>
-                <Button variant="outline" size="sm" onClick={handleResetPreview}>
-                  Cancel
-                </Button>
-                <Button size="sm" onClick={handleApplyTheme}>
-                  Apply Theme
-                </Button>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="flex-1 border border-gray-200 rounded-lg overflow-hidden bg-gray-100">
-          {isDebouncing ? (
-            <div className="w-full h-full flex items-center justify-center">
-              <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
-            </div>
-          ) : (
-            <iframe
-              key={iframeKey}
-              src={iframeSrc}
-              className="w-full h-full border-0"
-              title="Theme Preview"
-            />
+        <div className="mb-3 flex items-center justify-end gap-2">
+          {previewThemeId !== currentThemeId && !isDebouncing && (
+            <>
+              <Button variant="outline" size="sm" onClick={handleResetPreview}>
+                Cancel
+              </Button>
+              <Button size="sm" onClick={handleApplyTheme}>
+                Apply Theme
+              </Button>
+            </>
           )}
         </div>
+
+        <ThemePreviewFrame
+          iframeUrl={iframeSrc}
+          iframeKey={iframeKey}
+          isLoading={isDebouncing}
+          title="Preview"
+        />
       </div>
     </div>
   );

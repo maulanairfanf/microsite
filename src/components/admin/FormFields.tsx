@@ -20,14 +20,9 @@ function LabeledInput({
 }: React.InputHTMLAttributes<HTMLInputElement> & { label?: string; error?: string }) {
   return (
     <div className="flex flex-col gap-1.5">
-      {label && (
-        <label className="text-sm font-semibold text-foreground">{label}</label>
-      )}
+      {label && <label className="text-sm font-semibold text-foreground">{label}</label>}
       <Input
-        className={cn(
-          error && "ring-destructive ring-[2px]",
-          className
-        )}
+        className={cn(error && "ring-destructive ring-[2px]", className)}
         aria-invalid={error ? "true" : undefined}
         {...props}
       />
@@ -44,14 +39,9 @@ function LabeledTextarea({
 }: React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label?: string; error?: string }) {
   return (
     <div className="flex flex-col gap-1.5">
-      {label && (
-        <label className="text-sm font-semibold text-foreground">{label}</label>
-      )}
+      {label && <label className="text-sm font-semibold text-foreground">{label}</label>}
       <Textarea
-        className={cn(
-          error && "ring-destructive ring-[2px]",
-          className
-        )}
+        className={cn(error && "ring-destructive ring-[2px]", className)}
         aria-invalid={error ? "true" : undefined}
         {...props}
       />
@@ -85,9 +75,7 @@ function LabeledSelect({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      {label && (
-        <label className="text-sm font-semibold text-foreground">{label}</label>
-      )}
+      {label && <label className="text-sm font-semibold text-foreground">{label}</label>}
       <Select
         name={name}
         value={value}
@@ -114,8 +102,4 @@ function LabeledSelect({
   );
 }
 
-export {
-  LabeledInput as Input,
-  LabeledTextarea as Textarea,
-  LabeledSelect as Select,
-};
+export { LabeledInput as Input, LabeledTextarea as Textarea, LabeledSelect as Select };

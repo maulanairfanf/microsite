@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useState, useCallback } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/admin/FormFields';
-import { Textarea } from '@/components/admin/FormFields';
-import { Select } from '@/components/admin/FormFields';
-import { clientApi } from '@/lib/client-api';
+import { useState, useCallback } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/admin/FormFields";
+import { Textarea } from "@/components/admin/FormFields";
+import { Select } from "@/components/admin/FormFields";
+import { clientApi } from "@/lib/client-api";
 
 interface ConfigField {
   name: string;
   label: string;
-  type: 'text' | 'number' | 'textarea' | 'array' | 'object';
+  type: "text" | "number" | "textarea" | "array" | "object";
   placeholder?: string;
   itemType?: string;
   itemFields?: ConfigField[];
@@ -35,25 +35,30 @@ function getEmptyItem(itemFields?: ConfigField[]): Record<string, any> {
   if (!itemFields) return {};
   const item: Record<string, any> = {};
   itemFields.forEach((f) => {
-    if (f.type === 'array') {
+    if (f.type === "array") {
       item[f.name] = [];
-    } else if (f.type === 'object') {
+    } else if (f.type === "object") {
       item[f.name] = getEmptyItem(f.itemFields);
     } else {
-      item[f.name] = '';
+      item[f.name] = "";
     }
   });
   return item;
 }
 
-export function TenantSectionForm({ tenantId, section, components, isEdit }: TenantSectionFormProps) {
+export function TenantSectionForm({
+  tenantId,
+  section,
+  components,
+  isEdit,
+}: TenantSectionFormProps) {
   const router = useRouter();
-  const [selectedComponentId, setSelectedComponentId] = useState(section?.componentId || '');
+  const [selectedComponentId, setSelectedComponentId] = useState(section?.componentId || "");
   const [config, setConfig] = useState<Record<string, any>>(() => {
     if (section?.configJson) {
       try {
         const parsed = JSON.parse(section.configJson);
-        if (parsed && typeof parsed === 'object') {
+        if (parsed && typeof parsed === "object") {
           return parsed;
         }
       } catch {}
@@ -121,28 +126,28 @@ export function TenantSectionForm({ tenantId, section, components, isEdit }: Ten
   async function handleSubmit(formData: FormData) {
     setLoading(true);
 
-    const order = parseInt(formData.get('order') as string) || 0;
+    const order = parseInt(formData.get("order") as string) || 0;
 
     try {
       if (isEdit && section?.id) {
         await clientApi.put(`/api/sections/${section.id}`, {
           componentId: selectedComponentId || null,
           order,
-          configJson: JSON.stringify(config)
+          configJson: JSON.stringify(config),
         });
       } else {
-        await clientApi.post('/api/sections', {
+        await clientApi.post("/api/sections", {
           tenantId,
           componentId: selectedComponentId || null,
           order,
-          configJson: JSON.stringify(config)
+          configJson: JSON.stringify(config),
         });
       }
 
-      router.push('/admin/sections');
+      router.push("/admin/sections");
       router.refresh();
     } catch (err) {
-      console.error('Failed to save section:', err);
+      console.error("Failed to save section:", err);
     } finally {
       setLoading(false);
     }
@@ -159,11 +164,11 @@ export function TenantSectionForm({ tenantId, section, components, isEdit }: Ten
   function renderField(field: ConfigField, pathPrefix: string[] = []): React.ReactNode {
     const value = getNestedValue(config, [...pathPrefix, field.name]);
 
-    if (field.type === 'array') {
+    if (field.type === "array") {
       const items: any[] = Array.isArray(value) ? value : [];
       const fieldPath = [...pathPrefix, field.name];
       return (
-        <div key={fieldPath.join('.')} className="space-y-2">
+        <div key={fieldPath.join(".")} className="space-y-2">
           <div className="flex items-center justify-between">
             <label className="text-sm font-medium text-foreground">{field.label}</label>
             <Button
@@ -186,25 +191,53 @@ export function TenantSectionForm({ tenantId, section, components, isEdit }: Ten
               </button>
               {field.itemFields?.map((subField) => (
                 <div key={subField.name} className="space-y-1">
-                  <label className="text-xs font-medium text-muted-foreground">{subField.label}</label>
-                  {subField.type === 'array' || subField.type === 'object' ? (
-                    renderField(subField, fieldPath.length > 0 ? [...pathPrefix, field.name, String(index)] : [...pathPrefix, field.name, String(index)])
-                  ) : subField.type === 'textarea' ? (
+                  <label className="text-xs font-medium text-muted-foreground">
+                    {subField.label}
+                  </label>
+                  {subField.type === "array" || subField.type === "object" ? (
+                    renderField(
+                      subField,
+                      fieldPath.length > 0
+                        ? [...pathPrefix, field.name, String(index)]
+                        : [...pathPrefix, field.name, String(index)],
+                    )
+                  ) : subField.type === "textarea" ? (
                     <Textarea
-                      value={getNestedValue(config, [...pathPrefix, field.name, String(index), subField.name]) ?? ''}
-                      onChange={(e) => updateArrayItem([...pathPrefix, field.name], index, subField.name, e.target.value)}
-                      placeholder={subField.placeholder || subField.label}
-                    />
-                  ) : (
-                    <Input
-                      type={subField.type === 'number' ? 'number' : 'text'}
-                      value={getNestedValue(config, [...pathPrefix, field.name, String(index), subField.name]) ?? ''}
+                      value={
+                        getNestedValue(config, [
+                          ...pathPrefix,
+                          field.name,
+                          String(index),
+                          subField.name,
+                        ]) ?? ""
+                      }
                       onChange={(e) =>
                         updateArrayItem(
                           [...pathPrefix, field.name],
                           index,
                           subField.name,
-                          subField.type === 'number' ? Number(e.target.value) : e.target.value
+                          e.target.value,
+                        )
+                      }
+                      placeholder={subField.placeholder || subField.label}
+                    />
+                  ) : (
+                    <Input
+                      type={subField.type === "number" ? "number" : "text"}
+                      value={
+                        getNestedValue(config, [
+                          ...pathPrefix,
+                          field.name,
+                          String(index),
+                          subField.name,
+                        ]) ?? ""
+                      }
+                      onChange={(e) =>
+                        updateArrayItem(
+                          [...pathPrefix, field.name],
+                          index,
+                          subField.name,
+                          subField.type === "number" ? Number(e.target.value) : e.target.value,
                         )
                       }
                       placeholder={subField.placeholder || subField.label}
@@ -215,42 +248,26 @@ export function TenantSectionForm({ tenantId, section, components, isEdit }: Ten
             </div>
           ))}
           {items.length === 0 && (
-            <p className="text-sm text-muted-foreground italic">No items yet. Click "+ Add" to add one.</p>
+            <p className="text-sm text-muted-foreground italic">
+              No items yet. Click "+ Add" to add one.
+            </p>
           )}
         </div>
       );
     }
 
-    if (field.type === 'object') {
-      const obj: Record<string, any> = value && typeof value === 'object' ? value : {};
+    if (field.type === "object") {
+      const obj: Record<string, any> = value && typeof value === "object" ? value : {};
       const fieldPath = [...pathPrefix, field.name];
       return (
-        <div key={fieldPath.join('.')} className="space-y-2 border border-border rounded-md p-3">
+        <div key={fieldPath.join(".")} className="space-y-2 border border-border rounded-md p-3">
           <label className="text-sm font-medium text-foreground">{field.label}</label>
           {field.itemFields?.map((subField) => (
             <div key={subField.name} className="space-y-1">
               <label className="text-xs font-medium text-muted-foreground">{subField.label}</label>
-              {subField.type === 'textarea' ? (
+              {subField.type === "textarea" ? (
                 <Textarea
-                  value={obj[subField.name] ?? ''}
-                  onChange={(e) =>
-                    setConfig((prev) => {
-                      const newConfig = { ...prev };
-                      let current: any = newConfig;
-                      for (let i = 0; i < pathPrefix.length; i++) {
-                        current[pathPrefix[i]] = { ...(current[pathPrefix[i]] || {}) };
-                        current = current[pathPrefix[i]];
-                      }
-                      current[field.name] = { ...(current[field.name] || {}), [subField.name]: e.target.value };
-                      return newConfig;
-                    })
-                  }
-                  placeholder={subField.placeholder || subField.label}
-                />
-              ) : (
-                <Input
-                  type={subField.type === 'number' ? 'number' : 'text'}
-                  value={obj[subField.name] ?? ''}
+                  value={obj[subField.name] ?? ""}
                   onChange={(e) =>
                     setConfig((prev) => {
                       const newConfig = { ...prev };
@@ -261,7 +278,29 @@ export function TenantSectionForm({ tenantId, section, components, isEdit }: Ten
                       }
                       current[field.name] = {
                         ...(current[field.name] || {}),
-                        [subField.name]: subField.type === 'number' ? Number(e.target.value) : e.target.value
+                        [subField.name]: e.target.value,
+                      };
+                      return newConfig;
+                    })
+                  }
+                  placeholder={subField.placeholder || subField.label}
+                />
+              ) : (
+                <Input
+                  type={subField.type === "number" ? "number" : "text"}
+                  value={obj[subField.name] ?? ""}
+                  onChange={(e) =>
+                    setConfig((prev) => {
+                      const newConfig = { ...prev };
+                      let current: any = newConfig;
+                      for (let i = 0; i < pathPrefix.length; i++) {
+                        current[pathPrefix[i]] = { ...(current[pathPrefix[i]] || {}) };
+                        current = current[pathPrefix[i]];
+                      }
+                      current[field.name] = {
+                        ...(current[field.name] || {}),
+                        [subField.name]:
+                          subField.type === "number" ? Number(e.target.value) : e.target.value,
                       };
                       return newConfig;
                     })
@@ -275,12 +314,12 @@ export function TenantSectionForm({ tenantId, section, components, isEdit }: Ten
       );
     }
 
-    if (field.type === 'textarea') {
+    if (field.type === "textarea") {
       return (
         <div key={field.name}>
           <label className="text-sm font-medium text-foreground">{field.label}</label>
           <Textarea
-            value={value ?? ''}
+            value={value ?? ""}
             onChange={(e) => updateConfig(field.name, e.target.value)}
             placeholder={field.placeholder}
             className="mt-1"
@@ -293,10 +332,13 @@ export function TenantSectionForm({ tenantId, section, components, isEdit }: Ten
       <div key={field.name}>
         <label className="text-sm font-medium text-foreground">{field.label}</label>
         <Input
-          type={field.type === 'number' ? 'number' : 'text'}
-          value={value ?? ''}
+          type={field.type === "number" ? "number" : "text"}
+          value={value ?? ""}
           onChange={(e) =>
-            updateConfig(field.name, field.type === 'number' ? Number(e.target.value) : e.target.value)
+            updateConfig(
+              field.name,
+              field.type === "number" ? Number(e.target.value) : e.target.value,
+            )
           }
           placeholder={field.placeholder}
           className="mt-1"
@@ -333,9 +375,9 @@ export function TenantSectionForm({ tenantId, section, components, isEdit }: Ten
         )}
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex gap-3 px-2">
         <Button type="submit" disabled={loading}>
-          {loading ? 'Saving...' : isEdit ? 'Save Changes' : 'Create Section'}
+          {loading ? "Saving..." : isEdit ? "Save Changes" : "Create Section"}
         </Button>
         <Link href="/admin/sections">
           <Button type="button" variant="secondary">

@@ -1,43 +1,43 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/admin/FormFields';
-import { clientApi } from '@/lib/client-api';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/admin/FormFields";
+import { clientApi } from "@/lib/client-api";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
       const data = await clientApi.post<{
         success: boolean;
         session: {
-          role: 'super_admin' | 'tenant_main_admin' | 'tenant_admin';
+          role: "super_admin" | "tenant_main_admin" | "tenant_admin";
           tenantId?: string;
         };
-      }>('/api/auth/login', { email, password });
+      }>("/api/auth/login", { email, password });
 
       if (data.success) {
-        if (data.session.role === 'super_admin') {
-          router.push('/super');
+        if (data.session.role === "super_admin") {
+          router.push("/super");
         } else {
-          router.push('/admin');
+          router.push("/admin");
         }
         router.refresh();
       }
     } catch (err: any) {
-      setError(err.message || 'Something went wrong');
+      setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -70,14 +70,10 @@ export default function LoginPage() {
             required
           />
 
-          {error && (
-            <div className="p-3 bg-red-50 text-red-600 text-sm rounded-md">
-              {error}
-            </div>
-          )}
+          {error && <div className="p-3 bg-red-50 text-red-600 text-sm rounded-md">{error}</div>}
 
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? "Signing in..." : "Sign In"}
           </Button>
         </form>
 

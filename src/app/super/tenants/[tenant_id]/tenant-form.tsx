@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Input, Select } from "@/components/admin/FormFields";
@@ -28,10 +28,10 @@ export function TenantForm({ tenant, themes, isEdit }: TenantFormProps) {
     if (isEdit && tenant?.id) {
       await clientApi.put(`/api/tenants/${tenant.id}`, { name, themeId: themeId || null });
     } else {
-      await clientApi.post('/api/tenants', { tenantId, name, themeId: themeId || null });
+      await clientApi.post("/api/tenants", { tenantId, name, themeId: themeId || null });
     }
 
-    router.push('/super/tenants');
+    router.push("/super/tenants");
     router.refresh();
   }
 
@@ -74,10 +74,8 @@ export function TenantForm({ tenant, themes, isEdit }: TenantFormProps) {
         )}
       </div>
 
-      <div className="flex gap-3 mt-6">
-        <Button type="submit">
-          {isEdit ? "Save Changes" : "Create Tenant"}
-        </Button>
+      <div className="flex gap-3 mt-6 ">
+        <Button type="submit">{isEdit ? "Save Changes" : "Create Tenant"}</Button>
         <Link href="/super/tenants">
           <Button type="button" variant="secondary">
             Cancel

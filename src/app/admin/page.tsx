@@ -1,19 +1,17 @@
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { PageHeader } from '@/components/admin/PageHeader';
-import { getSession } from '@/lib/auth';
-import { getTenantByTenantId } from '@/lib/db/tenants';
-import { listThemes } from '@/lib/db/themes';
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { getSession } from "@/lib/auth";
+import { getTenantByTenantId } from "@/lib/db/tenants";
+import { listThemes } from "@/lib/db/themes";
 
 export default async function AdminDashboard() {
   const session = await getSession();
   const tenant = session?.tenantId ? await getTenantByTenantId(session.tenantId) : null;
   const themes = await listThemes();
 
-  const currentTheme = tenant?.themeId
-    ? themes.find((t) => t.id === tenant.themeId)
-    : null;
+  const currentTheme = tenant?.themeId ? themes.find((t) => t.id === tenant.themeId) : null;
 
   return (
     <div>
@@ -28,7 +26,9 @@ export default async function AdminDashboard() {
       />
 
       <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Your Info</h3>
+        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">
+          Your Info
+        </h3>
         <div className="grid gap-4 md:grid-cols-3">
           <div>
             <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Name</div>
@@ -40,11 +40,8 @@ export default async function AdminDashboard() {
           </div>
           <div>
             <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Theme</div>
-            <div className="font-medium text-gray-900">{currentTheme?.name || 'No theme'}</div>
-            <Link
-              href="/admin/theme"
-              className="text-xs text-purple-600 hover:underline"
-            >
+            <div className="font-medium text-gray-900">{currentTheme?.name || "No theme"}</div>
+            <Link href="/admin/theme" className="text-xs text-purple-600 hover:underline">
               Change theme →
             </Link>
           </div>
@@ -52,7 +49,9 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="mt-6 bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Quick Actions</h3>
+        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">
+          Quick Actions
+        </h3>
         <div className="grid gap-4 md:grid-cols-3">
           <Link href="/admin/sections">
             <Card className="p-4 hover:shadow-md transition-shadow cursor-pointer">

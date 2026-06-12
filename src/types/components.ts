@@ -14,6 +14,7 @@ export interface HeroComponent {
 }
 
 export interface LinkItem {
+  id?: string;
   text: string;
   url: string;
   icon?: string;
@@ -134,6 +135,7 @@ export interface ThemeContainer {
 export interface ThemeCard {
   background: string;
   hoverBackground?: string;
+  hoverOpacity?: number;
   text?: string;
   radius?: string;
   border?: string;

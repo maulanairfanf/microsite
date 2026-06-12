@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { PageHeader } from '@/components/admin/PageHeader';
-import { UsersTable } from '@/components/admin/UsersTable';
-import { AddUserDialog } from '@/components/admin/AddUserDialog';
-import { clientApi } from '@/lib/client-api';
+import { useState } from "react";
+import { PageHeader } from "@/components/admin/PageHeader";
+import { UsersTable } from "@/components/admin/UsersTable";
+import { AddUserDialog } from "@/components/admin/AddUserDialog";
+import { clientApi } from "@/lib/client-api";
 
 interface User {
   id: string;
@@ -20,7 +20,11 @@ interface UserPageClientProps {
   currentUserRole: string;
 }
 
-export function UserPageClient({ initialUsers, currentUserId, currentUserRole }: UserPageClientProps) {
+export function UserPageClient({
+  initialUsers,
+  currentUserId,
+  currentUserRole,
+}: UserPageClientProps) {
   const [users, setUsers] = useState(initialUsers);
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -28,10 +32,10 @@ export function UserPageClient({ initialUsers, currentUserId, currentUserRole }:
   async function handleRefresh() {
     setLoading(true);
     try {
-      const data = await clientApi.get<{ data: User[] }>('/api/users');
+      const data = await clientApi.get<{ data: User[] }>("/api/users");
       setUsers(data.data);
     } catch (err) {
-      console.error('Failed to fetch users:', err);
+      console.error("Failed to fetch users:", err);
     } finally {
       setLoading(false);
     }
@@ -39,10 +43,7 @@ export function UserPageClient({ initialUsers, currentUserId, currentUserRole }:
 
   return (
     <div>
-      <PageHeader
-        title="Team Members"
-        description="Manage your team and access permissions"
-      />
+      <PageHeader title="Team Members" description="Manage your team and access permissions" />
 
       <UsersTable
         users={users}

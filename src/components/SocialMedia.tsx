@@ -1,5 +1,5 @@
-import { FaFacebook, FaInstagram, FaTiktok, FaSpotify, FaYoutube, FaApple } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
+import { FaFacebook, FaInstagram, FaTiktok, FaSpotify, FaYoutube, FaApple } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 interface SocialLink {
   name: string;
@@ -9,7 +9,6 @@ interface SocialLink {
 
 interface SocialMediaProps {
   links: SocialLink[];
-
 }
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -23,7 +22,6 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 export function SocialMedia({ links }: SocialMediaProps) {
-
   return (
     <section className="w-full py-4 px-6">
       <div className="flex justify-center gap-4">
@@ -44,7 +42,6 @@ export function SocialMedia({ links }: SocialMediaProps) {
           );
         })}
       </div>
-
     </section>
   );
 }

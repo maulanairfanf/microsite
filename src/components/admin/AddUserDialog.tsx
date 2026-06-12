@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/admin/FormFields';
-import { clientApi } from '@/lib/client-api';
+import { useState } from "react";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/admin/FormFields";
+import { clientApi } from "@/lib/client-api";
 
 interface AddUserDialogProps {
   open: boolean;
@@ -14,32 +14,32 @@ interface AddUserDialogProps {
 
 export function AddUserDialog({ open, onClose, onSuccess }: AddUserDialogProps) {
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   if (!open) return null;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      await clientApi.post('/api/users', {
+      await clientApi.post("/api/users", {
         name,
         email,
         password,
-        role: 'tenant_admin',
+        role: "tenant_admin",
       });
-      setName('');
-      setEmail('');
-      setPassword('');
+      setName("");
+      setEmail("");
+      setPassword("");
       onSuccess();
       onClose();
     } catch (err: any) {
-      setError(err.message || 'Failed to create user');
+      setError(err.message || "Failed to create user");
     } finally {
       setLoading(false);
     }
@@ -57,12 +57,7 @@ export function AddUserDialog({ open, onClose, onSuccess }: AddUserDialogProps) 
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <Input
-            label="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+          <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} required />
 
           <Input
             label="Email"
@@ -80,18 +75,14 @@ export function AddUserDialog({ open, onClose, onSuccess }: AddUserDialogProps) 
             required
           />
 
-          {error && (
-            <div className="p-3 bg-red-50 text-red-600 text-sm rounded-md">
-              {error}
-            </div>
-          )}
+          {error && <div className="p-3 bg-red-50 text-red-600 text-sm rounded-md">{error}</div>}
 
           <div className="flex justify-end gap-3">
             <Button type="button" variant="secondary" onClick={onClose}>
               Cancel
             </Button>
             <Button type="submit" disabled={loading}>
-              {loading ? 'Creating...' : 'Create User'}
+              {loading ? "Creating..." : "Create User"}
             </Button>
           </div>
         </form>
