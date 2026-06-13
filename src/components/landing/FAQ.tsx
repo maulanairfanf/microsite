@@ -4,44 +4,44 @@ import { useState } from "react";
 
 const faqs = [
   {
-    question: "Apa itu Halamanku?",
+    question: "What is Halamanku?",
     answer:
-      "Halamanku adalah platform untuk membuat link-in-bio seperti Linktree. Kamu bisa membuat halaman personal yang menampilkan semua tautan pentingmu dalam satu tempat.",
+      "Halamanku is a link-in-bio platform like Linktree. You can build a personal page that shows all your important links in one place.",
     icon: "🌐",
     gradient: "from-violet-500 to-purple-600",
   },
   {
-    question: "Bagaimana cara memulai?",
+    question: "How do I get started?",
     answer:
-      "Cukup daftar dengan email, pilih tema yang kamu suka, dan tambahkan tautanmu. Dalam hitungan menit, halamanmu sudah siap untuk dibagikan.",
+      "Just sign up with your email, pick a theme you like, and add your links. In minutes, your page is ready to share.",
     icon: "🚀",
     gradient: "from-pink-500 to-rose-600",
   },
   {
-    question: "Apakah gratis?",
+    question: "Is it free?",
     answer:
-      "Ya! Paket gratis kami sudah cukup untuk memulai. Kamu bisa membuat 1 halaman dengan 5 link dan 3 pilihan tema. Jika butuh lebih, upgrade ke paket Premium.",
+      "Yes! Our free plan is enough to get started. You can create 1 page with 5 links and 3 themes. If you need more, upgrade to the Premium plan.",
     icon: "💚",
     gradient: "from-green-500 to-emerald-600",
   },
   {
-    question: "Bisakah saya menggunakan domain sendiri?",
+    question: "Can I use a custom domain?",
     answer:
-      "Paket Premium memungkinkan kamu menggunakan domain kustom seperti namamu.com untuk halamanmu.",
+      "The Premium plan lets you use a custom domain like yourname.com for your page.",
     icon: "🔗",
     gradient: "from-cyan-500 to-blue-600",
   },
   {
-    question: "Bagaimana dengan analytics?",
+    question: "What about analytics?",
     answer:
-      "Kami menyediakan analytics sederhana untuk semua paket. Kamu bisa melihat berapa banyak visitor halamanmu dan tautan mana yang paling banyak diklik.",
+      "We provide simple analytics on every plan. See how many visitors come to your page and which links get the most clicks.",
     icon: "📊",
     gradient: "from-amber-500 to-orange-600",
   },
   {
-    question: "Bisakah saya mengubah tampilan halaman?",
+    question: "Can I customize the look?",
     answer:
-      "Tentu! Kamu bisa mengubah warna, font, dan mengatur tata letak sesuai seleramu. Paket Premium memberikan akses ke lebih banyak tema premium.",
+      "Of course! You can change colors, fonts, and arrange the layout to match your style. Premium plans unlock even more premium themes.",
     icon: "🎨",
     gradient: "from-pink-500 to-violet-600",
   },
@@ -51,7 +51,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section data-nav-variant="light" className="py-24 bg-white relative overflow-hidden">
       {/* Bright background decoration */}
       <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-violet-200 via-pink-200 to-rose-200 rounded-full blur-[150px] -translate-x-1/2 opacity-50" />
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-cyan-200 via-blue-200 to-violet-200 rounded-full blur-[150px] translate-x-1/2 opacity-50" />
@@ -59,16 +59,16 @@ export function FAQ() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <span className="inline-block px-5 py-2 bg-gradient-to-r from-violet-100 to-pink-100 text-purple-700 rounded-full text-sm font-bold mb-4">
-            ❓ Tanya Jawab
+            ❓ FAQ
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-            Pertanyaan yang Sering{" "}
+            Frequently Asked{" "}
             <span className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
-              Diajukan
+              Questions
             </span>
           </h2>
           <p className="mt-4 text-xl text-gray-600">
-            Jawaban untuk hal-hal yang mungkin ingin kamu tanyakan
+            Answers to the things you might want to know
           </p>
         </div>
 
@@ -143,7 +143,7 @@ export function FAQ() {
                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
               />
             </svg>
-            Hubungi Kami
+            Contact Us
           </a>
         </div>
       </div>

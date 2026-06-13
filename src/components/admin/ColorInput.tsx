@@ -32,7 +32,7 @@ function normalizeToHex(value: string): string {
   if (/^#([0-9a-fA-F]{6})$/i.test(trimmed)) return trimmed.toLowerCase();
 
   const hex3Match = trimmed.match(/^#([0-9a-fA-F]{3})$/i);
-  if (hex3Match) {
+  if (hex3Match && hex3Match[1]) {
     return (
       "#" +
       hex3Match[1]

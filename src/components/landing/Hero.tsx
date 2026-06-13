@@ -7,7 +7,7 @@ export function Hero() {
   const mounted = useIsClient();
 
   return (
-    <section className="relative overflow-hidden min-h-[90vh] flex items-center">
+    <section data-nav-variant="dark" className="relative overflow-hidden min-h-[90vh] flex items-center">
       {/* Bright gradient background */}
       <div
         className="absolute inset-0 -z-10"
@@ -39,7 +39,7 @@ export function Hero() {
             }`}
           >
             <span className="w-3 h-3 bg-green-400 rounded-full animate-ping" />
-            <span className="text-white text-sm font-semibold">Gratis untuk memulai</span>
+            <span className="text-white text-sm font-semibold">Free to start</span>
           </div>
 
           {/* Main headline */}
@@ -56,7 +56,7 @@ export function Hero() {
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            Buat Halamanmu, Ceritakan Dirimu
+            Build Your Page, Tell Your Story
           </p>
 
           <p
@@ -64,8 +64,8 @@ export function Hero() {
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            Solusi sederhana untuk membuat link-in-bio yang menarik. Tampilkan semua tautan
-            pentingmu dalam satu halaman yang elegan dan mudah diingat.
+            A simple way to create a beautiful link-in-bio. Showcase all your important links in
+            one elegant, memorable page.
           </p>
 
           {/* CTA Buttons */}
@@ -78,13 +78,13 @@ export function Hero() {
               href="/sign-up"
               className="cta-button px-8 py-4 bg-white text-purple-700 rounded-xl font-bold text-lg hover:bg-yellow-300 hover:text-purple-800 shadow-xl transition-all hover:scale-105"
             >
-              Mulai Gratis
+              Get Started Free
             </Link>
             <Link
               href="#contoh-halaman"
               className="cta-button px-8 py-4 border-2 border-white/50 text-white rounded-xl font-bold text-lg hover:bg-white/20 backdrop-blur transition-all hover:scale-105"
             >
-              Lihat Contoh
+              See Examples
             </Link>
           </div>
 
@@ -95,9 +95,9 @@ export function Hero() {
             }`}
           >
             {[
-              { value: "3+", label: "Tenant Aktif", bg: "bg-yellow-400/30" },
-              { value: "100%", label: "Gratis", bg: "bg-cyan-400/30" },
-              { value: "No Code", label: "Mudah", bg: "bg-pink-400/30" },
+              { value: "3+", label: "Active Tenants", bg: "bg-yellow-400/30" },
+              { value: "100%", label: "Free", bg: "bg-cyan-400/30" },
+              { value: "No Code", label: "Easy Setup", bg: "bg-pink-400/30" },
             ].map((stat, index) => (
               <div
                 key={index}

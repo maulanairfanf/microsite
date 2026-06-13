@@ -4,63 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useIsClient } from "@/lib/useIsClient";
-
-const SLUG_REGEX = /^[a-z0-9](?:[a-z0-9-]{1,38}[a-z0-9])?$/;
-
-function FormField({
-  id,
-  label,
-  type = "text",
-  value,
-  onChange,
-  placeholder,
-  required,
-  minLength,
-  maxLength,
-  autoComplete,
-  hint,
-  error,
-}: {
-  id: string;
-  label: string;
-  type?: string;
-  value: string;
-  onChange: (v: string) => void;
-  placeholder?: string;
-  required?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  autoComplete?: string;
-  hint?: string;
-  error?: string;
-}) {
-  return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-semibold text-white mb-1.5">
-        {label}
-      </label>
-      <input
-        id={id}
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        required={required}
-        minLength={minLength}
-        maxLength={maxLength}
-        autoComplete={autoComplete}
-        className="w-full px-4 py-3 rounded-xl bg-white/20 backdrop-blur-md border-2 border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-yellow-300 transition-all"
-      />
-      {(hint || error) && (
-        <p
-          className={`mt-1 text-xs ${error ? "text-red-200" : "text-white/70"}`}
-        >
-          {error || hint}
-        </p>
-      )}
-    </div>
-  );
-}
+import { SLUG_REGEX } from "@/lib/slug";
+import { FormField } from "@/components/auth/FormField";
+import { BrandLogo } from "@/components/auth/BrandLogo";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -163,6 +109,10 @@ export default function SignUpPage() {
             mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
+          <div className="flex justify-center mb-5">
+            <BrandLogo />
+          </div>
+
           <div className="text-center mb-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/25 backdrop-blur-md mb-4">
               <span className="w-2.5 h-2.5 bg-green-400 rounded-full animate-ping" />

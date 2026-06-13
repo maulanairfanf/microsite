@@ -6,39 +6,39 @@ import { Card } from "@/components/landing/Components";
 
 const plans = [
   {
-    name: "Gratis",
+    name: "Free",
     price: "Rp 0",
-    period: "selamanya",
-    description: "Untuk kamu yang baru memulai",
+    period: "forever",
+    description: "For those just getting started",
     icon: "🌱",
     features: [
-      { text: "1 Halaman", included: true },
-      { text: "5 Link", included: true },
-      { text: "3 Tema", included: true },
-      { text: "Basic Analytics", included: true },
-      { text: "Custom Domain", included: false },
-      { text: "Priority Support", included: false },
+      { text: "1 Microsite", included: true },
+      { text: "3 Links", included: true },
+      { text: "3 Free Themes", included: true },
+      { text: "Basic Sections", included: true },
+      { text: "Unlimited Links", included: false },
+      { text: "All Themes", included: false },
+      { text: "Premium Sections", included: false },
     ],
-    cta: "Mulai Gratis",
+    cta: "Get Started Free",
     ctaHref: "/sign-up",
     highlighted: false,
     gradient: "from-gray-400 to-gray-500",
   },
   {
     name: "Premium",
-    price: "Rp 30.000",
-    period: "per bulan",
-    description: "Untuk kamu yang serius membangun brand",
+    price: "Rp 30,000",
+    period: "per month",
+    description: "For those serious about building their brand",
     icon: "⭐",
     features: [
-      { text: "Unlimited Halaman", included: true },
-      { text: "Unlimited Link", included: true },
-      { text: "Unlimited Tema Premium", included: true },
-      { text: "Advanced Analytics", included: true },
-      { text: "Custom Domain", included: true },
+      { text: "1 Microsite", included: true },
+      { text: "Unlimited Links", included: true },
+      { text: "All Themes", included: true },
+      { text: "Premium Sections", included: true },
       { text: "Priority Support", included: true },
     ],
-    cta: "Berlangganan",
+    cta: "Subscribe",
     ctaHref: "/sign-up?plan=premium",
     highlighted: true,
     gradient: "from-violet-500 via-pink-500 to-orange-500",
@@ -49,7 +49,7 @@ export function Pricing() {
   const [hoveredPlan, setHoveredPlan] = useState<number | null>(null);
 
   return (
-    <section className="py-24 relative overflow-hidden" style={{ backgroundColor: "#faf5ff" }}>
+    <section data-nav-variant="light" className="py-24 relative overflow-hidden" style={{ backgroundColor: "#faf5ff" }}>
       {/* Bright animated background */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-violet-300 via-pink-300 to-orange-300 rounded-full blur-[150px] opacity-50 animate-float" />
@@ -59,16 +59,15 @@ export function Pricing() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <span className="inline-block px-5 py-2 bg-gradient-to-r from-violet-100 to-pink-100 text-purple-700 rounded-full text-sm font-bold mb-4">
-            💰 Harga Transparan
+            💰 Transparent Pricing
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-            Pilih{" "}
+            Pick Your{" "}
             <span className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
-              Paket
+              Plan
             </span>
-            Mu
           </h2>
-          <p className="mt-4 text-xl text-gray-600">Paket yang sesuai dengan kebutuhanmu</p>
+          <p className="mt-4 text-xl text-gray-600">A plan that fits your needs</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -95,7 +94,7 @@ export function Pricing() {
                         boxShadow: "0 10px 30px -5px rgba(124, 58, 237, 0.5)",
                       }}
                     >
-                      ⭐ Paling Populer
+                      ⭐ Most Popular
                     </div>
                   </div>
                 )}
@@ -234,7 +233,7 @@ export function Pricing() {
               d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          Semua paket sudah termasuk fitur dasar. Upgrade kapan saja.
+          All plans include the basics. Upgrade anytime.
         </p>
       </div>
     </section>

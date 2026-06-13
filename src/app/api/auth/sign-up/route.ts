@@ -5,32 +5,7 @@ import { getTenantByTenantId } from "@/lib/db/tenants";
 import { setSession, Role } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { HERO_COMPONENT_NAME, HERO_CONFIG_SCHEMA } from "@/lib/heroDefaults";
-
-const SLUG_REGEX = /^[a-z0-9](?:[a-z0-9-]{1,38}[a-z0-9])?$/;
-const RESERVED_SLUGS = new Set([
-  "admin",
-  "super",
-  "api",
-  "login",
-  "sign-up",
-  "signin",
-  "signup",
-  "logout",
-  "settings",
-  "public",
-  "static",
-  "_next",
-  "favicon.ico",
-  "robots.txt",
-  "sitemap.xml",
-  "components",
-  "themes",
-  "users",
-  "tenants",
-  "sections",
-  "auth",
-  "register",
-]);
+import { isValidSlug, isReservedSlug } from "@/lib/slug";
 
 function deriveNameFromEmail(email: string): string {
   const local = email.split("@")[0] || "User";
@@ -75,7 +50,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!SLUG_REGEX.test(normalizedTenantId)) {
+    if (!isValidSlug(normalizedTenantId)) {
       return NextResponse.json(
         {
           error:
@@ -85,7 +60,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (RESERVED_SLUGS.has(normalizedTenantId)) {
+    if (isReservedSlug(normalizedTenantId)) {
       return NextResponse.json(
         { error: "This Tenant ID is reserved. Please choose another." },
         { status: 400 },

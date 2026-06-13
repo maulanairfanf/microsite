@@ -5,8 +5,8 @@ import { useState } from "react";
 const steps = [
   {
     number: "01",
-    title: "Daftar Gratis",
-    description: "Buat akun hanya dengan email. Tidak perlu kartu kredit.",
+    title: "Sign Up Free",
+    description: "Create an account with just your email. No credit card required.",
     gradient: "from-violet-500 to-purple-600",
     bgGradient: "bg-gradient-to-br from-violet-500 to-purple-600",
     icon: (
@@ -22,8 +22,8 @@ const steps = [
   },
   {
     number: "02",
-    title: "Pilih Tema",
-    description: "Pilih dari berbagai tema yang sudah dirancang. Ubah warna sesuai seleramu.",
+    title: "Pick a Theme",
+    description: "Choose from a range of pre-designed themes. Tweak the colors to match your style.",
     gradient: "from-pink-500 to-rose-600",
     bgGradient: "bg-gradient-to-br from-pink-500 to-rose-600",
     icon: (
@@ -39,8 +39,8 @@ const steps = [
   },
   {
     number: "03",
-    title: "Tambah Link",
-    description: "Tambahkan tautan media sosial, toko online, atau apapun yang ingin kamu bagikan.",
+    title: "Add Your Links",
+    description: "Add links to your social media, online store, or anything else you want to share.",
     gradient: "from-cyan-500 to-blue-600",
     bgGradient: "bg-gradient-to-br from-cyan-500 to-blue-600",
     icon: (
@@ -56,8 +56,8 @@ const steps = [
   },
   {
     number: "04",
-    title: "Selesai!",
-    description: "Dapatkan link halamanmu dan bagikan ke mana saja.",
+    title: "Done!",
+    description: "Grab your page link and share it anywhere.",
     gradient: "from-amber-500 to-orange-600",
     bgGradient: "bg-gradient-to-br from-amber-500 to-orange-600",
     icon: (
@@ -77,7 +77,7 @@ export function HowItWorks() {
   const [activeStep, setActiveStep] = useState<number | null>(null);
 
   return (
-    <section className="py-24 relative overflow-hidden" style={{ backgroundColor: "#faf5ff" }}>
+    <section data-nav-variant="light" className="py-24 relative overflow-hidden" style={{ backgroundColor: "#faf5ff" }}>
       {/* Bright animated background */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-violet-300 to-pink-300 rounded-full blur-[120px] opacity-50 animate-float" />
@@ -87,16 +87,16 @@ export function HowItWorks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <span className="inline-block px-5 py-2 bg-gradient-to-r from-violet-100 to-pink-100 text-purple-700 rounded-full text-sm font-bold mb-4">
-            🚀 Langkah Mudah
+            🚀 Easy Steps
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-            Cara{" "}
+            How It{" "}
             <span className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
-              Kerja
+              Works
             </span>
           </h2>
           <p className="mt-4 text-xl text-gray-600">
-            Mulai dari nol sampai online dalam 4 langkah mudah
+            Go from zero to online in 4 simple steps
           </p>
         </div>
 

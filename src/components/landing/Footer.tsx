@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function CTA() {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section data-nav-variant="dark" className="py-24 relative overflow-hidden">
       {/* Bright gradient background */}
       <div
         className="absolute inset-0 -z-10"
@@ -22,14 +22,14 @@ export function CTA() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/25 backdrop-blur-md mb-6">
           <span className="w-3 h-3 bg-green-400 rounded-full animate-ping" />
-          <span className="text-white text-sm font-semibold">Gratis untuk memulai</span>
+          <span className="text-white text-sm font-semibold">Free to start</span>
         </div>
 
         <h2 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
-          Siap Membuat <span className="text-yellow-300">Halamanmu</span>?
+          Ready to Build <span className="text-yellow-300">Your Page</span>?
         </h2>
         <p className="mt-4 text-xl text-white/90">
-          Mulai sekarang, gratis. Tidak perlu kartu kredit.
+          Get started now, free. No credit card required.
         </p>
 
         <div className="mt-8 flex justify-center">
@@ -37,7 +37,7 @@ export function CTA() {
             href="/sign-up"
             className="px-10 py-4 bg-yellow-400 text-purple-700 rounded-xl font-bold text-lg hover:bg-yellow-300 shadow-xl transition-all hover:scale-105"
           >
-            Daftar Gratis
+            Sign Up Free
           </Link>
         </div>
 
@@ -121,8 +121,8 @@ export function Footer() {
               </span>
             </div>
             <p className="mt-4 text-gray-600 max-w-sm leading-relaxed">
-              Buat Halamanmu, Ceritakan Dirimu. Platform link-in-bio sederhana untuk membangun
-              kehadiran digitalmu.
+              Build Your Page, Tell Your Story. A simple link-in-bio platform to grow your digital
+              presence.
             </p>
             {/* Social links */}
             <div className="mt-6 flex items-center gap-4">
@@ -145,21 +145,21 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="font-bold text-gray-900 mb-4">Produk</h4>
+            <h4 className="font-bold text-gray-900 mb-4">Product</h4>
             <ul className="space-y-3 text-gray-600">
               <li>
                 <a href="#" className="hover:text-violet-600 transition-colors">
-                  Fitur
+                  Features
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-violet-600 transition-colors">
-                  Harga
+                  Pricing
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-violet-600 transition-colors">
-                  Contoh
+                  Examples
                 </a>
               </li>
               <li>
@@ -171,21 +171,21 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-gray-900 mb-4">Perusahaan</h4>
+            <h4 className="font-bold text-gray-900 mb-4">Company</h4>
             <ul className="space-y-3 text-gray-600">
               <li>
                 <a href="#" className="hover:text-violet-600 transition-colors">
-                  Tentang
+                  About
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-violet-600 transition-colors">
-                  Karir
+                  Careers
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-violet-600 transition-colors">
-                  Kebijakan Privasi
+                  Privacy Policy
                 </a>
               </li>
               <li>
@@ -199,8 +199,8 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-500">© {currentYear} Halamanku. Semua hak dilindungi.</p>
-          <p className="text-sm text-gray-500">Dibuat dengan 💜 untuk kreator Indonesia</p>
+          <p className="text-sm text-gray-500">© {currentYear} Halamanku. All rights reserved.</p>
+          <p className="text-sm text-gray-500">Made with 💜 for creators everywhere</p>
         </div>
       </div>
     </footer>

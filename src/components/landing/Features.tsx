@@ -15,9 +15,9 @@ const features = [
         />
       </svg>
     ),
-    title: "Mudah Digunakan",
+    title: "Easy to Use",
     description:
-      "Tidak perlu coding. Buat halaman professional dalam hitungan menit dengan antarmuka yang intuitif.",
+      "No coding required. Build a professional page in minutes with our intuitive interface.",
     gradient: "from-violet-500 to-purple-600",
     bgGradient: "bg-gradient-to-br from-violet-500 to-purple-600",
   },
@@ -32,9 +32,9 @@ const features = [
         />
       </svg>
     ),
-    title: "Branding Pribadi",
+    title: "Personal Branding",
     description:
-      "Pilih tema yang sesuai dengan kepribadianmu. Tampilkan identitasmu dengan warna dan font favorit.",
+      "Pick a theme that matches your personality. Express your identity with your favorite colors and fonts.",
     gradient: "from-pink-500 to-rose-600",
     bgGradient: "bg-gradient-to-br from-pink-500 to-rose-600",
   },
@@ -49,9 +49,9 @@ const features = [
         />
       </svg>
     ),
-    title: "Link Unlimited",
+    title: "Unlimited Links",
     description:
-      "Tambahkan sebanyak mungkin tautan. Dari media sosial hingga toko online, semua dalam satu tempat.",
+      "Add as many links as you need. From social media to your online store, all in one place.",
     gradient: "from-cyan-500 to-blue-600",
     bgGradient: "bg-gradient-to-br from-cyan-500 to-blue-600",
   },
@@ -66,9 +66,9 @@ const features = [
         />
       </svg>
     ),
-    title: "Analytics Sederhana",
+    title: "Simple Analytics",
     description:
-      "Ketahui berapa banyak yang mengakses halamanmu. Data sederhana yang membantu kamu memahami audiens.",
+      "See how many people visit your page. Clear data that helps you understand your audience.",
     gradient: "from-amber-500 to-orange-600",
     bgGradient: "bg-gradient-to-br from-amber-500 to-orange-600",
   },
@@ -78,7 +78,7 @@ export function Features() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section data-nav-variant="light" className="py-24 bg-white relative overflow-hidden">
       {/* Bright background decorations */}
       <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-violet-200 via-purple-200 to-pink-200 rounded-full blur-[150px] -translate-x-1/3 -translate-y-1/3 opacity-60" />
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-cyan-200 via-blue-200 to-violet-200 rounded-full blur-[150px] translate-x-1/3 translate-y-1/3 opacity-60" />
@@ -86,17 +86,17 @@ export function Features() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <span className="inline-block px-5 py-2 bg-gradient-to-r from-violet-100 to-pink-100 text-purple-700 rounded-full text-sm font-bold mb-4">
-            ✨ Fitur Unggulan
+            ✨ Top Features
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-            Kenapa{" "}
+            Why{" "}
             <span className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
               Halamanku
             </span>
             ?
           </h2>
           <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
-            Semua yang kamu butuhkan untuk membangun kehadiran digital yang menarik
+            Everything you need to build a standout online presence
           </p>
         </div>
 
@@ -145,7 +145,7 @@ export function Features() {
                     hoveredIndex === index ? "text-purple-600 gap-3" : "text-gray-400"
                   }`}
                 >
-                  <span>Selengkapnya</span>
+                  <span>Learn more</span>
                   <svg
                     className={`w-4 h-4 transition-transform duration-300 ${
                       hoveredIndex === index ? "translate-x-1" : ""

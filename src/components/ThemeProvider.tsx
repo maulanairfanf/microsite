@@ -1,7 +1,8 @@
 "use client";
 
-import { Theme, ThemeCard, ThemeTokens } from "@/types/components";
+import { Theme } from "@/types/components";
 import { defaultTokens } from "@/lib/themeDefaults";
+import { computeHoverBackground } from "@/lib/themeTokens";
 import { useEffect } from "react";
 
 // Google Fonts mapping
@@ -49,15 +50,15 @@ export function ThemeProvider({ theme }: ThemeProviderProps) {
       "--headerTextColor": headerText,
       "--headerFontFamily": headerFont,
       "--containerBackground": merged.theme.container.background,
-      "--containerRadius": merged.theme.container.radius || defaultTokens.container.radius!,
-      "--containerBorder": merged.theme.container.border || defaultTokens.container.border!,
-      "--containerShadow": merged.theme.container.shadow || defaultTokens.container.shadow!,
+      "--containerRadius": merged.theme.container.radius || defaultTokens.container.radius || "",
+      "--containerBorder": merged.theme.container.border || defaultTokens.container.border || "",
+      "--containerShadow": merged.theme.container.shadow || defaultTokens.container.shadow || "",
       "--cardBackground": cardBg,
       "--cardHoverBackground": cardHoverBg,
-      "--cardText": merged.theme.card.text || defaultTokens.card.text!,
-      "--cardBorder": merged.theme.card.border || defaultTokens.card.border!,
-      "--cardShadow": merged.theme.card.shadow || defaultTokens.card.shadow!,
-      "--cardRadius": merged.theme.card.radius || defaultTokens.card.radius!,
+      "--cardText": merged.theme.card.text || defaultTokens.card.text || "",
+      "--cardBorder": merged.theme.card.border || defaultTokens.card.border || "",
+      "--cardShadow": merged.theme.card.shadow || defaultTokens.card.shadow || "",
+      "--cardRadius": merged.theme.card.radius || defaultTokens.card.radius || "",
     };
 
     Object.entries(tokenMap).forEach(([k, v]) => root.style.setProperty(k, v));
@@ -82,9 +83,10 @@ function mergeThemeWithDefaults(theme: Theme): Theme {
 }
 
 function resolveFontStack(fontFamily: string) {
-  if (fontFamilies[fontFamily]) return fontFamilies[fontFamily];
+  const known = fontFamilies[fontFamily];
+  if (known) return known;
   const trimmed = fontFamily.trim();
-  if (!trimmed) return fontFamilies.Inter;
+  if (!trimmed) return fontFamilies.Inter || "'Inter', sans-serif";
   return `'${trimmed}', sans-serif`;
 }
 
@@ -127,18 +129,6 @@ function normalizeColor(value: string, opacity = 1) {
   }
 
   return trimmed;
-}
-
-function computeHoverBackground(card: ThemeCard, cardBg: string): string {
-  if (typeof card.hoverOpacity === "number") {
-    const opacity = Math.min(Math.max(card.hoverOpacity, 0), 100);
-    const colorPart = card.background || "#000000";
-    return `color-mix(in srgb, ${colorPart} ${100 - opacity}%, #000000 ${opacity}%)`;
-  }
-  if (card.hoverBackground) {
-    return normalizeColor(card.hoverBackground);
-  }
-  return cardBg;
 }
 
 function loadGoogleFontFromStack(fontStack: string) {

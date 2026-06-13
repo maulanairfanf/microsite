@@ -80,10 +80,11 @@ export function TenantSectionForm({
       const newConfig = { ...prev };
       let current: any = newConfig;
       for (let i = 0; i < arrayPath.length - 1; i++) {
-        current[arrayPath[i]] = { ...(current[arrayPath[i]] || {}) };
-        current = current[arrayPath[i]];
+        const key = arrayPath[i]!;
+        current[key] = { ...(current[key] || {}) };
+        current = current[key];
       }
-      const lastKey = arrayPath[arrayPath.length - 1];
+      const lastKey = arrayPath[arrayPath.length - 1]!;
       const items = [...(current[lastKey] || [])];
       items[index] = { ...(items[index] || {}), [field]: value };
       current[lastKey] = items;
@@ -96,10 +97,11 @@ export function TenantSectionForm({
       const newConfig = { ...prev };
       let current: any = newConfig;
       for (let i = 0; i < arrayPath.length - 1; i++) {
-        current[arrayPath[i]] = { ...(current[arrayPath[i]] || {}) };
-        current = current[arrayPath[i]];
+        const key = arrayPath[i]!;
+        current[key] = { ...(current[key] || {}) };
+        current = current[key];
       }
-      const lastKey = arrayPath[arrayPath.length - 1];
+      const lastKey = arrayPath[arrayPath.length - 1]!;
       const items = [...(current[lastKey] || [])];
       items.push(getEmptyItem(itemFields));
       current[lastKey] = items;
@@ -112,10 +114,11 @@ export function TenantSectionForm({
       const newConfig = { ...prev };
       let current: any = newConfig;
       for (let i = 0; i < arrayPath.length - 1; i++) {
-        current[arrayPath[i]] = { ...(current[arrayPath[i]] || {}) };
-        current = current[arrayPath[i]];
+        const key = arrayPath[i]!;
+        current[key] = { ...(current[key] || {}) };
+        current = current[key];
       }
-      const lastKey = arrayPath[arrayPath.length - 1];
+      const lastKey = arrayPath[arrayPath.length - 1]!;
       const items = [...(current[lastKey] || [])];
       items.splice(index, 1);
       current[lastKey] = items;
@@ -273,8 +276,9 @@ export function TenantSectionForm({
                       const newConfig = { ...prev };
                       let current: any = newConfig;
                       for (let i = 0; i < pathPrefix.length; i++) {
-                        current[pathPrefix[i]] = { ...(current[pathPrefix[i]] || {}) };
-                        current = current[pathPrefix[i]];
+                        const key = pathPrefix[i]!;
+                        current[key] = { ...(current[key] || {}) };
+                        current = current[key];
                       }
                       current[field.name] = {
                         ...(current[field.name] || {}),
@@ -294,8 +298,9 @@ export function TenantSectionForm({
                       const newConfig = { ...prev };
                       let current: any = newConfig;
                       for (let i = 0; i < pathPrefix.length; i++) {
-                        current[pathPrefix[i]] = { ...(current[pathPrefix[i]] || {}) };
-                        current = current[pathPrefix[i]];
+                        const key = pathPrefix[i]!;
+                        current[key] = { ...(current[key] || {}) };
+                        current = current[key];
                       }
                       current[field.name] = {
                         ...(current[field.name] || {}),

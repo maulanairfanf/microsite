@@ -15,18 +15,18 @@ const showcaseTenants: Array<{
   {
     tenant_id: "kerabat-jenggala",
     name: "Kerabat Jenggala",
-    description: "Kedai kopi specialty dengan berbagai pilihan kopi dan pastry",
+    description: "Specialty coffee shop with handcrafted brews and fresh pastries",
     theme: "dark",
     colors: ["#7c3aed", "#a855f7", "#ec4899"],
-    links: ["Menu Kopi", "Reservasi", "Instagram", "Shopee"],
+    links: ["Coffee Menu", "Reservations", "Instagram", "Shopee"],
   },
   {
     tenant_id: "pempek-ibu-wati",
     name: "Pempek Ibu Wati",
-    description: "Pempek rumahan autentik dengan resep turun-temurun",
+    description: "Authentic homemade pempek with a time-honored family recipe",
     theme: "light",
     colors: ["#06b6d4", "#22d3ee", "#a855f7"],
-    links: ["Produk", "Testimoni", "WhatsApp", "Tokopedia"],
+    links: ["Products", "Reviews", "WhatsApp", "Tokopedia"],
   },
 ];
 
@@ -78,7 +78,7 @@ export function Showcase() {
   const [hoveredTenant, setHoveredTenant] = useState<string | null>(null);
 
   return (
-    <section id="contoh-halaman" className="py-24 bg-white relative overflow-hidden scroll-mt-20">
+    <section id="contoh-halaman" data-nav-variant="light" className="py-24 bg-white relative overflow-hidden scroll-mt-20">
       {/* Bright background decorations */}
       <div className="absolute top-20 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-violet-200 via-pink-200 to-rose-200 rounded-full blur-[150px] translate-x-1/3 opacity-50" />
       <div className="absolute bottom-20 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-200 via-blue-200 to-violet-200 rounded-full blur-[150px] -translate-x-1/3 opacity-50" />
@@ -86,16 +86,16 @@ export function Showcase() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <span className="inline-block px-5 py-2 bg-gradient-to-r from-pink-100 to-violet-100 text-pink-700 rounded-full text-sm font-bold mb-4">
-            📱 Lihat Contoh
+            📱 See Examples
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-            Contoh{" "}
+            Sample{" "}
             <span className="bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
-              Halaman
+              Pages
             </span>
           </h2>
           <p className="mt-4 text-xl text-gray-600">
-            Lihat bagaimana Halamanku membantu mereka yang membutuhkan
+            See how Halamanku helps real businesses stand out
           </p>
         </div>
 
@@ -148,7 +148,7 @@ export function Showcase() {
                     <h3 className="text-xl font-bold text-white">{tenant.name}</h3>
                     <p className="text-white/80 text-sm mt-1">{tenant.description}</p>
                     <div className="flex items-center gap-2 mt-3 text-sm text-white/90">
-                      <span>Klik untuk melihat</span>
+                      <span>Click to view</span>
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -187,15 +187,15 @@ export function Showcase() {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">Jadilah yang berikutnya!</h3>
+              <h3 className="text-2xl font-bold text-gray-900">Be next!</h3>
               <p className="mt-3 text-gray-600">
-                Buat halamanmu sendiri dan mulai bangun kehadiran digital
+                Create your own page and start building your digital presence
               </p>
               <Link
                 href="/sign-up"
                 className="mt-6 inline-block px-8 py-3 rounded-xl font-semibold text-white transition-all hover:scale-105 bg-gradient-to-r from-violet-500 to-pink-500 shadow-lg shadow-violet-500/30"
               >
-                Daftar Gratis
+                Sign Up Free
               </Link>
             </Card>
           </div>
