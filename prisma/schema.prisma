@@ -14,10 +14,12 @@ model Tenant {
   name      String
   themeId   String?
   status    String    @default("active")
+  plan      String    @default("free")
   createdAt DateTime  @default(now())
   updatedAt DateTime?
   sections  Section[]
   users     User[]
+  subscriptions Subscription[]
 
   @@map("tenants")
 }
@@ -69,4 +71,42 @@ model User {
   tenant    Tenant?  @relation(fields: [tenantId], references: [id])
 
   @@map("users")
+}
+
+model Subscription {
+  id                  String   @id @default(cuid())
+  tenantId            String
+  plan                String
+  status              String
+  startedAt           DateTime @default(now())
+  currentPeriodStart  DateTime @default(now())
+  currentPeriodEnd    DateTime
+  canceledAt          DateTime?
+  xenditInvoiceId     String?  @unique
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime?
+  tenant              Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  payments            Payment[]
+
+  @@index([tenantId])
+  @@index([status])
+  @@map("subscriptions")
+}
+
+model Payment {
+  id             String   @id @default(cuid())
+  subscriptionId String
+  amount         Int
+  currency       String   @default("IDR")
+  status         String
+  method         String
+  transactionId  String   @unique
+  cardLast4      String?
+  cardBrand      String?
+  failureReason  String?
+  createdAt      DateTime @default(now())
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  @@index([subscriptionId])
+  @@map("payments")
 }

@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { Sidebar } from "@/components/admin/Sidebar";
 import { AdminTopBar } from "@/components/admin/AdminTopBar";
+import type { Role } from "@/lib/constants";
+import { Plan } from "@/lib/constants";
 
 interface AdminShellProps {
-  role: "super_admin" | "tenant_main_admin" | "tenant_admin";
+  role: Role;
   tenantName?: string;
+  tenantPlan?: Plan;
   userName: string;
   userEmail: string;
   isImpersonating?: boolean;
@@ -16,6 +19,7 @@ interface AdminShellProps {
 export function AdminShell({
   role,
   tenantName,
+  tenantPlan = Plan.Free,
   userName,
   userEmail,
   isImpersonating = false,
@@ -28,6 +32,7 @@ export function AdminShell({
       <Sidebar
         role={role}
         tenantName={tenantName}
+        tenantPlan={tenantPlan}
         userName={userName}
         userEmail={userEmail}
         isImpersonating={isImpersonating}

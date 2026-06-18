@@ -13,8 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-
-type Role = "super_admin" | "tenant_main_admin" | "tenant_admin";
+import { Role } from "@/lib/constants";
 
 interface AdminTopBarProps {
   role: Role;
@@ -35,8 +34,8 @@ function getInitials(name: string): string {
 
 function getRoleLabel(role: Role, isImpersonating: boolean): string {
   if (isImpersonating) return "Impersonating";
-  if (role === "super_admin") return "Super Admin";
-  if (role === "tenant_main_admin") return "Tenant Owner";
+  if (role === Role.SuperAdmin) return "Super Admin";
+  if (role === Role.TenantMainAdmin) return "Tenant Owner";
   return "Tenant Admin";
 }
 
@@ -116,7 +115,7 @@ export function AdminTopBar({
                 "text-[10px] font-medium uppercase tracking-wider px-1.5 py-0.5 rounded mt-0.5",
                 isImpersonating
                   ? "bg-amber-100 text-amber-700"
-                  : role === "super_admin"
+                  : role === Role.SuperAdmin
                     ? "bg-purple-100 text-purple-700"
                     : "bg-blue-100 text-blue-700",
               )}

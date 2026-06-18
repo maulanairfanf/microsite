@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
+import { Role } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(request: NextRequest) {
@@ -11,7 +12,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Only tenant_main_admin can transfer ownership
-    if (session.role !== "tenant_main_admin") {
+    if (session.role !== Role.TenantMainAdmin) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Target user must be tenant_admin (cannot transfer to tenant_main_admin)
-    if (targetUser.role !== "tenant_admin") {
+    if (targetUser.role !== Role.TenantAdmin) {
       return NextResponse.json(
         { error: "Can only transfer ownership to tenant_admin" },
         { status: 400 },
@@ -47,13 +48,13 @@ export async function POST(request: NextRequest) {
     // Update current owner's role to tenant_admin
     await prisma.user.update({
       where: { id: session.userId },
-      data: { role: "tenant_admin" },
+      data: { role: Role.TenantAdmin },
     });
 
     // Update target user to tenant_main_admin
     await prisma.user.update({
       where: { id: userId },
-      data: { role: "tenant_main_admin" },
+      data: { role: Role.TenantMainAdmin },
     });
 
     return NextResponse.json({ success: true });

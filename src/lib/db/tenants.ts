@@ -1,11 +1,18 @@
 import { prisma } from "@/lib/prisma";
 
+export const TenantStatus = {
+  Active: "active",
+  Archived: "archived",
+} as const;
+export type TenantStatus = (typeof TenantStatus)[keyof typeof TenantStatus];
+
 export interface Tenant {
   id: string;
   tenantId: string;
   name: string;
   themeId: string | null;
   status: string;
+  plan: string;
   createdAt: Date;
   updatedAt: Date | null;
 }
@@ -17,7 +24,7 @@ export async function listTenants(options: { includeInactive?: boolean } = {}): 
 
   if (options.includeInactive) return tenants;
 
-  return tenants.filter((t) => t.status === "active");
+  return tenants.filter((t) => t.status === TenantStatus.Active);
 }
 
 export async function getTenant(id: string): Promise<Tenant | null> {
@@ -38,7 +45,7 @@ export async function createTenant(data: {
       tenantId: data.tenantId,
       name: data.name,
       themeId: data.themeId || null,
-      status: "active",
+      status: TenantStatus.Active,
     },
   });
 }
@@ -61,14 +68,14 @@ export async function updateTenant(
 export async function archiveTenant(id: string): Promise<Tenant> {
   return prisma.tenant.update({
     where: { id },
-    data: { status: "archived", updatedAt: new Date() },
+    data: { status: TenantStatus.Archived, updatedAt: new Date() },
   });
 }
 
 export async function restoreTenant(id: string): Promise<Tenant> {
   return prisma.tenant.update({
     where: { id },
-    data: { status: "active", updatedAt: new Date() },
+    data: { status: TenantStatus.Active, updatedAt: new Date() },
   });
 }
 

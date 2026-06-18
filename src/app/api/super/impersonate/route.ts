@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession, setSession } from "@/lib/auth";
+import { Plan, Role } from "@/lib/constants";
 import { getTenantByTenantId } from "@/lib/db/tenants";
 
 export async function POST(request: NextRequest) {
   try {
     const session = await getSession();
 
-    if (!session || session.role !== "super_admin") {
+    if (!session || session.role !== Role.SuperAdmin) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
@@ -25,11 +26,12 @@ export async function POST(request: NextRequest) {
     const impersonatedSession = {
       userId: session.userId,
       email: session.email,
-      role: "tenant_main_admin" as const,
+      role: Role.TenantMainAdmin,
       name: session.name,
       tenantId: tenant.tenantId,
+      tenantPlan: tenant.plan === Plan.Premium ? Plan.Premium : Plan.Free,
       isImpersonating: true,
-      originalRole: "super_admin" as const,
+      originalRole: Role.SuperAdmin,
       originalTenantId: session.tenantId,
     };
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { listThemes, createTheme } from "@/lib/db/themes";
 import { getSession } from "@/lib/auth";
+import { Role } from "@/lib/constants";
 import { validateTheme } from "@/lib/themeValidator";
 import { defaultTokens } from "@/lib/themeDefaults";
 
@@ -18,7 +19,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const session = await getSession();
-    if (!session || session.role !== "super_admin") {
+    if (!session || session.role !== Role.SuperAdmin) {
       return NextResponse.json(
         { error: "Unauthorized: super admin access required" },
         { status: 403 },

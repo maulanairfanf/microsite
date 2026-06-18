@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
+import { Role } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 import { UserPageClient } from "@/components/admin/UserPageClient";
 
@@ -12,7 +13,7 @@ export default async function UsersPage() {
     redirect("/login");
   }
 
-  if (session.role !== "tenant_main_admin") {
+  if (session.role !== Role.TenantMainAdmin) {
     redirect("/admin/settings");
   }
 

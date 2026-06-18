@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
+import { Role } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 
 interface Params {
@@ -32,7 +33,7 @@ export async function GET(request: NextRequest, { params }: Params) {
     }
 
     // Check access
-    if (session.role === "tenant_main_admin" && user.tenantId !== session.tenantId) {
+    if (session.role === Role.TenantMainAdmin && user.tenantId !== session.tenantId) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -65,17 +66,17 @@ export async function PUT(request: NextRequest, { params }: Params) {
     }
 
     // Only super_admin or tenant_main_admin can update users
-    if (session.role !== "super_admin" && session.role !== "tenant_main_admin") {
+    if (session.role !== Role.SuperAdmin && session.role !== Role.TenantMainAdmin) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // tenant_main_admin can only update users in their own tenant
-    if (session.role === "tenant_main_admin" && targetUser.tenantId !== session.tenantId) {
+    if (session.role === Role.TenantMainAdmin && targetUser.tenantId !== session.tenantId) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // Only super_admin can change role to tenant_main_admin
-    if (role === "tenant_main_admin" && session.role !== "super_admin") {
+    if (role === Role.TenantMainAdmin && session.role !== Role.SuperAdmin) {
       return NextResponse.json(
         { error: "Only super_admin can assign tenant_main_admin role" },
         { status: 403 },
@@ -130,17 +131,17 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     }
 
     // Only super_admin or tenant_main_admin can delete users
-    if (session.role !== "super_admin" && session.role !== "tenant_main_admin") {
+    if (session.role !== Role.SuperAdmin && session.role !== Role.TenantMainAdmin) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // tenant_main_admin can only delete users in their own tenant
-    if (session.role === "tenant_main_admin" && targetUser.tenantId !== session.tenantId) {
+    if (session.role === Role.TenantMainAdmin && targetUser.tenantId !== session.tenantId) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // tenant_main_admin cannot be deleted by tenant_main_admin (only super_admin)
-    if (targetUser.role === "tenant_main_admin" && session.role !== "super_admin") {
+    if (targetUser.role === Role.TenantMainAdmin && session.role !== Role.SuperAdmin) {
       return NextResponse.json(
         { error: "Only super_admin can delete tenant_main_admin" },
         { status: 403 },

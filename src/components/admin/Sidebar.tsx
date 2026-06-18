@@ -3,13 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { CreditCard } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BrandLogo } from "../auth/BrandLogo";
+import { PlanBadge } from "@/components/billing/PlanBadge";
+import { BrandLogo } from "@/components/auth/BrandLogo";
+import { Role, Plan } from "@/lib/constants";
 
 interface SidebarProps {
-  role: "super_admin" | "tenant_main_admin" | "tenant_admin";
+  role: Role;
   tenantName?: string;
+  tenantPlan?: Plan;
   userName: string;
   userEmail?: string;
   isImpersonating?: boolean;
@@ -125,6 +128,11 @@ const tenantAdminNavItems = [
       </svg>
     ),
   },
+  {
+    href: "/admin/billing",
+    label: "Billing",
+    icon: <CreditCard className="w-5 h-5" />,
+  },
 ];
 
 function getInitials(name: string): string {
@@ -138,14 +146,15 @@ function getInitials(name: string): string {
 
 function getRoleLabel(role: SidebarProps["role"], isImpersonating: boolean): string {
   if (isImpersonating) return "Impersonating";
-  if (role === "super_admin") return "Super Admin";
-  if (role === "tenant_main_admin") return "Tenant Owner";
+  if (role === Role.SuperAdmin) return "Super Admin";
+  if (role === Role.TenantMainAdmin) return "Tenant Owner";
   return "Tenant Admin";
 }
 
 export function Sidebar({
   role,
   tenantName,
+  tenantPlan = Plan.Free,
   userName,
   isImpersonating = false,
   mobileOpen = false,
@@ -178,7 +187,10 @@ export function Sidebar({
         )}
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-gray-100">
-          {!isCollapsed && <BrandLogo />}
+          <div className="flex items-center gap-2">
+            {!isCollapsed && <BrandLogo />}
+            {!isCollapsed && role !== "super_admin" && <PlanBadge plan={tenantPlan} />}
+          </div>
 
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}

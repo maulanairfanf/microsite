@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSession, setSession } from "@/lib/auth";
+import { Role } from "@/lib/constants";
 
 export async function POST() {
   try {
@@ -12,7 +13,7 @@ export async function POST() {
     const restoredSession = {
       userId: session.userId,
       email: session.email,
-      role: session.originalRole || "super_admin",
+      role: session.originalRole || Role.SuperAdmin,
       name: session.name,
       tenantId: session.originalTenantId,
       isImpersonating: false,

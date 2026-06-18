@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getTenant, updateTenant } from "@/lib/db/tenants";
+import { getTenant, updateTenant, deleteTenant, TenantStatus } from "@/lib/db/tenants";
 import { getSession } from "@/lib/auth";
-import { deleteTenant } from "@/lib/db/tenants";
+import { Role } from "@/lib/constants";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest, { params }: Params) {
 export async function PUT(request: NextRequest, { params }: Params) {
   try {
     const session = await getSession();
-    if (!session || session.role !== "super_admin") {
+    if (!session || session.role !== Role.SuperAdmin) {
       return NextResponse.json(
         { error: "Unauthorized: super admin access required" },
         { status: 403 },
@@ -54,7 +54,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
 export async function DELETE(request: NextRequest, { params }: Params) {
   try {
     const session = await getSession();
-    if (!session || session.role !== "super_admin") {
+    if (!session || session.role !== Role.SuperAdmin) {
       return NextResponse.json(
         { error: "Unauthorized: super admin access required" },
         { status: 403 },
@@ -68,7 +68,7 @@ export async function DELETE(request: NextRequest, { params }: Params) {
       return NextResponse.json({ error: "Tenant not found" }, { status: 404 });
     }
 
-    if (tenant.status !== "archived") {
+    if (tenant.status !== TenantStatus.Archived) {
       return NextResponse.json(
         { error: "Only archived tenants can be permanently deleted. Archive it first." },
         { status: 400 },

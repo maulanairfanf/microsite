@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { restoreTenant, getTenant } from "@/lib/db/tenants";
+import { restoreTenant, getTenant, TenantStatus } from "@/lib/db/tenants";
 import { getSession } from "@/lib/auth";
+import { Role } from "@/lib/constants";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -9,7 +10,7 @@ interface Params {
 export async function POST(request: NextRequest, { params }: Params) {
   try {
     const session = await getSession();
-    if (!session || session.role !== "super_admin") {
+    if (!session || session.role !== Role.SuperAdmin) {
       return NextResponse.json(
         { error: "Unauthorized: super admin access required" },
         { status: 403 },
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest, { params }: Params) {
       return NextResponse.json({ error: "Tenant not found" }, { status: 404 });
     }
 
-    if (tenant.status === "active") {
+    if (tenant.status === TenantStatus.Active) {
       return NextResponse.json(
         { error: "Tenant is already active" },
         { status: 400 },

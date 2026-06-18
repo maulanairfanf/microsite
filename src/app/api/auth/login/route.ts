@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUserByEmail, verifyPassword } from "@/lib/db/users";
-import { setSession, Role } from "@/lib/auth";
+import { setSession } from "@/lib/auth";
+import { Plan, Role } from "@/lib/constants";
 import { getTenant } from "@/lib/db/tenants";
 
 export async function POST(request: NextRequest) {
@@ -38,6 +39,7 @@ export async function POST(request: NextRequest) {
       role: user.role as Role,
       name: user.name,
       tenantId,
+      tenantPlan: Plan.Free,
     };
 
     await setSession(session);

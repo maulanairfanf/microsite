@@ -39,7 +39,7 @@ const plans = [
       { text: "Priority Support", included: true },
     ],
     cta: "Subscribe",
-    ctaHref: "/sign-up?plan=premium",
+    ctaHref: "/checkout?plan=premium",
     highlighted: true,
     gradient: "from-violet-500 via-pink-500 to-orange-500",
   },

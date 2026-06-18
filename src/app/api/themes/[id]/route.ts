@@ -6,6 +6,7 @@ import {
   countTenantsUsingTheme,
 } from "@/lib/db/themes";
 import { getSession } from "@/lib/auth";
+import { Role } from "@/lib/constants";
 import { validateTheme } from "@/lib/themeValidator";
 import { defaultTokens } from "@/lib/themeDefaults";
 
@@ -32,7 +33,7 @@ export async function GET(request: NextRequest, { params }: Params) {
 export async function PUT(request: NextRequest, { params }: Params) {
   try {
     const session = await getSession();
-    if (!session || session.role !== "super_admin") {
+    if (!session || session.role !== Role.SuperAdmin) {
       return NextResponse.json(
         { error: "Unauthorized: super admin access required" },
         { status: 403 },
@@ -89,7 +90,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
 export async function DELETE(request: NextRequest, { params }: Params) {
   try {
     const session = await getSession();
-    if (!session || session.role !== "super_admin") {
+    if (!session || session.role !== Role.SuperAdmin) {
       return NextResponse.json(
         { error: "Unauthorized: super admin access required" },
         { status: 403 },

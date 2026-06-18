@@ -1,17 +1,7 @@
 import { cookies } from "next/headers";
 
-export type Role = "super_admin" | "tenant_main_admin" | "tenant_admin";
-
-export interface Session {
-  userId: string;
-  email: string;
-  role: Role;
-  name: string;
-  tenantId?: string;
-  isImpersonating?: boolean;
-  originalRole?: Role;
-  originalTenantId?: string;
-}
+import type { Session } from "@/lib/constants";
+import { Plan, Role } from "@/lib/constants";
 
 export async function getSession(): Promise<Session | null> {
   const cookieStore = await cookies();
@@ -19,7 +9,11 @@ export async function getSession(): Promise<Session | null> {
   if (!sessionCookie) return null;
 
   try {
-    return JSON.parse(sessionCookie.value);
+    const session = JSON.parse(sessionCookie.value) as Session;
+    if (session && !session.tenantPlan) {
+      session.tenantPlan = Plan.Free;
+    }
+    return session;
   } catch {
     return null;
   }
@@ -48,5 +42,5 @@ export function isAuthenticated(session: Session | null, requiredRole: Role | "a
 }
 
 export function canManageUsers(role: Role): boolean {
-  return role === "tenant_main_admin" || role === "super_admin";
+  return role === Role.TenantMainAdmin || role === Role.SuperAdmin;
 }

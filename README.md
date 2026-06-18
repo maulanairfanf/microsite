@@ -54,6 +54,14 @@ The platform supports two roles:
 - **Theme management**: create, edit, and delete themes (with safety checks)
 - **Impersonation**: log in as a tenant admin for support, with a clear "stop impersonating" banner
 
+### Billing (Xendit)
+- **Premium plan** at Rp 30,000/month with unlimited links, all themes, premium sections, priority support
+- **Hosted Xendit Invoice page** — no PCI compliance burden, the payment form lives on `checkout.xendit.co`
+- **Indonesian payment methods out of the box** — GoPay, OVO, DANA, ShopeePay, LinkAja, QRIS, Virtual Account
+- **Webhook-driven activation** — Xendit callback → `Tenant.plan = "premium"` + Subscription + Payment records
+- **Subscription management** at `/admin/billing` — view current plan, payment history, cancel
+- **Free tier by default** — tenants start on the free plan, upgrade is opt-in
+
 ### Engineering
 - **Role-based access control** with a clear hierarchy: `super_admin` > `tenant_main_admin` > `tenant_admin`
 - **Defensive deletes**: themes can only be deleted if unused; tenants can only be hard-deleted when archived
@@ -148,10 +156,68 @@ npm run dev
 Create a `.env` file in the project root:
 
 ```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5433/microsite"
+DATABASE_URL="postgresql://halamanku:halamanku@localhost:5433/halamanku?schema=public"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+# Required for the /checkout flow. Get sandbox keys at https://dashboard.xendit.co
+XENDIT_SECRET_KEY="xnd_development_..."
+XENDIT_CALLBACK_TOKEN="..."
+
+# Secret used to HMAC-sign the checkout success-URL token.
+# Generate with: openssl rand -base64 32
+BILLING_TOKEN_SECRET="..."
 ```
 
+A complete template is in `.env.example` (just `cp .env.example .env` and fill in).
+
 The default `docker-compose.yml` exposes PostgreSQL on port `5433` to match this URL. If you change the port in `docker-compose.yml`, update `DATABASE_URL` accordingly.
+
+---
+
+## Billing (optional)
+
+The Premium plan runs through **Xendit**, an Indonesian payment gateway that handles recurring monthly subscriptions in IDR. The payment form lives on Xendit's hosted page — there's no PCI compliance burden on this app.
+
+The app works fully without these — billing is purely opt-in. If you skip this, the `/admin/billing` page shows your free plan and a "Billing is not configured" warning on `/checkout`.
+
+### Set up Xendit in 7 steps
+
+1. **Create a free Xendit test account** at [dashboard.xendit.co/register](https://dashboard.xendit.co/register) (5 min, email only — no business or merchant info required for test mode).
+2. **Get your API key**: Dashboard → **Settings** → **Developers** → **API Keys** → click **Generate Secret Key** in the **Development** section. Copy the `xnd_development_...` value into `XENDIT_SECRET_KEY` in `.env`.
+3. **Get a callback verification token**: same page → **Callbacks** → **Generate Callback Verification Token**. Copy it into `XENDIT_CALLBACK_TOKEN` in `.env`.
+4. **Set the public app URL** so Xendit knows where to send users back: `NEXT_PUBLIC_APP_URL="http://localhost:3000"` in `.env`.
+5. **Set the webhook URL** in Xendit: Dashboard → **Settings** → **Developers** → **Webhooks** → **Add Webhook** → URL: `<NEXT_PUBLIC_APP_URL>/api/billing/webhook` (Xendit will sign the callback with your `XENDIT_CALLBACK_TOKEN`).
+6. **Restart `npm run dev`** so the new env vars are picked up.
+7. **Test the flow**:
+   - Sign in as a tenant (or sign up a new one)
+   - Go to `/admin/billing` → click **Upgrade to Premium**
+   - On `/checkout`, click **Continue to checkout** — you'll be redirected to Xendit's hosted Invoice page
+   - Pick any Indonesian e-wallet (GoPay, OVO, DANA, ShopeePay, LinkAja) or QRIS — Xendit auto-completes all of them in test mode
+   - You'll return to `/checkout/success`; Xendit fires a callback to `/api/billing/webhook` and your subscription activates
+   - The **PRO** badge will appear in the admin sidebar
+
+### Payment methods supported
+
+| Method | Type |
+|---|---|
+| GoPay | E-wallet |
+| OVO | E-wallet |
+| DANA | E-wallet |
+| ShopeePay | E-wallet |
+| LinkAja | E-wallet |
+| QRIS | QR code |
+| Virtual Account | Bank transfer (BCA, BNI, BRI, Mandiri, etc.) |
+
+All of them auto-complete in test mode — no real payment is processed. To subscribe a customer for real, switch to live mode in the Xendit dashboard and use live API keys.
+
+### Sandbox mode caveat
+
+In Xendit sandbox, the hosted checkout completes the user-facing flow but does **not** auto-flip the invoice's internal `status` to `PAID` — and the `{external_id}` placeholder in the success-redirect URL is **not substituted** by the v2 Invoices API. So the page would land on `?external_id={external_id}` (literal) and the webhook never reaches `localhost:3000`.
+
+The app handles both issues for you, with **no buttons to click** on the success page:
+
+1. The success URL carries a stateless signed token `?ref=<jwt>` (HMAC-SHA256, 30-min expiry, payload = `{tenantId, externalId}`). The token survives Next.js HMR, multi-process, and serverless because it carries its own state — no in-memory map is used. The signing secret is `BILLING_TOKEN_SECRET` (generate with `openssl rand -base64 32`).
+2. The poller on `/checkout/success` polls Xendit for the invoice status. If Xendit returns `PENDING` (the common sandbox state, since the hosted checkout alone doesn't flip the status), the poller **automatically** calls Xendit's `POST /v2/invoices/{id}/simulate_payment` (sandbox-only endpoint) to mark the invoice `PAID`, then completes activation. From the user's perspective, the page transitions from "Almost there…" to "Welcome to Premium!" in 2-4 seconds with no clicks. In production (`NODE_ENV === "production"`), `/api/billing/refresh` rejects `simulate: true` requests with 403, so the poller just waits for the real webhook.
 
 ---
 

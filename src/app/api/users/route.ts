@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
+import { Role } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
@@ -13,13 +14,11 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const tenantId = searchParams.get("tenantId") || session.tenantId;
 
-    // Only super_admin or tenant_main_admin can view users
-    if (session.role !== "super_admin" && session.role !== "tenant_main_admin") {
+    if (session.role !== Role.SuperAdmin && session.role !== Role.TenantMainAdmin) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    // For tenant_main_admin, can only view users in their own tenant
-    if (session.role === "tenant_main_admin" && tenantId !== session.tenantId) {
+    if (session.role === Role.TenantMainAdmin && tenantId !== session.tenantId) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -50,8 +49,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Only tenant_main_admin or super_admin can create users
-    if (session.role !== "super_admin" && session.role !== "tenant_main_admin") {
+    if (session.role !== Role.SuperAdmin && session.role !== Role.TenantMainAdmin) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -65,15 +63,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Only super_admin can create tenant_main_admin
-    if (role === "tenant_main_admin" && session.role !== "super_admin") {
+    if (role === Role.TenantMainAdmin && session.role !== Role.SuperAdmin) {
       return NextResponse.json(
         { error: "Only super_admin can create tenant_main_admin" },
         { status: 403 },
       );
     }
 
-    // Check if email already exists
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
@@ -82,7 +78,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Email already in use" }, { status: 400 });
     }
 
-    // Hash password
     const bcrypt = require("bcryptjs");
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -91,7 +86,7 @@ export async function POST(request: NextRequest) {
         email,
         name,
         password: hashedPassword,
-        role: role || "tenant_admin",
+        role: role || Role.TenantAdmin,
         tenantId: session.tenantId,
       },
       select: {

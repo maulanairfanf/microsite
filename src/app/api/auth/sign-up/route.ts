@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { getUserByEmail } from "@/lib/db/users";
 import { getTenantByTenantId } from "@/lib/db/tenants";
-import { setSession, Role } from "@/lib/auth";
+import { setSession } from "@/lib/auth";
+import { Plan, Role } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 import { HERO_COMPONENT_NAME, HERO_CONFIG_SCHEMA } from "@/lib/heroDefaults";
 import { isValidSlug, isReservedSlug } from "@/lib/slug";
+import { TenantStatus } from "@/lib/db/tenants";
 
 function deriveNameFromEmail(email: string): string {
   const local = email.split("@")[0] || "User";
@@ -103,7 +105,7 @@ export async function POST(request: NextRequest) {
         data: {
           tenantId: normalizedTenantId,
           name: normalizedTenantName,
-          status: "active",
+          status: TenantStatus.Active,
         },
       });
 
@@ -112,7 +114,7 @@ export async function POST(request: NextRequest) {
           email: normalizedEmail,
           password: await bcrypt.hash(password, 10),
           name: userName,
-          role: "tenant_main_admin",
+          role: Role.TenantMainAdmin,
           tenantId: tenantRecord.id,
         },
       });
@@ -143,6 +145,7 @@ export async function POST(request: NextRequest) {
       role: user.role as Role,
       name: user.name,
       tenantId: tenant.tenantId,
+      tenantPlan: Plan.Free,
     };
 
     await setSession(session);
