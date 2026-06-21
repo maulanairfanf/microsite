@@ -79,6 +79,8 @@ halamanku/
 │   │   ├── useIsClient.ts    # SSR-safe hydration hook
 │   │   ├── utils.ts          # cn() helper (clsx + tailwind-merge)
 │   │   ├── billing/          # Xendit wrapper + checkout-token + activation helpers
+│   │   ├── email/            # EmailJS REST API wrapper + verification token utils
+│   │   ├── constants.ts      # Role, Plan const objects + Session type
 │   │   └── db/               # Prisma query functions (one file per entity)
 │   ├── types/
 │   │   └── components.ts     # Component, Theme, ThemeTokens, etc.
@@ -131,6 +133,7 @@ Use when the data changes, or when a client component needs to call it.
 import { NextRequest, NextResponse } from "next/server";
 import { getTheme, updateTheme, deleteTheme } from "@/lib/db/themes";
 import { getSession } from "@/lib/auth";
+import { Role } from "@/lib/constants";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -139,7 +142,7 @@ interface Params {
 export async function PUT(request: NextRequest, { params }: Params) {
   try {
     const session = await getSession();
-    if (!session || session.role !== "super_admin") {
+    if (!session || session.role !== Role.SuperAdmin) {
       return NextResponse.json(
         { error: "Unauthorized: super admin access required" },
         { status: 403 },
@@ -343,14 +346,15 @@ A "well-formed" component looks like this:
 ```ts
 // src/components/billing/PlanBadge.tsx
 import { cn } from "@/lib/utils";
+import type { Plan } from "@/lib/constants";
 
 interface PlanBadgeProps {
-  plan: "free" | "premium";
+  plan: Plan;
   className?: string;
 }
 
 export function PlanBadge({ plan, className }: PlanBadgeProps) {
-  if (plan !== "premium") return null;
+  if (plan !== Plan.Premium) return null;
 
   return (
     <span
@@ -598,7 +602,7 @@ test("signs up, lands on /admin", async ({ page }) => {
 
 ### Add a new role-gated feature
 
-1. Add the role check in the API route: `if (session.role !== "super_admin") return 403`
+1. Add the role check in the API route: `if (session.role !== Role.SuperAdmin) return 403`
 2. Add the route in the appropriate layout's Sidebar nav items (`src/components/admin/Sidebar.tsx` — `superAdminNavItems` or `tenantAdminNavItems`)
 3. Add any admin UI for the feature in the relevant page
 
@@ -607,6 +611,31 @@ test("signs up, lands on /admin", async ({ page }) => {
 1. Add to `.env` (and document in `README.md`)
 2. Reference via `process.env.<NAME>` in `src/lib/<thing>.ts`
 3. If the var is required at startup, validate in `src/lib/env.ts` (create it if it doesn't exist yet) and fail loudly if missing
+
+### Add transactional email (EmailJS)
+
+No npm install needed — uses built-in `fetch` to call the EmailJS REST API.
+
+1. Sign up at [emailjs.com](https://emailjs.com) and connect your Gmail/Outlook as the email service
+2. Create an email template with these variables:
+   - `{{user_name}}` — recipient's display name
+   - `{{to_email}}` — recipient's email address (also set the template's **"To Email"** field to `{{to_email}}`, not a hardcoded address)
+   - `{{verification_url}}` — the verification link
+   - `{{expires_in}}` — token expiry in minutes (e.g., `"1440"` for 24h)
+   - `{{year}}` — current year for the footer
+   - `{{reply_to}}` — reply-to address
+3. Enable **"API access from non-browser environments"** at [emailjs.com/admin/account/security](https://dashboard.emailjs.com/admin/account/security) — required for server-side calls
+4. Add `EMAILJS_PUBLIC_KEY`, `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID` to `.env`
+5. Create `src/lib/email/providers/emailjs.ts` — REST API wrapper with `isEmailConfigured()` guard and `sendVerificationEmail()` (uses `fetch`, no SDK)
+6. Create `src/lib/email/index.ts` — re-exports only the public API
+7. Create `src/lib/email/utils/generate-token.ts` — `generateEmailVerificationToken()` + `getEmailVerificationTokenExpiry()`
+8. Add `emailVerificationToken`, `emailVerificationTokenExpiresAt`, `emailVerified` fields to `User` in `prisma/schema.prisma`
+9. Run `npx prisma migrate dev --name add_email_verification_fields`
+10. Add `getUserByVerificationToken` + `verifyUserEmail` to `src/lib/db/users.ts`
+11. Wire into sign-up: generate token → save to user → fire-and-forget `sendVerificationEmail()` (never fail the signup if email fails)
+12. Create `GET /api/auth/verify?token=xxx` → validate token → `verifyUserEmail` → redirect to `/verify-email?status=success`
+13. Create `POST /api/auth/resend-verification` → auth required → generate new token → resend email
+14. Show unverified banner in `AdminShell` with resend button; pass `emailVerified` from the server layout via `getUserById`
 
 > **Note on placeholder paths in this doc:** Throughout section 10 you'll see paths like `src/lib/<thing>.ts` or `src/app/api/<resource>/route.ts` — the angle-bracket parts are placeholders, not literal directory names. Substitute the actual resource (e.g., `src/lib/billing.ts` or `src/app/api/billing/checkout/route.ts`). The `Testimonials` and `env.ts` references are similarly aspirational — those files don't exist yet, the section shows what creating them would look like.
 
@@ -619,7 +648,7 @@ test("signs up, lands on /admin", async ({ page }) => {
 **Pattern:**
 
 ```ts
-// src/lib/auth.ts — Role lives next to session helpers
+// src/lib/constants.ts — Role and Plan live here, imported by auth + call sites
 export const Role = {
   SuperAdmin: "super_admin",
   TenantMainAdmin: "tenant_main_admin",
@@ -628,7 +657,7 @@ export const Role = {
 export type Role = (typeof Role)[keyof typeof Role];
 
 // src/lib/billing/plans.ts — PlanInfo map keyed by Plan
-import { Plan } from "@/lib/auth";
+import { Plan } from "@/lib/constants";
 
 export const PLANS: Record<Plan, PlanInfo> = {
   [Plan.Free]: { id: Plan.Free, name: "Free", ... },
@@ -651,6 +680,8 @@ export const PLANS: Record<Plan, PlanInfo> = {
 - `CHANGELOG.md` — what's new in each version
 - `LICENSE` — MIT
 - `src/lib/themeTokens.ts` — canonical example of a pure utility module with tests
+- `src/lib/constants.ts` — canonical example of co-located const objects + derived types
+- `src/lib/email/providers/emailjs.ts` — canonical example of a server-side email provider (REST API, no SDK)
 - `src/app/api/themes/[id]/route.ts` — canonical example of an API route
 - `src/components/auth/FormField.tsx` — canonical example of a reusable client component
 - `src/lib/db/tenants.ts` — canonical example of a DB module (read, write, transaction)

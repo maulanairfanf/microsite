@@ -8,6 +8,12 @@ import { prisma } from "@/lib/prisma";
 import { HERO_COMPONENT_NAME, HERO_CONFIG_SCHEMA } from "@/lib/heroDefaults";
 import { isValidSlug, isReservedSlug } from "@/lib/slug";
 import { TenantStatus } from "@/lib/db/tenants";
+import {
+  generateEmailVerificationToken,
+  getEmailVerificationTokenExpiry,
+  isEmailConfigured,
+  sendVerificationEmail,
+} from "@/lib/email";
 
 function deriveNameFromEmail(email: string): string {
   const local = email.split("@")[0] || "User";
@@ -15,6 +21,20 @@ function deriveNameFromEmail(email: string): string {
     .replace(/[._-]+/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase())
     .trim() || "User";
+}
+
+async function sendWelcomeEmail(name: string, email: string, token: string): Promise<void> {
+  if (!isEmailConfigured()) {
+    console.warn("[email] RESEND_API_KEY not configured, skipping verification email");
+    return;
+  }
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  const verificationUrl = `${appUrl}/api/auth/verify?token=${token}`;
+  try {
+    await sendVerificationEmail({ to: email, name, verificationUrl });
+  } catch (err) {
+    console.error("[email] Failed to send verification email:", err);
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -93,6 +113,8 @@ export async function POST(request: NextRequest) {
     }
 
     const userName = deriveNameFromEmail(normalizedEmail);
+    const verificationToken = generateEmailVerificationToken();
+    const verificationExpiresAt = getEmailVerificationTokenExpiry();
 
     const { user, tenant, heroSectionId } = await prisma.$transaction(async (tx) => {
       const heroComponent = await tx.component.upsert({
@@ -116,6 +138,8 @@ export async function POST(request: NextRequest) {
           name: userName,
           role: Role.TenantMainAdmin,
           tenantId: tenantRecord.id,
+          emailVerificationToken: verificationToken,
+          emailVerificationTokenExpiresAt: verificationExpiresAt,
         },
       });
 
@@ -146,9 +170,12 @@ export async function POST(request: NextRequest) {
       name: user.name,
       tenantId: tenant.tenantId,
       tenantPlan: Plan.Free,
+      emailVerified: false,
     };
 
     await setSession(session);
+
+    void sendWelcomeEmail(user.name, user.email, verificationToken);
 
     return NextResponse.json({ success: true, session, heroSectionId });
   } catch (error) {

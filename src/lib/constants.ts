@@ -18,6 +18,7 @@ export interface Session {
   name: string;
   tenantId?: string;
   tenantPlan?: Plan;
+  emailVerified?: boolean;
   isImpersonating?: boolean;
   originalRole?: Role;
   originalTenantId?: string;

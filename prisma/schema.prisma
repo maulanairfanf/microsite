@@ -60,15 +60,18 @@ model Component {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  name      String
-  role      String   @default("tenant_main_admin")
-  tenantId  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
+  id                                  String    @id @default(cuid())
+  email                               String    @unique
+  password                            String
+  name                                String
+  role                                String    @default("tenant_main_admin")
+  tenantId                            String?
+  emailVerified                       DateTime?
+  emailVerificationToken              String?
+  emailVerificationTokenExpiresAt     DateTime?
+  createdAt                           DateTime  @default(now())
+  updatedAt                           DateTime?
+  tenant                              Tenant?   @relation(fields: [tenantId], references: [id])
 
   @@map("users")
 }

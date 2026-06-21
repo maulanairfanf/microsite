@@ -40,6 +40,7 @@ export async function POST(request: NextRequest) {
       name: user.name,
       tenantId,
       tenantPlan: Plan.Free,
+      emailVerified: Boolean(user.emailVerified),
     };
 
     await setSession(session);

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { Role, Plan } from "@/lib/constants";
 import { getTenantByTenantId } from "@/lib/db/tenants";
+import { getUserById } from "@/lib/db/users";
 import { AdminShell } from "@/components/admin/AdminShell";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -19,8 +20,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     redirect("/login");
   }
 
-  const tenant = session.tenantId ? await getTenantByTenantId(session.tenantId) : null;
+  const [tenant, user] = await Promise.all([
+    session.tenantId ? getTenantByTenantId(session.tenantId) : null,
+    getUserById(session.userId),
+  ]);
+
   const tenantPlan = tenant?.plan === Plan.Premium ? Plan.Premium : Plan.Free;
+  const emailVerified = Boolean(user?.emailVerified);
 
   return (
     <AdminShell
@@ -30,6 +36,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       userName={session.name}
       userEmail={session.email}
       isImpersonating={isImpersonatingSuperAdmin}
+      emailVerified={emailVerified}
     >
       {children}
     </AdminShell>

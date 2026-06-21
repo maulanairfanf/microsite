@@ -73,3 +73,37 @@ export async function deleteUser(id: string): Promise<void> {
     where: { id },
   });
 }
+
+export async function setEmailVerificationToken(
+  userId: string,
+  token: string,
+  expiresAt: Date,
+): Promise<void> {
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      emailVerificationToken: token,
+      emailVerificationTokenExpiresAt: expiresAt,
+    },
+  });
+}
+
+export async function getUserByVerificationToken(token: string): Promise<User | null> {
+  return prisma.user.findFirst({
+    where: {
+      emailVerificationToken: token,
+      emailVerificationTokenExpiresAt: { gt: new Date() },
+    },
+  });
+}
+
+export async function verifyUserEmail(userId: string): Promise<void> {
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      emailVerified: new Date(),
+      emailVerificationToken: null,
+      emailVerificationTokenExpiresAt: null,
+    },
+  });
+}
