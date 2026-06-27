@@ -63,7 +63,7 @@ export function ThemeClient({ themes, currentThemeId, tenantId, tenantSlug }: Th
 
   return (
     <div className="flex gap-6 h-[calc(100vh-150px)]">
-      <div className="w-[340px] overflow-y-auto p-4">
+      <div className="w-85 overflow-y-auto p-4">
         <div className="space-y-4">
           {isPending ? (
             <>

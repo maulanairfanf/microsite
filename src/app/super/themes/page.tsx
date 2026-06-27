@@ -1,5 +1,5 @@
 import { listThemes, countTenantsUsingTheme } from "@/lib/db/themes";
-import { ThemesClient } from "./themes-client";
+import { ThemesClient } from "./ThemesCllients";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +12,5 @@ export default async function ThemesPage() {
       tenantCounts[t.id] = await countTenantsUsingTheme(t.id);
     }),
   );
-
   return <ThemesClient initialThemes={themes} tenantCounts={tenantCounts} />;
 }

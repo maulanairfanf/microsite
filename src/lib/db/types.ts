@@ -30,6 +30,7 @@ export interface Section {
 export interface Component {
   id: string;
   name: string;
+  displayName: string | null;
   configSchema: string | null;
   createdAt: Date;
 }

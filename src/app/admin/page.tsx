@@ -36,7 +36,9 @@ export default async function AdminDashboard() {
           </div>
           <div>
             <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">URL Slug</div>
-            <div className="font-medium text-gray-900">/{tenant?.tenantId}</div>
+            <Link href={`/${tenant?.tenantId}`} target="_blank">
+              <div className="font-medium text-purple-600 hover:underline">/{tenant?.tenantId}</div>
+            </Link>
           </div>
           <div>
             <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Theme</div>

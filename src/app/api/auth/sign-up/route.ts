@@ -5,7 +5,8 @@ import { getTenantByTenantId } from "@/lib/db/tenants";
 import { setSession } from "@/lib/auth";
 import { Plan, Role } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
-import { HERO_COMPONENT_NAME, HERO_CONFIG_SCHEMA } from "@/lib/heroDefaults";
+import { ComponentName } from "@/lib/components/componentNames";
+import { HERO_SCHEMA } from "@/lib/components/schemas";
 import { isValidSlug, isReservedSlug } from "@/lib/slug";
 import { TenantStatus } from "@/lib/db/tenants";
 import {
@@ -118,9 +119,9 @@ export async function POST(request: NextRequest) {
 
     const { user, tenant, heroSectionId } = await prisma.$transaction(async (tx) => {
       const heroComponent = await tx.component.upsert({
-        where: { name: HERO_COMPONENT_NAME },
-        update: { configSchema: HERO_CONFIG_SCHEMA },
-        create: { name: HERO_COMPONENT_NAME, configSchema: HERO_CONFIG_SCHEMA },
+        where: { name: ComponentName.Hero },
+        update: { configSchema: HERO_SCHEMA },
+        create: { name: ComponentName.Hero, configSchema: HERO_SCHEMA },
       });
 
       const tenantRecord = await tx.tenant.create({

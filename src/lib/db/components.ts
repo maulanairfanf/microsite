@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 export interface Component {
   id: string;
   name: string;
+  displayName: string | null;
   configSchema: string | null;
   createdAt: Date;
 }
@@ -23,11 +24,13 @@ export async function getComponentByName(name: string): Promise<Component | null
 
 export async function createComponent(data: {
   name: string;
+  displayName: string;
   configSchema?: string;
 }): Promise<Component> {
   return prisma.component.create({
     data: {
       name: data.name,
+      displayName: data.displayName,
       configSchema: data.configSchema || null,
     },
   });
@@ -39,13 +42,18 @@ export async function deleteComponent(id: string): Promise<void> {
 
 export async function upsertComponent(data: {
   name: string;
+  displayName: string;
   configSchema?: string;
 }): Promise<Component> {
   return prisma.component.upsert({
     where: { name: data.name },
-    update: { configSchema: data.configSchema || null },
+    update: {
+      displayName: data.displayName,
+      configSchema: data.configSchema || null,
+    },
     create: {
       name: data.name,
+      displayName: data.displayName,
       configSchema: data.configSchema || null,
     },
   });

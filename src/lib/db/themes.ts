@@ -1,54 +1,10 @@
 import { prisma } from "@/lib/prisma";
-import { Theme as ThemeType, ThemeTokens } from "@/types/components";
-import { defaultTokens } from "@/lib/themeDefaults";
+import { parseThemeConfig, type ThemeRecord } from "@/lib/themeConfig";
 
-export interface Theme {
-  id: string;
-  name: string;
-  slug: string;
-  config: string | null;
-  createdAt: Date;
-  updatedAt: Date | null;
-}
+export type { ThemeRecord } from "@/lib/themeConfig";
+export { parseThemeConfig } from "@/lib/themeConfig";
 
-export function parseThemeConfig(theme: Theme): ThemeType {
-  if (!theme.config) {
-    return {
-      id: theme.id,
-      name: theme.name,
-      slug: theme.slug,
-      fontFamily: "Inter",
-      theme: defaultTokens,
-    };
-  }
-
-  try {
-    const parsed = JSON.parse(theme.config);
-    const cardParsed = { ...(parsed.card || {}) };
-    if (cardParsed.hoverOpacity !== undefined) {
-      cardParsed.hoverOpacity = Number(cardParsed.hoverOpacity);
-    }
-    return {
-      id: theme.id,
-      name: theme.name,
-      slug: theme.slug,
-      fontFamily: parsed.fontFamily || "Inter",
-      theme: {
-        page: { ...defaultTokens.page, ...(parsed.page || {}) },
-        container: { ...defaultTokens.container, ...(parsed.container || {}) },
-        card: { ...defaultTokens.card, ...cardParsed },
-      },
-    };
-  } catch {
-    return {
-      id: theme.id,
-      name: theme.name,
-      slug: theme.slug,
-      fontFamily: "Inter",
-      theme: defaultTokens,
-    };
-  }
-}
+export type Theme = ThemeRecord;
 
 export async function listThemes(): Promise<Theme[]> {
   return prisma.theme.findMany({

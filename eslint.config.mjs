@@ -44,7 +44,7 @@ const config = [
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "react/jsx-no-target-blank": "warn",
-      "react/no-unescaped-entities": "warn",
+      "react/no-unescaped-entities": "off",
       "react/no-unknown-property": "warn",
       "react-hooks/set-state-in-effect": "warn",
       "react-hooks/exhaustive-deps": "warn",
@@ -52,7 +52,7 @@ const config = [
       "jsx-a11y/no-static-element-interactions": "warn",
       "jsx-a11y/anchor-is-valid": "warn",
       "jsx-a11y/label-has-associated-control": "warn",
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-empty-object-type": "warn",
       "@typescript-eslint/no-unused-vars": [
         "warn",

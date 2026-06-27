@@ -24,8 +24,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { clientApi } from "@/lib/client-api";
 import { useIsClient } from "@/lib/useIsClient";
-
-const HERO_COMPONENT_NAME = "Hero";
+import { ComponentName } from "@/lib/components/componentNames";
 
 interface SectionItem {
   id: string;
@@ -64,7 +63,7 @@ function SortableSectionCard({ section, onDeleted, onError }: DraggableSectionCa
   };
 
   const title = extractTitle(section.configJson);
-  const isHero = section.component?.name === HERO_COMPONENT_NAME;
+  const isHero = section.component?.name === ComponentName.Hero;
 
   async function handleDelete() {
     if (!confirm(`Delete "${title || section.component?.name || "this section"}"?`)) {
@@ -145,7 +144,7 @@ function StaticSectionRow({
 }: DraggableSectionCardProps) {
   const [deleting, setDeleting] = useState(false);
   const title = extractTitle(section.configJson);
-  const isHero = section.component?.name === HERO_COMPONENT_NAME;
+  const isHero = section.component?.name === ComponentName.Hero;
 
   async function handleDelete() {
     if (!confirm(`Delete "${title || section.component?.name || "this section"}"?`)) {

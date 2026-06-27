@@ -95,13 +95,6 @@ export function TenantActionsDropdown({
           </DropdownMenuItem>
         )}
 
-        <DropdownMenuItem asChild>
-          <a href={`/super/tenants/${tenantDbId}`} className="flex items-center gap-2">
-            <Pencil className="w-4 h-4" />
-            Edit
-          </a>
-        </DropdownMenuItem>
-
         <DropdownMenuSeparator />
 
         <DropdownMenuItem

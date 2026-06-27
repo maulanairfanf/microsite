@@ -5,7 +5,7 @@ import { getSession } from "@/lib/auth";
 import { getSection, countHeroSectionsForTenant } from "@/lib/db/sections";
 import { listComponents } from "@/lib/db/components";
 import { TenantSectionForm } from "@/components/admin/TenantSectionForm";
-import { HERO_COMPONENT_NAME } from "@/lib/heroDefaults";
+import { ComponentName } from "@/lib/components/componentNames";
 
 interface Props {
   params: Promise<{ section_id: string }>;
@@ -36,14 +36,14 @@ export default async function AdminSectionFormPage({ params }: Props) {
     countHeroSectionsForTenant(tenantId, isEdit ? section_id : undefined),
   ]);
 
-  const isEditingHero = section?.component?.name === HERO_COMPONENT_NAME;
+  const isEditingHero = section?.component?.name === ComponentName.Hero;
   const hideHeroOption = heroCount > 0 && !isEditingHero;
 
   const componentOptions = components
-    .filter((c) => !(hideHeroOption && c.name === HERO_COMPONENT_NAME))
+    .filter((c) => !(hideHeroOption && c.name === ComponentName.Hero))
     .map((c) => ({
       value: c.id,
-      label: c.name,
+      label: c.displayName ?? c.name,
       configSchema: c.configSchema || undefined,
     }));
 

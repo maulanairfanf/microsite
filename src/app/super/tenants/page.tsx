@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/admin/components-extended";
+import { EmptyState } from "@/components/admin/ComponentsExtended";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { listTenants } from "@/lib/db/tenants";
 import { listThemes } from "@/lib/db/themes";

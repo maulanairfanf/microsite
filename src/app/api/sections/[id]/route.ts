@@ -6,7 +6,7 @@ import {
   countHeroSectionsForTenant,
 } from "@/lib/db/sections";
 import { getComponent } from "@/lib/db/components";
-import { HERO_COMPONENT_NAME } from "@/lib/heroDefaults";
+import { ComponentName } from "@/lib/components/componentNames";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -42,8 +42,8 @@ export async function PUT(request: NextRequest, { params }: Params) {
     if (componentId) {
       const target = await getComponent(componentId);
       if (
-        target?.name === HERO_COMPONENT_NAME &&
-        existing.component?.name !== HERO_COMPONENT_NAME
+        target?.name === ComponentName.Hero &&
+        existing.component?.name !== ComponentName.Hero
       ) {
         const heroCount = await countHeroSectionsForTenant(existing.tenantId, id);
         if (heroCount > 0) {
@@ -78,7 +78,7 @@ export async function DELETE(request: NextRequest, { params }: Params) {
       return NextResponse.json({ error: "Section not found" }, { status: 404 });
     }
 
-    if (existing.component?.name === HERO_COMPONENT_NAME) {
+    if (existing.component?.name === ComponentName.Hero) {
       return NextResponse.json(
         { error: "Hero section cannot be deleted." },
         { status: 403 },

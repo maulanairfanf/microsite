@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/admin/components-extended";
+import { EmptyState } from "@/components/admin/ComponentsExtended";
 import { PageHeader } from "@/components/admin/PageHeader";
-import { ThemeCard } from "./theme-card";
+import { ThemeCard } from "./ThemeCard";
 
 interface Theme {
   id: string;

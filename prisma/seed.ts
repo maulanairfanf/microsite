@@ -1,7 +1,9 @@
 import { prisma } from '../src/lib/prisma';
 import bcrypt from 'bcryptjs';
-import { HERO_COMPONENT_NAME, HERO_CONFIG_SCHEMA } from '../src/lib/heroDefaults';
 import { Role } from '../src/lib/constants';
+import { ComponentName } from '../src/lib/components/componentNames';
+import { COMPONENT_SCHEMAS } from '../src/lib/components/schemas';
+import { COMPONENT_DISPLAY_NAMES } from '../src/lib/components/displayNames';
 import fs from 'fs';
 import path from 'path';
 
@@ -39,15 +41,6 @@ function loadTenantData(tenantSlug: string): TenantData | null {
   return { name: tenantMeta.name, sections: sections.sections, theme };
 }
 
-async function upsertComponent(name: string): Promise<string> {
-  const component = await prisma.component.upsert({
-    where: { name },
-    update: {},
-    create: { name },
-  });
-  return component.id;
-}
-
 async function seedSuperAdmin() {
   const hashedPassword = await bcrypt.hash('admin123', 10);
   await prisma.user.upsert({
@@ -63,13 +56,16 @@ async function seedSuperAdmin() {
   console.log('Super admin seeded: admin@halamanku.id / admin123');
 }
 
-async function seedHeroComponent() {
-  await prisma.component.upsert({
-    where: { name: HERO_COMPONENT_NAME },
-    update: { configSchema: HERO_CONFIG_SCHEMA },
-    create: { name: HERO_COMPONENT_NAME, configSchema: HERO_CONFIG_SCHEMA },
-  });
-  console.log(`Component upserted: ${HERO_COMPONENT_NAME}`);
+async function seedAllComponents() {
+  for (const [name, configSchema] of Object.entries(COMPONENT_SCHEMAS)) {
+    const displayName = COMPONENT_DISPLAY_NAMES[name] ?? null;
+    await prisma.component.upsert({
+      where: { name },
+      update: { configSchema, displayName },
+      create: { name, configSchema, displayName },
+    });
+    console.log(`Component upserted: ${name} (${displayName})`);
+  }
 }
 
 async function seedSampleTenant(tenantSlug: string): Promise<void> {
@@ -128,7 +124,10 @@ async function seedSampleTenant(tenantSlug: string): Promise<void> {
   const componentNames = [...new Set(data.sections.map((s) => s.type))];
   const componentIds: Record<string, string> = {};
   for (const name of componentNames) {
-    componentIds[name] = await upsertComponent(name);
+    const component = await prisma.component.findUnique({ where: { name } });
+    if (component) {
+      componentIds[name] = component.id;
+    }
   }
 
   for (let i = 0; i < data.sections.length; i++) {
@@ -152,7 +151,7 @@ async function seedSampleTenant(tenantSlug: string): Promise<void> {
 
 async function main() {
   await seedSuperAdmin();
-  await seedHeroComponent();
+  await seedAllComponents();
   await seedSampleTenant('kerabat-jenggala');
   await seedSampleTenant('pempek-ibu-wati');
   console.log('Seed complete.');

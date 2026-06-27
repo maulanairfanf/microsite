@@ -2,10 +2,11 @@
 
 import type { Theme } from "@/types/components";
 import { ComponentRenderer } from "@/components/ComponentRenderer";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { getTenantByTenantId } from "@/lib/db/tenants";
 import { getSectionsByTenant } from "@/lib/db/sections";
-import { getTheme } from "@/lib/db/themes";
+import { getTheme, parseThemeConfig } from "@/lib/db/themes";
+import { themeToCssVars, buildGoogleFontHref } from "@/lib/themeCss";
+import { defaultTokens } from "@/lib/themeDefaults";
 import { notFound } from "next/navigation";
 
 export default async function TenantPage({
@@ -36,18 +37,8 @@ export default async function TenantPage({
   let theme: Theme | null = null;
   if (themeIdToUse) {
     const themeData = await getTheme(themeIdToUse);
-    if (themeData?.config) {
-      const parsedConfig = JSON.parse(themeData.config);
-      theme = {
-        id: themeData.id,
-        name: themeData.name,
-        fontFamily: parsedConfig.fontFamily || "Inter",
-        theme: {
-          page: parsedConfig.page,
-          container: parsedConfig.container,
-          card: parsedConfig.card,
-        },
-      };
+    if (themeData) {
+      theme = parseThemeConfig(themeData);
     }
   }
 
@@ -55,9 +46,16 @@ export default async function TenantPage({
     return notFound();
   }
 
+  const themeCss = themeToCssVars(theme ?? ({ fontFamily: "Inter", theme: defaultTokens } as Theme));
+  const fontHref = buildGoogleFontHref(theme?.fontFamily || "Inter");
+
   return (
     <>
-      {theme && <ThemeProvider theme={theme} />}
+      {/* XSS audit: themeToCssVars escapes break-out characters (;}<>) from every value
+          and source data is validated by themeValidator (Zod) before reaching the DB. */}
+      <style dangerouslySetInnerHTML={{ __html: themeCss }} />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link rel="stylesheet" href={fontHref} />
       <main className="min-h-screen flex items-start justify-center py-0 md:pt-8 bg-page">
         <div className="w-full max-w-lg overflow-hidden container-bg container-border container-shadow header-font">
           {sections.map((section: any, index: number) => {

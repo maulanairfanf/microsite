@@ -5,7 +5,7 @@ import {
   countHeroSectionsForTenant,
 } from "@/lib/db/sections";
 import { getComponent } from "@/lib/db/components";
-import { HERO_COMPONENT_NAME } from "@/lib/heroDefaults";
+import { ComponentName } from "@/lib/components/componentNames";
 
 export async function GET(request: NextRequest) {
   try {
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     }
 
     const component = await getComponent(componentId);
-    if (component?.name === HERO_COMPONENT_NAME) {
+    if (component?.name === ComponentName.Hero) {
       const existing = await countHeroSectionsForTenant(tenantId);
       if (existing > 0) {
         return NextResponse.json(

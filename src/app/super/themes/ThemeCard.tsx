@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { clientApi } from "@/lib/client-api";
+import { parseThemeConfig, type ThemeRecord } from "@/lib/themeConfig";
 
 interface ThemeCardProps {
   theme: {
@@ -29,13 +30,7 @@ interface ThemeCardProps {
 export function ThemeCard({ theme, tenantCount, onDeleted, onError }: ThemeCardProps) {
   const [deleting, setDeleting] = useState(false);
 
-  let pageBg = "#ccc";
-  try {
-    if (theme.config) {
-      const config = JSON.parse(theme.config);
-      pageBg = config.page?.background || "#ccc";
-    }
-  } catch {}
+  const pageBg = parseThemeConfig(theme as ThemeRecord).theme.page?.background || "#ccc";
 
   async function handleDelete() {
     if (tenantCount > 0) {
