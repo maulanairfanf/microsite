@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import { TextField } from "./TextField";
 import { ObjectField } from "./ObjectField";
 import { ArrayField } from "./ArrayField";
+import { FileField } from "./FileField";
 import type { ConfigField, FieldContext } from "../types";
 
 const registry: Record<ConfigField["type"], ComponentType<FieldContext>> = {
@@ -10,6 +11,7 @@ const registry: Record<ConfigField["type"], ComponentType<FieldContext>> = {
   textarea: TextField,
   object: ObjectField,
   array: ArrayField,
+  file: FileField,
 };
 
 export const fieldRegistry = Object.freeze(registry) as Readonly<

@@ -19,7 +19,8 @@ interface TenantSectionFormProps {
     order: number;
     configJson?: string;
   };
-  components: { value: string; label: string; configSchema?: string }[];
+  components: { value: string; label: string; name: string }[];
+  schemasByName: Record<string, string>;
   isEdit: boolean;
 }
 
@@ -49,6 +50,7 @@ export function TenantSectionForm({
   tenantId,
   section,
   components,
+  schemasByName,
   isEdit,
 }: TenantSectionFormProps) {
   const router = useRouter();
@@ -59,7 +61,7 @@ export function TenantSectionForm({
   const [loading, setLoading] = useState(false);
 
   const selectedComponent = components.find((c) => c.value === selectedComponentId);
-  const fields = parseSchema(selectedComponent?.configSchema);
+  const fields = parseSchema(selectedComponent ? schemasByName[selectedComponent.name] : undefined);
 
   const handleComponentChange = useCallback((newId: string) => {
     setSelectedComponentId(newId);
@@ -128,7 +130,7 @@ export function TenantSectionForm({
         )}
       </div>
 
-      <div className="flex gap-3 px-2">
+      <div className="flex gap-3 ">
         <Button type="submit" disabled={loading}>
           {loading ? "Saving..." : isEdit ? "Save Changes" : "Create Section"}
         </Button>

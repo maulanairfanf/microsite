@@ -7,7 +7,7 @@ export const BANNER_SCHEMA = JSON.stringify([
     itemFields: [
       { name: "id", label: "ID", type: "text", placeholder: "banner-1" },
       { name: "section_id", label: "Section ID", type: "text", placeholder: "promo_coffee" },
-      { name: "image_url", label: "Image URL", type: "text", placeholder: "https://..." },
+      { name: "image_url", label: "Image", type: "file" },
       {
         name: "cta",
         label: "CTA",

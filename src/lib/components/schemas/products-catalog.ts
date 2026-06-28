@@ -14,7 +14,7 @@ export const PRODUCTS_CATALOG_SCHEMA = JSON.stringify([
         itemFields: [
           { name: "id", label: "Product ID", type: "text", placeholder: "esp1" },
           { name: "title", label: "Product Name", type: "text", placeholder: "Single Shot Espresso" },
-          { name: "image", label: "Image URL", type: "text", placeholder: "https://..." },
+          { name: "image", label: "Image", type: "file" },
           { name: "price", label: "Price (IDR)", type: "number", placeholder: "25000" },
           { name: "url", label: "Product URL", type: "text", placeholder: "https://..." },
         ],

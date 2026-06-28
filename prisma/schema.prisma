@@ -53,6 +53,7 @@ model Component {
   id           String    @id @default(cuid())
   name         String    @unique
   displayName  String?
+  /// @deprecated Schema is now read from `COMPONENT_SCHEMAS` in source code. Column kept for backward compatibility; will be removed in a future migration.
   configSchema String?
   createdAt    DateTime  @default(now())
   sections     Section[]

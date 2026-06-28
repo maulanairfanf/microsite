@@ -22,9 +22,7 @@ export function setNestedValue<T>(obj: T, path: Path, value: unknown): T {
     return cloned as unknown as T;
   }
   const baseObj =
-    obj && typeof obj === "object" && !Array.isArray(obj)
-      ? (obj as Record<string, unknown>)
-      : {};
+    obj && typeof obj === "object" && !Array.isArray(obj) ? (obj as Record<string, unknown>) : {};
   const cloned: Record<string, unknown> = { ...baseObj };
   cloned[key] = setNestedValue(cloned[key], rest, value);
   return cloned as T;
@@ -83,8 +81,11 @@ export function removeArrayItemAt(
 export interface ConfigField {
   name: string;
   label: string;
-  type: "text" | "number" | "textarea" | "array" | "object";
+  type: "text" | "number" | "textarea" | "array" | "object" | "file";
   placeholder?: string;
   itemType?: string;
   itemFields?: ConfigField[];
+  /** Aspect ratio for file field image preview, e.g. "4:3", "16:9", "1:1" */
+  aspectRatio?: string;
+  width?: number;
 }

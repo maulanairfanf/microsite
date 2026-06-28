@@ -6,6 +6,7 @@ import { getSection, countHeroSectionsForTenant } from "@/lib/db/sections";
 import { listComponents } from "@/lib/db/components";
 import { TenantSectionForm } from "@/components/admin/TenantSectionForm";
 import { ComponentName } from "@/lib/components/componentNames";
+import { COMPONENT_SCHEMAS } from "@/lib/components/schemas";
 
 interface Props {
   params: Promise<{ section_id: string }>;
@@ -44,7 +45,7 @@ export default async function AdminSectionFormPage({ params }: Props) {
     .map((c) => ({
       value: c.id,
       label: c.displayName ?? c.name,
-      configSchema: c.configSchema || undefined,
+      name: c.name,
     }));
 
   return (
@@ -52,6 +53,7 @@ export default async function AdminSectionFormPage({ params }: Props) {
       <PageHeader
         title={isEdit ? "Edit Section" : "Add New Section"}
         description="Configure your section component and settings"
+        backHref="/admin/sections"
       />
       <Card className="p-6 max-w-2xl">
         <TenantSectionForm
@@ -68,6 +70,7 @@ export default async function AdminSectionFormPage({ params }: Props) {
               : undefined
           }
           components={componentOptions}
+          schemasByName={COMPONENT_SCHEMAS}
           isEdit={!!isEdit}
         />
       </Card>

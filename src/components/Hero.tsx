@@ -26,7 +26,7 @@ export function Hero({ data }: { data: HeroComponent }) {
           src={data.image}
           alt={data.title}
           fill
-          className="object-cover absolute inset-0 opacity-10"
+          className="object-cover absolute inset-0 opacity-80"
           priority
         />
       )}
