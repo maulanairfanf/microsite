@@ -28,9 +28,11 @@ export function Linktree({ data }: { data: LinktreeComponent }) {
           const Icon = item.icon ? iconMap[item.icon] : null;
           return (
             <a
+              target="_blank"
               key={item.id ?? item.text}
               href={item.url}
               className="flex items-center gap-4 p-2 rounded-lg transition-all card-bg card-hover-bg card-style"
+              rel="noreferrer"
             >
               {Icon && (
                 <div className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0">

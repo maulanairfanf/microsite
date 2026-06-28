@@ -14,7 +14,7 @@ interface PageHeaderProps {
 export function PageHeader({ title, description, action, className, backHref }: PageHeaderProps) {
   return (
     <div className={cn("flex items-center justify-between mb-6", className)}>
-      <div className="flex items-center gap-3">
+      <div className="flex gap-3">
         {backHref && (
           <Link href={backHref} aria-label="Go back">
             <Button variant="ghost" size="icon" className="-ml-2">
