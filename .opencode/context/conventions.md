@@ -98,6 +98,73 @@ if (section.component?.name === ComponentName.Hero) { ... }
 
 ---
 
+## Section Types: Single Source of Truth
+
+**Rule:** All Section-related TypeScript interfaces live in `src/lib/db/types.ts`. Never define Section shapes locally in components or pages — always import from types.ts.
+
+**File:** `src/lib/db/types.ts`
+
+**Three shapes:**
+
+```ts
+// Full shape returned by list/get queries (DB layer)
+export interface SectionWithComponent {
+  id: string;
+  tenantId: string;
+  order: number;
+  configJson: string | null;
+  createdAt: Date;
+  updatedAt: Date | null;
+  component: { id: string; name: string; displayName: string | null } | null;
+}
+
+// Shape for TenantSectionForm props (admin form)
+export interface SectionFormSection {
+  id: string;
+  componentId: string | null;
+  component: { id: string; name: string; displayName: string | null } | null;
+  order: number;
+  configJson?: string;
+}
+
+// Minimal subset for DraggableSections card list
+export interface SectionCardItem {
+  id: string;
+  order: number;
+  component: { id: string; name: string; displayName: string | null } | null;
+  configJson: string | null;
+}
+```
+
+**When to use each:**
+- `SectionWithComponent` — return type of DB queries (`listSections`, `getSection`, etc.), pages that render sections
+- `SectionFormSection` — props for `TenantSectionForm`
+- `SectionCardItem` — props for `DraggableSections` card list
+
+**Why:** Scattered inline interfaces drift out of sync. A single source of truth ensures type mismatches are caught at compile time.
+
+**Shared option types:**
+
+```ts
+// For Select/dropdown props
+export interface SelectOption {
+  value: string;
+  label: string;
+}
+
+// For section component picker (extends SelectOption with wire name)
+export interface ComponentOption extends SelectOption {
+  name: string;
+}
+```
+
+- `SelectOption` — any Select dropdown (`FormFields.tsx`, theme pickers, etc.)
+- `ComponentOption` — section component pickers that also need the wire `name` for schema lookup
+
+Never use inline `{ value: string; label: string }[]` in props — import from `@/lib/db/types`.
+
+---
+
 ## Database Access
 
 **Rule:** Never call `prisma` directly in pages, components, or API routes. Always go through `src/lib/db/<entity>.ts`.
@@ -267,7 +334,10 @@ Don't use shadcn `<Input>` directly for validated forms — it doesn't render la
 - ❌ Don't fetch in `useEffect` for page-load data — use server component or `use()`
 - ❌ Don't add new keyframes to `globals.css` for one-off cases
 - ❌ Don't import from `src/lib/db/index.ts` — import directly from entity file
--  Don't use string literal types for enumerated values — use const objects
+- ❌ Don't use string literal types for enumerated values — use const objects
+- ❌ Don't define Section interfaces locally in components or pages — import from `@/lib/db/types`
+- ❌ Don't use inline `{ value, label }` object literals in component props — import `SelectOption` or `ComponentOption` from `@/lib/db/types`
+- ❌ Don't use `any` type — use `unknown` and narrow (use `SectionWithComponent` for typed sections)
 - ❌ Don't use `dangerouslySetInnerHTML` without XSS audit comment
 
 ---

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/admin/FormFields";
 import { Select } from "@/components/admin/FormFields";
 import { clientApi } from "@/lib/client-api";
+import type { SelectOption } from "@/lib/db/types";
 
 interface TenantSettingsFormProps {
   tenant: {
@@ -13,7 +14,7 @@ interface TenantSettingsFormProps {
     name: string;
     themeId: string | null;
   };
-  themes: { value: string; label: string }[];
+  themes: SelectOption[];
 }
 
 export function TenantSettingsForm({ tenant, themes }: TenantSettingsFormProps) {

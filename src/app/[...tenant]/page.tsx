@@ -1,6 +1,7 @@
 "use server";
 
 import type { Theme } from "@/types/components";
+import type { SectionWithComponent } from "@/lib/db/types";
 import { ComponentRenderer } from "@/components/ComponentRenderer";
 import { getTenantByTenantId } from "@/lib/db/tenants";
 import { getSectionsByTenant } from "@/lib/db/sections";
@@ -58,7 +59,7 @@ export default async function TenantPage({
       <link rel="stylesheet" href={fontHref} />
       <main className="min-h-screen flex items-start justify-center py-0 md:pt-8 bg-page">
         <div className="w-full max-w-lg overflow-hidden container-bg container-border container-shadow header-font">
-          {sections.map((section: any, index: number) => {
+          {sections.map((section: SectionWithComponent, index: number) => {
             const componentType = section.component?.name
               ? section.component.name.toLowerCase().replace(/\s+/g, "_")
               : section.component;

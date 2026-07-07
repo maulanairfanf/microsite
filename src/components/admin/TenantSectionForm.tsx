@@ -9,17 +9,12 @@ import { clientApi } from "@/lib/client-api";
 import { useConfigState } from "@/hooks/useConfigState";
 import { FieldRenderer } from "@/components/admin/section-form/fields/FieldRenderer";
 import type { ConfigField } from "@/components/admin/section-form/types";
+import type { SectionFormSection, ComponentOption } from "@/lib/db/types";
 
 interface TenantSectionFormProps {
   tenantId: string;
-  section?: {
-    id: string;
-    componentId: string | null;
-    component: { id: string; name: string } | null;
-    order: number;
-    configJson?: string;
-  };
-  components: { value: string; label: string; name: string }[];
+  section?: SectionFormSection;
+  components: ComponentOption[];
   schemasByName: Record<string, string>;
   isEdit: boolean;
 }

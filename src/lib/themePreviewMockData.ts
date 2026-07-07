@@ -1,4 +1,4 @@
-import type { SectionListItem } from "@/lib/db/sections";
+import type { SectionWithComponent } from "@/lib/db/types";
 
 function jsonStringify(obj: unknown): string {
   return JSON.stringify(obj);
@@ -28,14 +28,14 @@ const COFFEE = {
   ],
 };
 
-export const PREVIEW_SECTIONS: SectionListItem[] = [
+export const PREVIEW_SECTIONS: SectionWithComponent[] = [
   {
     id: "mock-hero",
     tenantId: "mock-tenant",
     order: 0,
     createdAt: new Date(),
     updatedAt: new Date(),
-    component: { id: "mock-hero-comp", name: "Hero" },
+    component: { id: "mock-hero-comp", name: "Hero", displayName: "Hero" },
     configJson: jsonStringify({
       title: "Kopi Tetangga",
       subtitle: "Single-origin beans, roasted weekly. Crafted by hand, served with heart ☕",
@@ -50,7 +50,7 @@ export const PREVIEW_SECTIONS: SectionListItem[] = [
     order: 1,
     createdAt: new Date(),
     updatedAt: new Date(),
-    component: { id: "mock-banner-comp", name: "Banner" },
+    component: { id: "mock-banner-comp", name: "Banner", displayName: "Banner" },
     configJson: jsonStringify({
       title: "This Week's Specials",
       data: [
@@ -81,7 +81,7 @@ export const PREVIEW_SECTIONS: SectionListItem[] = [
     order: 2,
     createdAt: new Date(),
     updatedAt: new Date(),
-    component: { id: "mock-linktree-comp", name: "Linktree" },
+    component: { id: "mock-linktree-comp", name: "Linktree", displayName: "Linktree" },
     configJson: jsonStringify({
       title: "Quick Links",
       items: [
@@ -98,7 +98,7 @@ export const PREVIEW_SECTIONS: SectionListItem[] = [
     order: 3,
     createdAt: new Date(),
     updatedAt: new Date(),
-    component: { id: "mock-showcase-comp", name: "Products Showcase" },
+    component: { id: "mock-showcase-comp", name: "Products Showcase", displayName: "Products Showcase" },
     configJson: jsonStringify({
       title: "Best Sellers",
       items: [
@@ -148,7 +148,7 @@ export const PREVIEW_SECTIONS: SectionListItem[] = [
     order: 4,
     createdAt: new Date(),
     updatedAt: new Date(),
-    component: { id: "mock-catalog-comp", name: "Products Catalog" },
+    component: { id: "mock-catalog-comp", name: "Products Catalog", displayName: "Products Catalog" },
     configJson: jsonStringify({
       title: "Full Menu",
       categories: [
@@ -301,7 +301,7 @@ export const PREVIEW_SECTIONS: SectionListItem[] = [
     order: 5,
     createdAt: new Date(),
     updatedAt: new Date(),
-    component: { id: "mock-social-comp", name: "Social Media" },
+    component: { id: "mock-social-comp", name: "Social Media", displayName: "Social Media" },
     configJson: jsonStringify({
       socialMedia: [
         { name: "Instagram", url: "#", icon: "instagram" },
@@ -322,7 +322,7 @@ export const PREVIEW_SECTIONS: SectionListItem[] = [
     order: 6,
     createdAt: new Date(),
     updatedAt: new Date(),
-    component: { id: "mock-footer-comp", name: "Footer" },
+    component: { id: "mock-footer-comp", name: "Footer", displayName: "Footer" },
     configJson: jsonStringify({
       socialMedia: [],
       joinButton: {

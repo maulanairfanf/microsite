@@ -25,16 +25,10 @@ import Link from "next/link";
 import { clientApi } from "@/lib/client-api";
 import { useIsClient } from "@/lib/useIsClient";
 import { ComponentName } from "@/lib/components/componentNames";
-
-interface SectionItem {
-  id: string;
-  order: number;
-  component: { id: string; name: string } | null;
-  configJson: string | null;
-}
+import type { SectionCardItem } from "@/lib/db/types";
 
 interface DraggableSectionCardProps {
-  section: SectionItem;
+  section: SectionCardItem;
   onDeleted: (id: string) => void;
   onError: (message: string) => void;
 }
@@ -108,7 +102,7 @@ function SortableSectionCard({ section, onDeleted, onError }: DraggableSectionCa
                 )}
               </div>
               <p className="text-sm text-muted-foreground truncate">
-                {section.component?.name}
+                {section.component?.displayName}
               </p>
             </div>
           </div>
@@ -137,11 +131,7 @@ function SortableSectionCard({ section, onDeleted, onError }: DraggableSectionCa
   );
 }
 
-function StaticSectionRow({
-  section,
-  onDeleted,
-  onError,
-}: DraggableSectionCardProps) {
+function StaticSectionRow({ section, onDeleted, onError }: DraggableSectionCardProps) {
   const [deleting, setDeleting] = useState(false);
   const title = extractTitle(section.configJson);
   const isHero = section.component?.name === ComponentName.Hero;
@@ -180,9 +170,7 @@ function StaticSectionRow({
                 </span>
               )}
             </div>
-            <p className="text-sm text-muted-foreground truncate">
-              {section.component?.name}
-            </p>
+            <p className="text-sm text-muted-foreground truncate">{section.component?.name}</p>
           </div>
         </div>
         <div className="flex items-center gap-2 shrink-0">
@@ -210,7 +198,7 @@ function StaticSectionRow({
 }
 
 interface DraggableSectionsProps {
-  initialSections: SectionItem[];
+  initialSections: SectionCardItem[];
   tenantId: string;
 }
 

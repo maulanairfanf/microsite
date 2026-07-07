@@ -2,6 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import type { SelectOption } from "@/lib/db/types";
 import {
   Select,
   SelectContent,
@@ -63,7 +64,7 @@ function LabeledSelect({
   required,
 }: {
   label?: string;
-  options: { value: string; label: string }[];
+  options: SelectOption[];
   placeholder?: string;
   error?: string;
   className?: string;

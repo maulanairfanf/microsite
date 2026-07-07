@@ -1,54 +1,36 @@
 import { prisma } from "@/lib/prisma";
+import type { SectionWithComponent } from "@/lib/db/types";
 
-export interface SectionListItem {
-  id: string;
-  tenantId: string;
-  order: number;
-  configJson: string | null;
-  createdAt: Date;
-  updatedAt: Date | null;
-  component: { id: string; name: string } | null;
-}
+const sectionSelect = {
+  id: true,
+  tenantId: true,
+  order: true,
+  configJson: true,
+  createdAt: true,
+  updatedAt: true,
+  component: {
+    select: { id: true, name: true, displayName: true },
+  },
+} as const;
 
 export async function listSections(
   options: { tenantId?: string } = {},
-): Promise<SectionListItem[]> {
+): Promise<SectionWithComponent[]> {
   return prisma.section.findMany({
     where: options.tenantId ? { tenantId: options.tenantId } : undefined,
     orderBy: { order: "asc" },
-    select: {
-      id: true,
-      tenantId: true,
-      order: true,
-      configJson: true,
-      createdAt: true,
-      updatedAt: true,
-      component: {
-        select: { id: true, name: true },
-      },
-    },
+    select: sectionSelect,
   });
 }
 
-export async function getSection(id: string): Promise<SectionListItem | null> {
-  const section = await prisma.section.findUnique({
+export async function getSection(id: string): Promise<SectionWithComponent | null> {
+  return prisma.section.findUnique({
     where: { id },
-    select: {
-      id: true,
-      tenantId: true,
-      order: true,
-      configJson: true,
-      createdAt: true,
-      updatedAt: true,
-      component: {
-        select: { id: true, name: true },
-      },
-    },
+    select: sectionSelect,
   });
-  return section;
 }
 
-export async function getSectionsByTenant(tenantId: string): Promise<SectionListItem[]> {
+export async function getSectionsByTenant(tenantId: string): Promise<SectionWithComponent[]> {
   return listSections({ tenantId });
 }
 
@@ -57,7 +39,7 @@ export async function createSection(data: {
   componentId?: string | null;
   order?: number;
   configJson?: string;
-}): Promise<SectionListItem> {
+}): Promise<SectionWithComponent> {
   return prisma.section.create({
     data: {
       tenantId: data.tenantId,
@@ -65,24 +47,14 @@ export async function createSection(data: {
       order: data.order || 0,
       configJson: data.configJson || null,
     },
-    select: {
-      id: true,
-      tenantId: true,
-      order: true,
-      configJson: true,
-      createdAt: true,
-      updatedAt: true,
-      component: {
-        select: { id: true, name: true },
-      },
-    },
+    select: sectionSelect,
   });
 }
 
 export async function updateSection(
   id: string,
   data: { componentId?: string | null; order?: number; configJson?: string },
-): Promise<SectionListItem> {
+): Promise<SectionWithComponent> {
   return prisma.section.update({
     where: { id },
     data: {
@@ -91,17 +63,7 @@ export async function updateSection(
       ...(data.configJson !== undefined && { configJson: data.configJson }),
       updatedAt: new Date(),
     },
-    select: {
-      id: true,
-      tenantId: true,
-      order: true,
-      configJson: true,
-      createdAt: true,
-      updatedAt: true,
-      component: {
-        select: { id: true, name: true },
-      },
-    },
+    select: sectionSelect,
   });
 }
 
@@ -111,23 +73,13 @@ export async function deleteSection(id: string): Promise<void> {
 
 export async function findHeroSectionForTenant(
   tenantId: string,
-): Promise<SectionListItem | null> {
+): Promise<SectionWithComponent | null> {
   return prisma.section.findFirst({
     where: {
       tenantId,
       component: { name: "Hero" },
     },
-    select: {
-      id: true,
-      tenantId: true,
-      order: true,
-      configJson: true,
-      createdAt: true,
-      updatedAt: true,
-      component: {
-        select: { id: true, name: true },
-      },
-    },
+    select: sectionSelect,
   });
 }
 
@@ -138,7 +90,7 @@ export async function countHeroSectionsForTenant(
   return prisma.section.count({
     where: {
       tenantId,
-      component: { name: "Hero" },
+      component: { name: "hero" },
       ...(excludeSectionId ? { NOT: { id: excludeSectionId } } : {}),
     },
   });
