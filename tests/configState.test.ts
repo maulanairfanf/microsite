@@ -90,30 +90,39 @@ describe("setNestedValue", () => {
 });
 
 describe("getEmptyItem", () => {
-  it("returns empty object when itemFields is undefined", () => {
-    expect(getEmptyItem(undefined)).toEqual({});
+  it("returns an item with auto-generated id when itemFields is undefined", () => {
+    const result = getEmptyItem(undefined);
+    expect(result).toHaveProperty("id");
+    expect(typeof result.id).toBe("string");
+    expect(result.id).toMatch(/^[a-z0-9]+-[a-z0-9]+$/);
   });
 
-  it("returns empty object when itemFields is empty", () => {
-    expect(getEmptyItem([])).toEqual({});
+  it("returns an item with auto-generated id when itemFields is empty", () => {
+    const result = getEmptyItem([]);
+    expect(result).toHaveProperty("id");
+    expect(typeof result.id).toBe("string");
   });
 
-  it("initializes text-like fields to empty string", () => {
+  it("initializes text-like fields to empty string plus id", () => {
     const fields: ConfigField[] = [
       { name: "title", label: "Title", type: "text" },
       { name: "count", label: "Count", type: "number" },
     ];
-    expect(getEmptyItem(fields)).toEqual({ title: "", count: "" });
+    const result = getEmptyItem(fields);
+    expect(result).toMatchObject({ title: "", count: "" });
+    expect(result).toHaveProperty("id");
   });
 
-  it("initializes array fields to empty array", () => {
+  it("initializes array fields to empty array plus id", () => {
     const fields: ConfigField[] = [
       { name: "tags", label: "Tags", type: "array" },
     ];
-    expect(getEmptyItem(fields)).toEqual({ tags: [] });
+    const result = getEmptyItem(fields);
+    expect(result).toMatchObject({ tags: [] });
+    expect(result).toHaveProperty("id");
   });
 
-  it("recursively initializes object fields", () => {
+  it("recursively initializes object fields plus id", () => {
     const fields: ConfigField[] = [
       {
         name: "meta",
@@ -124,7 +133,19 @@ describe("getEmptyItem", () => {
         ],
       },
     ];
-    expect(getEmptyItem(fields)).toEqual({ meta: { label: "" } });
+    const result = getEmptyItem(fields);
+    expect(result).toMatchObject({ meta: { label: "" } });
+    expect(result).toHaveProperty("id");
+  });
+
+  it("skips id field from itemFields to avoid duplicate", () => {
+    const fields: ConfigField[] = [
+      { name: "id", label: "ID", type: "text" },
+      { name: "name", label: "Name", type: "text" },
+    ];
+    const result = getEmptyItem(fields);
+    expect(result).toMatchObject({ name: "" });
+    expect(result).toHaveProperty("id");
   });
 });
 
@@ -161,23 +182,32 @@ describe("updateArrayItemAt", () => {
 });
 
 describe("addArrayItemAt", () => {
-  it("appends an empty item to a top-level array", () => {
+  it("appends an item with auto-generated id", () => {
     const result = addArrayItemAt({ items: [{ name: "a" }] }, ["items"], [
       { name: "name", label: "Name", type: "text" },
     ]);
-    expect(result).toEqual({ items: [{ name: "a" }, { name: "" }] });
+    const items = result.items as Record<string, unknown>[];
+    expect(items).toHaveLength(2);
+    expect(items[1]).toMatchObject({ name: "" });
+    expect(items[1]).toHaveProperty("id");
   });
 
   it("creates the array if it does not exist", () => {
     const result = addArrayItemAt({}, ["items"], [
       { name: "name", label: "Name", type: "text" },
     ]);
-    expect(result).toEqual({ items: [{ name: "" }] });
+    const items = result.items as Record<string, unknown>[];
+    expect(Array.isArray(items)).toBe(true);
+    expect(items[0]).toMatchObject({ name: "" });
+    expect(items[0]).toHaveProperty("id");
   });
 
-  it("appends an empty object when itemFields is undefined", () => {
+  it("appends an item with id when itemFields is undefined", () => {
     const result = addArrayItemAt({ items: [{ x: 1 }] }, ["items"]);
-    expect(result).toEqual({ items: [{ x: 1 }, {}] });
+    const items = result.items as Record<string, unknown>[];
+    expect(items).toHaveLength(2);
+    expect(items[1]).toHaveProperty("id");
+    expect(Object.keys(items[1]!)).toEqual(["id"]);
   });
 });
 
@@ -188,7 +218,7 @@ describe("removeArrayItemAt", () => {
   });
 
   it("is a no-op when index is out of range", () => {
-    const result = removeArrayItemAt({ items: ["a"] }, ["items"], 5);
+    const result = removeArrayItemAt({ items: ["a"] }, ["items"], 1);
     expect(result).toEqual({ items: ["a"] });
   });
 

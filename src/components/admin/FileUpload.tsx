@@ -5,6 +5,7 @@ import Image from "next/image";
 import { uploadFile, UploadError, DEFAULT_ALLOWED_TYPES, DEFAULT_MAX_SIZE } from "@/lib/uploadFile";
 import { cn } from "@/lib/utils";
 import { Trash2, Link, Upload } from "lucide-react";
+import { Button } from "../ui/button";
 
 export interface FileUploadProps {
   value?: string;
@@ -101,14 +102,16 @@ export function FileUpload({
             className="object-cover"
             unoptimized
           />
-          <button
+          <Button
             type="button"
             onClick={handleRemove}
             disabled={uploading || disabled}
-            className="absolute top-2 right-2 bg-destructive text-destructive-foreground text-xs p-1 rounded disabled:opacity-50 cursor-pointer"
+            className="absolute top-2 right-2 "
+            variant="destructive"
+            size="xs"
           >
             <Trash2 className="w-4 h-4" />
-          </button>
+          </Button>
         </div>
       )}
 

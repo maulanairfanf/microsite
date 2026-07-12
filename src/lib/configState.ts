@@ -29,9 +29,10 @@ export function setNestedValue<T>(obj: T, path: Path, value: unknown): T {
 }
 
 export function getEmptyItem(itemFields?: ConfigField[]): Record<string, unknown> {
-  if (!itemFields) return {};
   const item: Record<string, unknown> = {};
-  for (const f of itemFields) {
+  item.id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+  for (const f of itemFields ?? []) {
+    if (f.name === "id") continue;
     if (f.type === "array") {
       item[f.name] = [];
     } else if (f.type === "object") {
@@ -88,4 +89,6 @@ export interface ConfigField {
   /** Aspect ratio for file field image preview, e.g. "4:3", "16:9", "1:1" */
   aspectRatio?: string;
   width?: number;
+  /** When true, the field is displayed as read-only (disabled). Useful for auto-computed fields. */
+  readOnly?: boolean;
 }

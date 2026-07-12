@@ -339,6 +339,7 @@ Don't use shadcn `<Input>` directly for validated forms — it doesn't render la
 - ❌ Don't use inline `{ value, label }` object literals in component props — import `SelectOption` or `ComponentOption` from `@/lib/db/types`
 - ❌ Don't use `any` type — use `unknown` and narrow (use `SectionWithComponent` for typed sections)
 - ❌ Don't use `dangerouslySetInnerHTML` without XSS audit comment
+- ❌ Don't use raw HTML elements (`<button>`, `<input>`, `<a>`) — use `<Button>`, `<Input>`, `<Link>` from `@/components/ui/`
 
 ---
 
