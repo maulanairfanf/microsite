@@ -186,25 +186,28 @@ describe("addArrayItemAt", () => {
     const result = addArrayItemAt({ items: [{ name: "a" }] }, ["items"], [
       { name: "name", label: "Name", type: "text" },
     ]);
-    expect(result.items).toHaveLength(2);
-    expect((result.items[1] as Record<string, unknown>)).toMatchObject({ name: "" });
-    expect((result.items[1] as Record<string, unknown>)).toHaveProperty("id");
+    const items = result.items as Record<string, unknown>[];
+    expect(items).toHaveLength(2);
+    expect(items[1]).toMatchObject({ name: "" });
+    expect(items[1]).toHaveProperty("id");
   });
 
   it("creates the array if it does not exist", () => {
     const result = addArrayItemAt({}, ["items"], [
       { name: "name", label: "Name", type: "text" },
     ]);
-    expect(Array.isArray(result.items)).toBe(true);
-    expect((result.items[0] as Record<string, unknown>)).toMatchObject({ name: "" });
-    expect((result.items[0] as Record<string, unknown>)).toHaveProperty("id");
+    const items = result.items as Record<string, unknown>[];
+    expect(Array.isArray(items)).toBe(true);
+    expect(items[0]).toMatchObject({ name: "" });
+    expect(items[0]).toHaveProperty("id");
   });
 
   it("appends an item with id when itemFields is undefined", () => {
     const result = addArrayItemAt({ items: [{ x: 1 }] }, ["items"]);
-    expect(result.items).toHaveLength(2);
-    expect((result.items[1] as Record<string, unknown>)).toHaveProperty("id");
-    expect(Object.keys(result.items[1] as Record<string, unknown>)).toEqual(["id"]);
+    const items = result.items as Record<string, unknown>[];
+    expect(items).toHaveLength(2);
+    expect(items[1]).toHaveProperty("id");
+    expect(Object.keys(items[1]!)).toEqual(["id"]);
   });
 });
 
