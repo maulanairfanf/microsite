@@ -24,6 +24,13 @@ interface TenantData {
   };
 }
 
+interface ThemeData {
+  id: string;
+  name: string;
+  fontFamily: string;
+  theme: Record<string, unknown>;
+}
+
 function loadTenantData(tenantSlug: string): TenantData | null {
   const basePath = path.join(__dirname, `../src/data/tenants/${tenantSlug}`);
   const tenantPath = path.join(basePath, 'tenant.json');
@@ -54,6 +61,35 @@ async function seedSuperAdmin() {
     },
   });
   console.log('Super admin seeded: admin@halamanku.id / admin123');
+}
+
+async function seedAllThemes() {
+  const themesDir = path.join(__dirname, '../src/data/themes');
+  if (!fs.existsSync(themesDir)) {
+    console.warn('No themes directory found at src/data/themes');
+    return;
+  }
+
+  const files = fs.readdirSync(themesDir).filter((f) => f.endsWith('.json'));
+  for (const file of files) {
+    const filePath = path.join(themesDir, file);
+    const data: ThemeData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+    await prisma.theme.upsert({
+      where: { slug: data.id },
+      update: {
+        name: data.name,
+        config: JSON.stringify(data),
+      },
+      create: {
+        id: data.id,
+        slug: data.id,
+        name: data.name,
+        config: JSON.stringify(data),
+      },
+    });
+    console.log(`Theme upserted: ${data.name} (${data.id})`);
+  }
 }
 
 async function seedAllComponents() {
@@ -106,21 +142,15 @@ async function seedSampleTenant(tenantSlug: string): Promise<void> {
     },
   });
 
-  const theme = await prisma.theme.upsert({
+  const theme = await prisma.theme.findUnique({
     where: { slug: data.theme.id },
-    update: {},
-    create: {
-      id: data.theme.id,
-      slug: data.theme.id,
-      name: data.theme.name,
-      config: JSON.stringify(data.theme),
-    },
   });
-
-  await prisma.tenant.update({
-    where: { id: tenant.id },
-    data: { themeId: theme.id },
-  });
+  if (theme) {
+    await prisma.tenant.update({
+      where: { id: tenant.id },
+      data: { themeId: theme.id },
+    });
+  }
 
   const componentNames = [...new Set(data.sections.map((s) => s.type))];
   const componentIds: Record<string, string> = {};
@@ -152,6 +182,7 @@ async function seedSampleTenant(tenantSlug: string): Promise<void> {
 
 async function main() {
   await seedSuperAdmin();
+  await seedAllThemes();
   await seedAllComponents();
   await seedSampleTenant('coffee-shop');
   console.log('Seed complete.');

@@ -26,6 +26,7 @@ export function TextField({ field, path, value, update }: FieldContext) {
         }
         placeholder={field.placeholder}
         className="mt-1"
+        disabled={field.readOnly}
       />
     </div>
   );
