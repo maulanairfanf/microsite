@@ -1,52 +1,79 @@
 "use server";
 
+import type { Theme } from "@/types/components";
+import type { SectionWithComponent } from "@/lib/db/types";
 import { ComponentRenderer } from "@/components/ComponentRenderer";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import {
-  loadTenantSections,
-  loadTenantTheme,
-  loadTenantSectionsFromSheets,
-  loadTenantThemeFromSheets,
-} from "@/lib/tenantLoader";
-import { redirect } from "next/navigation";
+import { getTenantByTenantId } from "@/lib/db/tenants";
+import { getSectionsByTenant } from "@/lib/db/sections";
+import { getTheme, parseThemeConfig } from "@/lib/db/themes";
+import { themeToCssVars, buildGoogleFontHref } from "@/lib/themeCss";
+import { defaultTokens } from "@/lib/themeDefaults";
+import { notFound } from "next/navigation";
 
 export default async function TenantPage({
   params,
+  searchParams,
 }: {
-  params: Promise<{ tenant: string[] }>
+  params: Promise<{ tenant: string[] }>;
+  searchParams: Promise<{ preview?: string }>;
 }) {
   const { tenant } = await params;
+  const { preview: previewThemeId } = await searchParams;
 
   if (!tenant || tenant.length === 0) {
-    redirect("/");
+    return notFound();
   }
 
   const tenantSlug = tenant.join("/");
 
-  let sections = await loadTenantSectionsFromSheets(tenant);
-  console.log('sections from sheets', sections);
-  let theme = await loadTenantThemeFromSheets(tenant);
-
-  if (sections === null || theme === null) {
-    const localSections = loadTenantSections(tenant);
-    const localTheme = loadTenantTheme(tenant);
-
-    sections = localSections ?? sections;
-    theme = localTheme ?? theme;
+  const tenantData = await getTenantByTenantId(tenantSlug);
+  if (!tenantData) {
+    return notFound();
   }
 
-  if (!sections) {
-    redirect("/");
+  const sections = await getSectionsByTenant(tenantSlug);
+
+  const themeIdToUse = previewThemeId || tenantData.themeId;
+
+  let theme: Theme | null = null;
+  if (themeIdToUse) {
+    const themeData = await getTheme(themeIdToUse);
+    if (themeData) {
+      theme = parseThemeConfig(themeData);
+    }
   }
+
+  if (!sections || sections.length === 0) {
+    return notFound();
+  }
+
+  const themeCss = themeToCssVars(theme ?? ({ fontFamily: "Inter", theme: defaultTokens } as Theme));
+  const fontHref = buildGoogleFontHref(theme?.fontFamily || "Inter");
 
   return (
     <>
-      {theme && <ThemeProvider theme={theme} />}
+      {/* XSS audit: themeToCssVars escapes break-out characters (;}<>) from every value
+          and source data is validated by themeValidator (Zod) before reaching the DB. */}
+      <style dangerouslySetInnerHTML={{ __html: themeCss }} />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link rel="stylesheet" href={fontHref} />
       <main className="min-h-screen flex items-start justify-center py-0 md:pt-8 bg-page">
         <div className="w-full max-w-lg overflow-hidden container-bg container-border container-shadow header-font">
-          {sections?.map((component: any, index: number) => (
-            <ComponentRenderer key={component.id ?? index} component={component} />
-          ))}
+          {sections.map((section: SectionWithComponent, index: number) => {
+            const componentType = section.component?.name
+              ? section.component.name.toLowerCase().replace(/\s+/g, "_")
+              : section.component;
+            return (
+              <ComponentRenderer
+                key={section.id ?? index}
+                component={{
+                  id: section.id,
+                  type: componentType,
+                  ...(section.configJson ? JSON.parse(section.configJson) : {}),
+                }}
+              />
+            );
+          })}
         </div>
       </main>
     </>

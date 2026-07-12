@@ -1,7 +1,8 @@
 "use client";
 
-import { Theme, ThemeTokens } from "@/types/components";
+import { Theme } from "@/types/components";
 import { defaultTokens } from "@/lib/themeDefaults";
+import { computeHoverBackground } from "@/lib/themeTokens";
 import { useEffect } from "react";
 
 // Google Fonts mapping
@@ -32,10 +33,15 @@ export function ThemeProvider({ theme }: ThemeProviderProps) {
     const pageBg = normalizeColor(merged.theme.page.background);
 
     const cardBg = normalizeColor(merged.theme.card.background);
-    const cardHoverBg = normalizeColor(merged.theme.card.hoverBackground ?? merged.theme.card.background);
+    const cardHoverBg = computeHoverBackground(merged.theme.card, cardBg);
 
-    const bodyText = merged.theme.page.text || merged.theme.card.text || defaultTokens.page.text || "#111827";
-    const headerText = merged.theme.page.headerText || merged.theme.page.text || defaultTokens.page.headerText || bodyText;
+    const bodyText =
+      merged.theme.page.text || merged.theme.card.text || defaultTokens.page.text || "#111827";
+    const headerText =
+      merged.theme.page.headerText ||
+      merged.theme.page.text ||
+      defaultTokens.page.headerText ||
+      bodyText;
     const headerFont = resolveFontStack(merged.fontFamily || "Inter");
 
     const tokenMap: TokenPreset = {
@@ -44,15 +50,15 @@ export function ThemeProvider({ theme }: ThemeProviderProps) {
       "--headerTextColor": headerText,
       "--headerFontFamily": headerFont,
       "--containerBackground": merged.theme.container.background,
-      "--containerRadius": merged.theme.container.radius || defaultTokens.container.radius!,
-      "--containerBorder": merged.theme.container.border || defaultTokens.container.border!,
-      "--containerShadow": merged.theme.container.shadow || defaultTokens.container.shadow!,
+      "--containerRadius": merged.theme.container.radius || defaultTokens.container.radius || "",
+      "--containerBorder": merged.theme.container.border || defaultTokens.container.border || "",
+      "--containerShadow": merged.theme.container.shadow || defaultTokens.container.shadow || "",
       "--cardBackground": cardBg,
       "--cardHoverBackground": cardHoverBg,
-      "--cardText": merged.theme.card.text || defaultTokens.card.text!,
-      "--cardBorder": merged.theme.card.border || defaultTokens.card.border!,
-      "--cardShadow": merged.theme.card.shadow || defaultTokens.card.shadow!,
-      "--cardRadius": merged.theme.card.radius || defaultTokens.card.radius!,
+      "--cardText": merged.theme.card.text || defaultTokens.card.text || "",
+      "--cardBorder": merged.theme.card.border || defaultTokens.card.border || "",
+      "--cardShadow": merged.theme.card.shadow || defaultTokens.card.shadow || "",
+      "--cardRadius": merged.theme.card.radius || defaultTokens.card.radius || "",
     };
 
     Object.entries(tokenMap).forEach(([k, v]) => root.style.setProperty(k, v));
@@ -64,7 +70,8 @@ export function ThemeProvider({ theme }: ThemeProviderProps) {
 }
 
 function mergeThemeWithDefaults(theme: Theme): Theme {
-  const safeTheme = theme || ({ name: "cleanGray", fontFamily: "Inter", theme: defaultTokens } as Theme);
+  const safeTheme =
+    theme || ({ name: "cleanGray", fontFamily: "Inter", theme: defaultTokens } as Theme);
   return {
     ...safeTheme,
     theme: {
@@ -76,17 +83,22 @@ function mergeThemeWithDefaults(theme: Theme): Theme {
 }
 
 function resolveFontStack(fontFamily: string) {
-  if (fontFamilies[fontFamily]) return fontFamilies[fontFamily];
+  const known = fontFamilies[fontFamily];
+  if (known) return known;
   const trimmed = fontFamily.trim();
-  if (!trimmed) return fontFamilies.Inter;
+  if (!trimmed) return fontFamilies.Inter || "'Inter', sans-serif";
   return `'${trimmed}', sans-serif`;
 }
 
 function hexToRgb(hex: string) {
   const normalized = hex.replace("#", "");
-  const full = normalized.length === 3
-    ? normalized.split("").map((c) => c + c).join("")
-    : normalized;
+  const full =
+    normalized.length === 3
+      ? normalized
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : normalized;
   const int = parseInt(full, 16);
   return {
     r: (int >> 16) & 255,

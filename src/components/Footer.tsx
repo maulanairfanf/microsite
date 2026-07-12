@@ -11,8 +11,7 @@ interface FooterProps {
 }
 
 export function Footer({ joinButton, footerLinks }: FooterProps) {
-  const resolvedJoin =
-    joinButton ?? ({ text: "Join this page on Halamanku", url: "#" } as const);
+  const resolvedJoin = joinButton ?? ({ text: "Join this page on Halamanku", url: "#" } as const);
   const resolvedFooterLinks =
     footerLinks ??
     ([
@@ -41,10 +40,7 @@ export function Footer({ joinButton, footerLinks }: FooterProps) {
       <div className="flex justify-center items-center gap-3 text-xs text-card opacity-80">
         {resolvedFooterLinks.map((link, index) => (
           <div key={link.text} className="flex items-center gap-3">
-            <a
-              href={link.url}
-              className="transition-colors hover:opacity-80 text-card"
-            >
+            <a href={link.url} className="transition-colors hover:opacity-80 text-card">
               {link.text}
             </a>
             {index < resolvedFooterLinks.length - 1 && (

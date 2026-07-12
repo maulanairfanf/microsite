@@ -1,21 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HeroComponent } from "@/types/components";
 import Image from "next/image";
 import { IoShareOutline } from "react-icons/io5";
 
 export function Hero({ data }: { data: HeroComponent }) {
   const [isShareOpen, setIsShareOpen] = useState(false);
-  const [currentUrl, setCurrentUrl] = useState("");
 
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
-  }, []);
+  const buildShareHref = () => {
+    const currentUrl = window.location.href;
+    return `https://wa.me/?text=${encodeURIComponent(`${data.title} - ${currentUrl}`)}`;
+  };
 
-  const shareHref = `https://wa.me/?text=${encodeURIComponent(
-    `${data.title} - ${currentUrl || ""}`
-  )}`;
+  const handleWhatsAppShare = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.open(buildShareHref(), "_blank", "noreferrer");
+  };
 
   return (
     <section className="relative w-full min-h-[10vh] flex items-center justify-center overflow-hidden ">
@@ -25,8 +26,9 @@ export function Hero({ data }: { data: HeroComponent }) {
           src={data.image}
           alt={data.title}
           fill
-          className="object-cover absolute inset-0 opacity-10"
+          className="object-cover absolute inset-0 opacity-80"
           priority
+          unoptimized
         />
       )}
 
@@ -37,7 +39,7 @@ export function Hero({ data }: { data: HeroComponent }) {
         className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white shadow-md transition-all cursor-pointer"
         aria-label="Share"
       >
-        <IoShareOutline className="w-5 h-5 text-black"  />
+        <IoShareOutline className="w-5 h-5 text-black" />
       </button>
 
       {/* Content */}
@@ -52,21 +54,24 @@ export function Hero({ data }: { data: HeroComponent }) {
                 className="object-cover"
                 sizes="96px"
                 priority
+                unoptimized
               />
             </div>
           </div>
         )}
-        <h1 className="text-2xl font-bold mb-1 text-header header-font">
-          {data.title}
-        </h1>
-        <p className="text-sm max-w-xs font-semibold text-body opacity-85">
-          {data.subtitle}
-        </p>
+        <h1 className="text-2xl font-bold mb-1 text-header header-font">{data.title}</h1>
+        <p className="text-sm max-w-xs font-semibold text-body opacity-85">{data.subtitle}</p>
       </div>
 
       {isShareOpen && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm px-6" onClick={() => setIsShareOpen(false)}>
-          <div className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="fixed inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm px-6"
+          onClick={() => setIsShareOpen(false)}
+        >
+          <div
+            className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="mb-5 flex items-center justify-between">
               <h2 className="text-lg font-semibol text-black!">Share</h2>
               <button
@@ -80,7 +85,8 @@ export function Hero({ data }: { data: HeroComponent }) {
             </div>
 
             <a
-              href={shareHref}
+              href={buildShareHref()}
+              onClick={handleWhatsAppShare}
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-3 rounded-2xl px-5 py-4 transition-colors"

@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { ProductItem } from '@/types/components';
-import { cn } from '@/lib/utils';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { ProductItem } from "@/types/components";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useIsClient } from "@/lib/useIsClient";
 
 interface BottomSheetProps {
   isOpen: boolean;
@@ -12,48 +13,40 @@ interface BottomSheetProps {
 }
 
 export function BottomSheet({ isOpen, onClose, product }: BottomSheetProps) {
+  const isClient = useIsClient();
   const [isClosing, setIsClosing] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      setIsClosing(false);
-      // Trigger mounting animation
-      requestAnimationFrame(() => {
-        setIsMounted(true);
-      });
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
-      setIsMounted(false);
+      document.body.style.overflow = "unset";
     }
-
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
   const handleClose = () => {
     setIsClosing(true);
-    setIsMounted(false);
     setTimeout(() => {
       onClose();
       setIsClosing(false);
     }, 300);
   };
 
-  if (!isOpen || !product) return null;
+  if ((!isOpen && !isClosing) || !product) return null;
 
-  const formattedPrice = new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
+  const formattedPrice = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
     minimumFractionDigits: 0,
   }).format(product.price);
 
   const formattedOriginalPrice = product.originalPrice
-    ? new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
+    ? new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
         minimumFractionDigits: 0,
       }).format(product.originalPrice)
     : null;
@@ -63,8 +56,8 @@ export function BottomSheet({ isOpen, onClose, product }: BottomSheetProps) {
       {/* Backdrop */}
       <div
         className={cn(
-          'fixed inset-0 z-40 transition-opacity duration-300',
-          isClosing || !isMounted ? 'opacity-0' : 'opacity-100'
+          "fixed inset-0 z-40 transition-opacity duration-300",
+          isClosing || !isClient ? "opacity-0" : "opacity-100",
         )}
         style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
         onClick={handleClose}
@@ -73,15 +66,14 @@ export function BottomSheet({ isOpen, onClose, product }: BottomSheetProps) {
       {/* Bottom Sheet */}
       <div
         className={cn(
-          'fixed bottom-0 left-0 right-0 rounded-t-2xl z-50 max-w-lg mx-auto transition-transform duration-300 card-bg',
-          isClosing || !isMounted ? 'translate-y-full' : 'translate-y-0'
+          "fixed bottom-0 left-0 right-0 rounded-t-2xl z-50 max-w-lg mx-auto transition-transform duration-300 card-bg",
+          isClosing || !isClient ? "translate-y-full" : "translate-y-0",
         )}
         style={{
-          maxHeight: '60vh',
-          overflowY: 'auto',
+          maxHeight: "60vh",
+          overflowY: "auto",
         }}
       >
-
         {/* Content */}
         <div className="px-4 py-6">
           {/* Product Image */}
@@ -92,9 +84,13 @@ export function BottomSheet({ isOpen, onClose, product }: BottomSheetProps) {
               fill
               className="object-cover"
               sizes="400px"
+              unoptimized
             />
             {product.discount && (
-              <div className="absolute top-2 right-2 text-sm font-semibold px-2.5 py-1 rounded text-white" style={{ backgroundColor: "#ef4444", boxShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
+              <div
+                className="absolute top-2 right-2 text-sm font-semibold px-2.5 py-1 rounded text-white"
+                style={{ backgroundColor: "#ef4444", boxShadow: "0 2px 8px rgba(0,0,0,0.3)" }}
+              >
                 {product.discount}
               </div>
             )}
@@ -102,7 +98,10 @@ export function BottomSheet({ isOpen, onClose, product }: BottomSheetProps) {
 
           {/* Product Title */}
           <h2 className="text-base font-bold text-card">{product.title}</h2>
-          <p className="text-xs font-bold mb-2 text-card">lorem ipsum color amet lorem ipsum color amet lorem ipsum color amet lorem ipsum color amet</p>
+          <p className="text-xs font-bold mb-2 text-card">
+            lorem ipsum color amet lorem ipsum color amet lorem ipsum color amet lorem ipsum color
+            amet
+          </p>
 
           {/* Product Price */}
           <div className="flex items-baseline gap-2 mb-4">

@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "scontent.cdninstagram.com",
+        hostname: "*.public.blob.vercel-storage.com",
       },
     ],
   },

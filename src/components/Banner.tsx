@@ -5,7 +5,6 @@ import Image from "next/image";
 import { HorizontalScroll } from "./HorizontalScroll";
 
 export function Banner({ data }: { data: BannerComponent }) {
-
   return (
     <section className="w-full py-4 px-6">
       <h2 className="text-xl font-semibold mb-2 text-center text-header header-font">
@@ -24,6 +23,7 @@ export function Banner({ data }: { data: BannerComponent }) {
                   alt={banner.section_id}
                   fill
                   className="object-cover"
+                  unoptimized
                 />
               </div>
             </div>

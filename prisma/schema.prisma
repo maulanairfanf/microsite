@@ -1,0 +1,118 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin-arm64"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id            String    @id @default(cuid())
+  tenantId      String    @unique
+  name          String
+  themeId       String?
+  status        String    @default("active")
+  plan          String    @default("free")
+  showOnLanding Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime?
+  sections      Section[]
+  users         User[]
+  subscriptions Subscription[]
+
+  @@map("tenants")
+}
+
+model Theme {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  config    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+
+  @@map("themes")
+}
+
+model Section {
+  id          String    @id @default(cuid())
+  tenantId    String
+  component   Component? @relation(fields: [componentId], references: [id])
+  componentId String?
+  order       Int       @default(0)
+  configJson  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+  tenant      Tenant    @relation(fields: [tenantId], references: [tenantId], onDelete: Cascade)
+
+  @@map("sections")
+}
+
+model Component {
+  id           String    @id @default(cuid())
+  name         String    @unique
+  displayName  String?
+  /// @deprecated Schema is now read from `COMPONENT_SCHEMAS` in source code. Column kept for backward compatibility; will be removed in a future migration.
+  configSchema String?
+  createdAt    DateTime  @default(now())
+  sections     Section[]
+
+  @@map("components")
+}
+
+model User {
+  id                                  String    @id @default(cuid())
+  email                               String    @unique
+  password                            String
+  name                                String
+  role                                String    @default("tenant_main_admin")
+  tenantId                            String?
+  emailVerified                       DateTime?
+  emailVerificationToken              String?
+  emailVerificationTokenExpiresAt     DateTime?
+  createdAt                           DateTime  @default(now())
+  updatedAt                           DateTime?
+  tenant                              Tenant?   @relation(fields: [tenantId], references: [id])
+
+  @@map("users")
+}
+
+model Subscription {
+  id                  String   @id @default(cuid())
+  tenantId            String
+  plan                String
+  status              String
+  startedAt           DateTime @default(now())
+  currentPeriodStart  DateTime @default(now())
+  currentPeriodEnd    DateTime
+  canceledAt          DateTime?
+  xenditInvoiceId     String?  @unique
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime?
+  tenant              Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  payments            Payment[]
+
+  @@index([tenantId])
+  @@index([status])
+  @@map("subscriptions")
+}
+
+model Payment {
+  id             String   @id @default(cuid())
+  subscriptionId String
+  amount         Int
+  currency       String   @default("IDR")
+  status         String
+  method         String
+  transactionId  String   @unique
+  cardLast4      String?
+  cardBrand      String?
+  failureReason  String?
+  createdAt      DateTime @default(now())
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  @@index([subscriptionId])
+  @@map("payments")
+}

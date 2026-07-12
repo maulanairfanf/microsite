@@ -10,14 +10,11 @@ export function ProductsShowcase({ data }: { data: ProductsShowcaseComponent }) 
       <h2 className="text-xl font-semibold mb-2 text-center text-header header-font">
         {data.title}
       </h2>
-      
+
       <HorizontalScroll>
         <div className="flex gap-3 min-w-min">
           {data.items.map((product) => (
-            <div
-              key={product.id}
-              className="w-36 shrink-0"
-            >
+            <div key={product.id} className="w-36 shrink-0">
               <ProductCard product={product} />
             </div>
           ))}
