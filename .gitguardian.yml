@@ -1,0 +1,8 @@
+version: 2
+
+# Local test database URLs in CI workflow are not real secrets
+matches-ignore:
+  - name: ci_local_test_db_url
+    match: postgresql://postgres:postgres@localhost:5432/microsite_test
+    files:
+      - .github/workflows/ci.yml
