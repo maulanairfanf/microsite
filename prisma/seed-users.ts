@@ -6,11 +6,10 @@ const prisma = new PrismaClient();
 async function seed() {
   const password = await bcrypt.hash('tenant123', 10);
 
-  // Get tenant IDs (not tenantId, but the actual id field)
   const nimraTenant = await prisma.tenant.findUnique({ where: { tenantId: 'nimra-running' } });
-  const pempekTenant = await prisma.tenant.findUnique({ where: { tenantId: 'pempek-ibu-wati' } });
+  const coffeeTenant = await prisma.tenant.findUnique({ where: { tenantId: 'coffee-shop' } });
 
-  if (!nimraTenant || !pempekTenant) {
+  if (!nimraTenant || !coffeeTenant) {
     console.error('Tenants not found');
     return;
   }
@@ -29,17 +28,17 @@ async function seed() {
   console.log('Created/Updated:', tenant1.email, '-> tenant:', nimraTenant.tenantId);
 
   const tenant2 = await prisma.user.upsert({
-    where: { email: 'pempek@foo.com' },
+    where: { email: 'coffee@foo.com' },
     update: {},
     create: {
-      email: 'pempek@foo.com',
+      email: 'coffee@foo.com',
       password,
-      name: 'Tenant Admin Pempek',
+      name: 'Coffee Shop Admin',
       role: 'tenant',
-      tenantId: pempekTenant.id,
+      tenantId: coffeeTenant.id,
     },
   });
-  console.log('Created/Updated:', tenant2.email, '-> tenant:', pempekTenant.tenantId);
+  console.log('Created/Updated:', tenant2.email, '-> tenant:', coffeeTenant.tenantId);
 
   const admin = await prisma.user.findUnique({ where: { email: 'admin@halamanku.id' } });
   if (admin) {

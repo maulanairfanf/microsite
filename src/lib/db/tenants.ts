@@ -13,6 +13,7 @@ export interface Tenant {
   themeId: string | null;
   status: string;
   plan: string;
+  showOnLanding: boolean;
   createdAt: Date;
   updatedAt: Date | null;
 }
@@ -25,6 +26,13 @@ export async function listTenants(options: { includeInactive?: boolean } = {}): 
   if (options.includeInactive) return tenants;
 
   return tenants.filter((t) => t.status === TenantStatus.Active);
+}
+
+export async function listLandingTenants(): Promise<Tenant[]> {
+  return prisma.tenant.findMany({
+    where: { showOnLanding: true, status: TenantStatus.Active },
+    orderBy: { name: "asc" },
+  });
 }
 
 export async function getTenant(id: string): Promise<Tenant | null> {
@@ -52,11 +60,12 @@ export async function createTenant(data: {
 
 export async function updateTenant(
   id: string,
-  data: { name?: string; themeId?: string | null },
+  data: { name?: string; themeId?: string | null; showOnLanding?: boolean },
 ): Promise<Tenant> {
   const updateData: Record<string, any> = {};
   if (data.name !== undefined) updateData.name = data.name;
   if (data.themeId !== undefined) updateData.themeId = data.themeId;
+  if (data.showOnLanding !== undefined) updateData.showOnLanding = data.showOnLanding;
   updateData.updatedAt = new Date();
 
   return prisma.tenant.update({

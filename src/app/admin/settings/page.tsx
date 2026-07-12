@@ -31,7 +31,15 @@ export default async function AdminSettingsPage() {
     <div>
       <PageHeader title="Settings" description="Manage your tenant settings" />
       <Card className="p-6 max-w-2xl">
-        <TenantSettingsForm tenant={tenant} themes={themeOptions} />
+        <TenantSettingsForm
+          tenant={{
+            id: tenant.id,
+            tenantId: tenant.tenantId,
+            name: tenant.name,
+            themeId: tenant.themeId,
+          }}
+          themes={themeOptions}
+        />
       </Card>
     </div>
   );

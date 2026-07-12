@@ -14,7 +14,7 @@ A production-style multi-tenant SaaS that lets anyone spin up a personalized mic
 
 Add your Vercel URL here once deployed: **`https://halamanku.vercel.app`**
 
-Sample seeded tenants: [`/kerabat-jenggala`](#) · [`/pempek-ibu-wati`](#)
+Sample seeded tenants: [`/coffee-shop`](#)
 
 ---
 

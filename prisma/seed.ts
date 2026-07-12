@@ -92,6 +92,7 @@ async function seedSampleTenant(tenantSlug: string): Promise<void> {
       name: data.name,
       status: 'active',
       plan: 'free',
+      showOnLanding: true,
     },
   });
 
@@ -152,8 +153,7 @@ async function seedSampleTenant(tenantSlug: string): Promise<void> {
 async function main() {
   await seedSuperAdmin();
   await seedAllComponents();
-  await seedSampleTenant('kerabat-jenggala');
-  await seedSampleTenant('pempek-ibu-wati');
+  await seedSampleTenant('coffee-shop');
   console.log('Seed complete.');
 }
 

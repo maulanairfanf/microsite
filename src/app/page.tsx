@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/auth";
+import { listLandingTenants } from "@/lib/db/tenants";
 import { Hero } from "@/components/landing/Hero";
 import { Features } from "@/components/landing/Features";
 import { HowItWorks } from "@/components/landing/HowItWorks";
@@ -15,13 +16,15 @@ export default async function HomePage() {
     role: session?.role ?? null,
   };
 
+  const showcaseTenants = await listLandingTenants();
+
   return (
     <div className="min-h-screen">
       <NavBarWithScrollSpy session={navSession} />
       <Hero />
       <Features />
       <HowItWorks />
-      <Showcase />
+      <Showcase tenants={showcaseTenants} />
       <Pricing />
       <FAQ />
       <CTA />

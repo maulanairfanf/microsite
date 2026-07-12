@@ -3,10 +3,10 @@
     {
       "id": "hero-1",
       "type": "hero",
-      "title": "Kerabat Jenggala",
+      "title": "Coffee Shop",
       "subtitle": "Specialty Coffee & Pastries ☕",
       "image": "",
-      "logo": "https://instagram.fbdo7-1.fna.fbcdn.net/v/t51.2885-19/543000058_18390121789193914_7416688559094799404_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fbdo7-1.fna.fbcdn.net&_nc_cat=110&_nc_oc=Q6cZ2QGtA2JGvb3StYsVMEtvo_GSNbpYE-TvyTGgr4I601GKpsO9MBI51aKAyfJ7iASKvIwBCotwIrGXE82SkuGqous9&_nc_ohc=jCGifCvfQgcQ7kNvwHrHkSP&_nc_gid=7TWP3Qe7UraIxMVR3vbv7w&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_Afr9DIB3iKS8xc9L2H4ci4Cr99qVPO_zLyNViUE7_S0QZA&oe=69644C0E&_nc_sid=7a9f4b",
+      "logo": "",
       "cta": { "text": "Visit Us", "url": "https://maps.google.com" }
     },
     {
@@ -260,16 +260,16 @@
       "socialMedia": [
         {
           "name": "Instagram",
-          "url": "https://instagram.com/kerabat.jenggala",
+          "url": "https://instagram.com/coffeeshop",
           "icon": "instagram"
         },
-        { "name": "TikTok", "url": "https://tiktok.com/@kerabatjenggala", "icon": "tiktok" },
-        { "name": "Facebook", "url": "https://facebook.com/kerabatjenggala", "icon": "facebook" },
-        { "name": "YouTube", "url": "https://youtube.com/@kerabatjenggala", "icon": "youtube" }
+        { "name": "TikTok", "url": "https://tiktok.com/@coffeeshop", "icon": "tiktok" },
+        { "name": "Facebook", "url": "https://facebook.com/coffeeshop", "icon": "facebook" },
+        { "name": "YouTube", "url": "https://youtube.com/@coffeeshop", "icon": "youtube" }
       ],
       "joinButton": {
-        "text": "Follow Kerabat Jenggala",
-        "url": "https://linktr.ee/kerabatjenggala"
+        "text": "Follow Coffee Shop",
+        "url": "https://instagram.com/coffeeshop"
       }
     },
     { "id": "footer-1", "type": "footer" }

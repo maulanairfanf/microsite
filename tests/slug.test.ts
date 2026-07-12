@@ -76,7 +76,7 @@ describe("isReservedSlug", () => {
 
   it("does not block a normal slug", () => {
     expect(isReservedSlug("my-shop")).toBe(false);
-    expect(isReservedSlug("kerabat-jenggala")).toBe(false);
+    expect(isReservedSlug("coffee-shop")).toBe(false);
   });
 });
 

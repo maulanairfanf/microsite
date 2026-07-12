@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { TenantActionsDropdown } from "./actions-dropdown";
+import { clientApi } from "@/lib/client-api";
 
 interface Tenant {
   id: string;
@@ -10,6 +11,7 @@ interface Tenant {
   name: string;
   status: string;
   themeId: string | null;
+  showOnLanding: boolean;
   createdAt: Date;
 }
 
@@ -31,6 +33,20 @@ export function TenantsTable({ tenants, themeMap }: TenantsTableProps) {
     setLocalTenants((prev) => prev.filter((t) => t.id !== tenantDbId));
   }
 
+  async function toggleShowcase(tenant: Tenant) {
+    const next = !tenant.showOnLanding;
+    setLocalTenants((prev) =>
+      prev.map((t) => (t.id === tenant.id ? { ...t, showOnLanding: next } : t)),
+    );
+    try {
+      await clientApi.put(`/api/tenants/${tenant.id}`, { showOnLanding: next });
+    } catch {
+      setLocalTenants((prev) =>
+        prev.map((t) => (t.id === tenant.id ? { ...t, showOnLanding: !next } : t)),
+      );
+    }
+  }
+
   return (
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
       <table className="w-full">
@@ -44,6 +60,9 @@ export function TenantsTable({ tenants, themeMap }: TenantsTableProps) {
             </th>
             <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Theme
+            </th>
+            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Showcase
             </th>
             <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
               Actions
@@ -92,6 +111,19 @@ export function TenantsTable({ tenants, themeMap }: TenantsTableProps) {
                   ) : (
                     <span className="text-sm text-gray-400">-</span>
                   )}
+                </td>
+                <td className="px-4 py-3">
+                  <button
+                    type="button"
+                    onClick={() => toggleShowcase(tenant)}
+                    className={`text-xs font-medium px-2 py-1 rounded border transition-colors ${
+                      tenant.showOnLanding
+                        ? "bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
+                        : "bg-gray-50 text-gray-500 border-gray-200 hover:bg-gray-100"
+                    }`}
+                  >
+                    {tenant.showOnLanding ? "Shown" : "Show"}
+                  </button>
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-end">

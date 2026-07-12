@@ -155,7 +155,6 @@ After running seed:
 - Access: `/super`
 
 **Sample Tenants:**
-- `kerabat-jenggala` — admin@kerabat-jenggala.com / demo1234
-- `pempek-ibu-wati` — admin@pempek-ibu-wati.com / demo1234
+- `coffee-shop` — admin@coffee-shop.com / demo1234
 
 Access admin panel at `/admin` after login.

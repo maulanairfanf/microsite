@@ -26,22 +26,30 @@ export async function GET(request: NextRequest, { params }: Params) {
 export async function PUT(request: NextRequest, { params }: Params) {
   try {
     const session = await getSession();
-    if (!session || session.role !== Role.SuperAdmin) {
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await params;
+
+    const isSuperAdmin = session.role === Role.SuperAdmin;
+    const isOwnTenant = session.tenantId === id;
+
+    if (!isSuperAdmin && !isOwnTenant) {
       return NextResponse.json(
-        { error: "Unauthorized: super admin access required" },
+        { error: "Unauthorized: you can only update your own tenant" },
         { status: 403 },
       );
     }
 
-    const { id } = await params;
     const body = await request.json();
-    const { name, themeId } = body;
+    const { name, themeId, showOnLanding } = body;
 
     if (name !== undefined && typeof name !== "string") {
       return NextResponse.json({ error: "Invalid name field" }, { status: 400 });
     }
 
-    const tenant = await updateTenant(id, { name, themeId });
+    const tenant = await updateTenant(id, { name, themeId, showOnLanding });
 
     return NextResponse.json({ data: tenant });
   } catch (error: any) {

@@ -107,5 +107,4 @@ src/
 - Seed script: `prisma/seed.ts`
 
 ## Sample Tenants
-- `kerabat-jenggala` — Specialty Coffee & Pastries
-- `pempek-ibu-wati` — Pempek Rumahan
+- `coffee-shop` — Coffee Shop (example)

@@ -29,10 +29,13 @@ export function TenantSettingsForm({ tenant, themes }: TenantSettingsFormProps) 
     const name = formData.get("name") as string;
 
     try {
-      await clientApi.put(`/api/tenants/${tenant.id}`, { name, themeId: selectedTheme || null });
+      await clientApi.put(`/api/tenants/${tenant.id}`, {
+        name,
+        themeId: selectedTheme || null,
+      });
       setMessage({ type: "success", text: "Settings saved successfully!" });
       window.location.reload();
-    } catch (err) {
+    } catch {
       setMessage({ type: "error", text: "Failed to save settings" });
     } finally {
       setLoading(false);
