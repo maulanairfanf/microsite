@@ -21,7 +21,6 @@ function parseAspectRatio(ratio: string): number | null {
 
 export function FileField({ field, path, value, update }: FieldContext) {
   const aspectRatio = field.aspectRatio ? parseAspectRatio(field.aspectRatio) : null;
-  console.log("field", field);
   const previewWidth = field.width || 400;
 
   return (

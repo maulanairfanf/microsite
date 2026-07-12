@@ -84,6 +84,7 @@ export function BottomSheet({ isOpen, onClose, product }: BottomSheetProps) {
               fill
               className="object-cover"
               sizes="400px"
+              unoptimized
             />
             {product.discount && (
               <div

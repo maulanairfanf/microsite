@@ -28,6 +28,7 @@ export function Hero({ data }: { data: HeroComponent }) {
           fill
           className="object-cover absolute inset-0 opacity-80"
           priority
+          unoptimized
         />
       )}
 
@@ -53,6 +54,7 @@ export function Hero({ data }: { data: HeroComponent }) {
                 className="object-cover"
                 sizes="96px"
                 priority
+                unoptimized
               />
             </div>
           </div>

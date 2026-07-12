@@ -37,6 +37,7 @@ export function ProductCard({ product }: { product: ProductItem }) {
             fill
             className="object-cover transition-opacity duration-300"
             sizes="200px"
+            unoptimized
           />
           <div
             className="absolute inset-0 opacity-0 group-hover/card:opacity-30 transition-opacity duration-300"
