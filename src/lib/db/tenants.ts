@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 
 export const TenantStatus = {
@@ -28,20 +29,20 @@ export async function listTenants(options: { includeInactive?: boolean } = {}): 
   return tenants.filter((t) => t.status === TenantStatus.Active);
 }
 
-export async function listLandingTenants(): Promise<Tenant[]> {
+export const listLandingTenants = cache(async (): Promise<Tenant[]> => {
   return prisma.tenant.findMany({
     where: { showOnLanding: true, status: TenantStatus.Active },
     orderBy: { name: "asc" },
   });
-}
+});
 
 export async function getTenant(id: string): Promise<Tenant | null> {
   return prisma.tenant.findUnique({ where: { id } });
 }
 
-export async function getTenantByTenantId(tenantId: string): Promise<Tenant | null> {
+export const getTenantByTenantId = cache(async (tenantId: string): Promise<Tenant | null> => {
   return prisma.tenant.findUnique({ where: { tenantId } });
-}
+});
 
 export async function createTenant(data: {
   tenantId: string;
