@@ -126,7 +126,7 @@ export function TenantSectionForm({
       </div>
 
       <div className="flex gap-3 ">
-        <Button type="submit" disabled={loading}>
+        <Button type="submit" loading={loading}>
           {loading ? "Saving..." : isEdit ? "Save Changes" : "Create Section"}
         </Button>
         <Link href="/admin/sections">

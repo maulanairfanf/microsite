@@ -81,7 +81,7 @@ export function AddUserDialog({ open, onClose, onSuccess }: AddUserDialogProps) 
             <Button type="button" variant="secondary" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" loading={loading}>
               {loading ? "Creating..." : "Create User"}
             </Button>
           </div>
