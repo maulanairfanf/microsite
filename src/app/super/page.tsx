@@ -6,6 +6,8 @@ import { PageHeader } from "@/components/admin/PageHeader";
 import { listTenants } from "@/lib/db/tenants";
 import { listThemes } from "@/lib/db/themes";
 
+export const dynamic = "force-dynamic";
+
 export default async function SuperDashboard() {
   const tenants = await listTenants();
   const themes = await listThemes();
