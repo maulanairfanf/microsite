@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { ThemeEditor } from "@/components/admin/ThemeEditor";
-import { getTheme, parseThemeConfig } from "@/lib/db/themes";
+import { getTheme } from "@/lib/db/themes";
+import { parseThemeConfig } from "@/lib/themeConfig";
 import { defaultTokens } from "@/lib/themeDefaults";
 
 interface Props {

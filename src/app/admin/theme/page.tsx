@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/admin/PageHeader";
 import { ThemeClient } from "@/components/admin/ThemeClient";
 import { getSession } from "@/lib/auth";
 import { getTenantByTenantId } from "@/lib/db/tenants";
-import { listThemes, parseThemeConfig } from "@/lib/db/themes";
+import { listThemes } from "@/lib/db/themes";
+import { parseThemeConfig } from "@/lib/themeConfig";
 import { Theme } from "@/types/components";
 
 export default async function AdminThemePage() {
