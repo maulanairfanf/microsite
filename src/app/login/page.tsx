@@ -7,6 +7,7 @@ import { clientApi } from "@/lib/client-api";
 import { useIsClient } from "@/lib/useIsClient";
 import { FormField } from "@/components/auth/FormField";
 import { BrandLogo } from "@/components/auth/BrandLogo";
+import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -119,13 +120,13 @@ export default function LoginPage() {
               </div>
             )}
 
-            <button
+            <Button
               type="submit"
-              disabled={loading}
-              className="w-full px-6 py-3.5 bg-yellow-400 text-purple-700 rounded-xl font-bold text-base hover:bg-yellow-300 shadow-xl transition-all hover:scale-[1.02] disabled:opacity-50 disabled:hover:scale-100"
+              loading={loading}
+              className="w-full px-6 py-3.5 bg-yellow-400 text-purple-700 rounded-xl font-bold text-base hover:bg-yellow-300 shadow-xl transition-all hover:scale-[1.02]"
             >
-              {loading ? "Signing in..." : "Sign In"}
-            </button>
+              Sign In
+            </Button>
           </form>
 
           <div className="mt-6 text-center text-sm text-white">

@@ -73,7 +73,7 @@ export function TenantSettingsForm({ tenant, themes }: TenantSettingsFormProps) 
       )}
 
       <div className="flex gap-3">
-        <Button type="submit" disabled={loading}>
+        <Button type="submit" loading={loading}>
           {loading ? "Saving..." : "Save Settings"}
         </Button>
       </div>

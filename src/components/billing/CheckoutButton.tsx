@@ -42,7 +42,7 @@ export function CheckoutButton({ plan, className, children }: CheckoutButtonProp
     <div className="space-y-2">
       <Button
         onClick={handleClick}
-        disabled={loading}
+        loading={loading}
         className={className}
       >
         {loading ? (
