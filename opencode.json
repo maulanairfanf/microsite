@@ -1,0 +1,35 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "AGENTS.md",
+    ".opencode/context/project.md",
+    ".opencode/context/conventions.md",
+    ".opencode/context/development.md",
+    ".opencode/context/email.md",
+    ".opencode/context/billing.md",
+    ".opencode/context/security.md"
+  ],
+  "skills": {
+    "paths": [".opencode/skills"]
+  },
+  "permission": {
+    "edit": {
+      "*": "ask",
+      "src/components/ui/**": "deny"
+    },
+    "bash": {
+      "git pull*": "allow",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git add*": "allow",
+      "git commit*": "ask",
+      "npm run lint*": "allow",
+      "npm run typecheck*": "allow",
+      "npm test*": "allow",
+      "npm run e2e*": "ask",
+      "prisma db push*": "deny",
+      "prisma migrate dev*": "ask",
+      "*": "ask"
+    }
+  }
+}
