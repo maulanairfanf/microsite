@@ -1,10 +1,17 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/admin/PageHeader";
-import { DraggableSections } from "@/components/admin/DraggableSections";
 import { getSession } from "@/lib/auth";
 import { listSections } from "@/lib/db/sections";
+
+const DraggableSections = dynamic(
+  () => import("@/components/admin/DraggableSections").then((mod) => ({ default: mod.DraggableSections })),
+  {
+    loading: () => <div className="animate-pulse space-y-4">{Array.from({ length: 3 }).map((_, i) => <div key={i} className="h-20 bg-gray-100 rounded-lg" />)}</div>,
+  },
+);
 
 export default async function AdminSectionsPage() {
   const session = await getSession();

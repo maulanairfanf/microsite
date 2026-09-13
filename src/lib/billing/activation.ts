@@ -1,3 +1,4 @@
+import { prisma } from "@/lib/prisma";
 import {
   recordPayment,
   recordSubscription,
@@ -47,39 +48,60 @@ export async function activatePremiumSubscription(
   }
 
   if (existing) {
-    await updateSubscriptionStatus(input.xenditInvoiceId, { status: SubscriptionStatus.Active });
-    await recordPayment({
-      subscriptionId: existing.id,
-      amount: input.amount,
-      currency: input.currency,
-      status: "succeeded",
-      method: input.paymentMethod ?? input.paymentChannel ?? "xendit",
-      transactionId: input.transactionId,
-      cardLast4: null,
-      cardBrand: null,
+    return prisma.$transaction(async (tx) => {
+      await tx.subscription.update({
+        where: { xenditInvoiceId: input.xenditInvoiceId },
+        data: { status: SubscriptionStatus.Active, updatedAt: new Date() },
+      });
+      await tx.payment.create({
+        data: {
+          subscriptionId: existing.id,
+          amount: input.amount,
+          currency: input.currency,
+          status: "succeeded",
+          method: input.paymentMethod ?? input.paymentChannel ?? "xendit",
+          transactionId: input.transactionId,
+          cardLast4: null,
+          cardBrand: null,
+        },
+      });
+      await tx.tenant.update({
+        where: { id: input.tenantId },
+        data: { plan: Plan.Premium, updatedAt: new Date() },
+      });
+      return { kind: ActivationKind.Activated, subscriptionId: existing.id };
     });
-    await setTenantPlan(input.tenantId, Plan.Premium);
-    return { kind: ActivationKind.Activated, subscriptionId: existing.id };
   }
 
-  const sub = await recordSubscription({
-    tenantId: input.tenantId,
-    plan: Plan.Premium,
-    status: SubscriptionStatus.Active,
-    xenditInvoiceId: input.xenditInvoiceId,
+  return prisma.$transaction(async (tx) => {
+    const sub = await tx.subscription.create({
+      data: {
+        tenantId: input.tenantId,
+        plan: Plan.Premium,
+        status: SubscriptionStatus.Active,
+        xenditInvoiceId: input.xenditInvoiceId,
+        currentPeriodStart: new Date(),
+        currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      },
+    });
+    await tx.payment.create({
+      data: {
+        subscriptionId: sub.id,
+        amount: input.amount,
+        currency: input.currency,
+        status: "succeeded",
+        method: input.paymentMethod ?? input.paymentChannel ?? "xendit",
+        transactionId: input.transactionId,
+        cardLast4: null,
+        cardBrand: null,
+      },
+    });
+    await tx.tenant.update({
+      where: { id: input.tenantId },
+      data: { plan: Plan.Premium, updatedAt: new Date() },
+    });
+    return { kind: ActivationKind.Activated, subscriptionId: sub.id };
   });
-  await recordPayment({
-    subscriptionId: sub.id,
-    amount: input.amount,
-    currency: input.currency,
-    status: "succeeded",
-    method: input.paymentMethod ?? input.paymentChannel ?? "xendit",
-    transactionId: input.transactionId,
-    cardLast4: null,
-    cardBrand: null,
-  });
-  await setTenantPlan(input.tenantId, Plan.Premium);
-  return { kind: ActivationKind.Activated, subscriptionId: sub.id };
 }
 
 export interface FailureInput {

@@ -20,13 +20,10 @@ export interface Tenant {
 }
 
 export async function listTenants(options: { includeInactive?: boolean } = {}): Promise<Tenant[]> {
-  const tenants = await prisma.tenant.findMany({
+  return prisma.tenant.findMany({
+    where: options.includeInactive ? undefined : { status: TenantStatus.Active },
     orderBy: { createdAt: "desc" },
   });
-
-  if (options.includeInactive) return tenants;
-
-  return tenants.filter((t) => t.status === TenantStatus.Active);
 }
 
 export const listLandingTenants = cache(async (): Promise<Tenant[]> => {

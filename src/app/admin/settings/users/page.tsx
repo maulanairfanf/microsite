@@ -4,7 +4,7 @@ import { Role } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 import { UserPageClient } from "@/components/admin/UserPageClient";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function UsersPage() {
   const session = await getSession();

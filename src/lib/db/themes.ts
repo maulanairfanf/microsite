@@ -55,3 +55,19 @@ export async function deleteTheme(id: string): Promise<void> {
 export async function countTenantsUsingTheme(themeId: string): Promise<number> {
   return prisma.tenant.count({ where: { themeId } });
 }
+
+export async function countTenantsPerTheme(): Promise<Record<string, number>> {
+  const counts = await prisma.tenant.groupBy({
+    by: ["themeId"],
+    _count: { id: true },
+    where: { themeId: { not: null } },
+  });
+
+  const result: Record<string, number> = {};
+  for (const count of counts) {
+    if (count.themeId) {
+      result[count.themeId] = count._count.id;
+    }
+  }
+  return result;
+}

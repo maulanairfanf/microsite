@@ -16,7 +16,6 @@ interface CheckoutSuccessPageProps {
 
 export default async function CheckoutSuccessPage({ searchParams }: CheckoutSuccessPageProps) {
   const session = await getSession();
-  console.log("session", session);
   if (!session) {
     redirect("/login");
   }

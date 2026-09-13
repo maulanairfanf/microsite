@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { HeroComponent } from "@/types/components";
 import Image from "next/image";
-import { IoShareOutline } from "react-icons/io5";
+import { Share2 } from "lucide-react";
 
 export function Hero({ data }: { data: HeroComponent }) {
   const [isShareOpen, setIsShareOpen] = useState(false);
@@ -39,7 +39,7 @@ export function Hero({ data }: { data: HeroComponent }) {
         className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white shadow-md transition-all cursor-pointer"
         aria-label="Share"
       >
-        <IoShareOutline className="w-5 h-5 text-black" />
+        <Share2 className="w-5 h-5 text-black" />
       </button>
 
       {/* Content */}

@@ -1,16 +1,13 @@
-import { listThemes, countTenantsUsingTheme } from "@/lib/db/themes";
+import { listThemes, countTenantsPerTheme } from "@/lib/db/themes";
 import { ThemesClient } from "./ThemesCllients";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function ThemesPage() {
-  const themes = await listThemes();
+  const [themes, tenantCounts] = await Promise.all([
+    listThemes(),
+    countTenantsPerTheme(),
+  ]);
 
-  const tenantCounts: Record<string, number> = {};
-  await Promise.all(
-    themes.map(async (t) => {
-      tenantCounts[t.id] = await countTenantsUsingTheme(t.id);
-    }),
-  );
   return <ThemesClient initialThemes={themes} tenantCounts={tenantCounts} />;
 }
