@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Role } from "@/lib/constants";
+import { AppearanceToggle } from "@/components/AppearanceToggle";
 
 interface AdminTopBarProps {
   role: Role;
@@ -64,7 +65,7 @@ export function AdminTopBar({
   return (
     <header
       className={cn(
-        "sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-md border-b border-gray-200",
+        "sticky top-0 z-30 h-16 border-b border-border bg-background",
         "flex items-center justify-between gap-4 px-4 md:px-6 lg:px-8",
       )}
     >
@@ -94,57 +95,63 @@ export function AdminTopBar({
         )}
       </div>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          className={cn(
-            "flex items-center gap-3 pl-2 pr-3 py-1.5 rounded-full",
-            "hover:bg-gray-100 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary/30",
-          )}
-        >
-          <Avatar size="default">
-            <AvatarFallback className="bg-primary text-primary-foreground font-semibold text-sm">
-              {initials}
-            </AvatarFallback>
-          </Avatar>
-          <div className="hidden sm:flex flex-col items-start leading-tight">
-            <span className="text-sm font-semibold text-gray-900 max-w-[160px] truncate">
-              {userName}
-            </span>
-            <span
-              className={cn(
-                "text-[10px] font-medium uppercase tracking-wider px-1.5 py-0.5 rounded mt-0.5",
-                isImpersonating
-                  ? "bg-amber-100 text-amber-700"
-                  : role === Role.SuperAdmin
-                    ? "bg-purple-100 text-purple-700"
-                    : "bg-blue-100 text-blue-700",
-              )}
-            >
-              {roleLabel}
-            </span>
-          </div>
-          <ChevronDown className="w-4 h-4 text-gray-500 hidden sm:block" />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-64 p-2">
-          <DropdownMenuLabel className="px-2 py-1.5 font-normal">
-            <div className="flex flex-col gap-0.5">
-              <p className="text-sm font-semibold text-gray-900 truncate">{userName}</p>
-              <p className="text-xs text-gray-500 truncate">{userEmail}</p>
+      <div className="flex items-center gap-2">
+        <AppearanceToggle className="hidden items-center sm:flex" />
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            className={cn(
+              "flex items-center gap-3 rounded-xl py-1.5 pl-2 pr-3",
+              "outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary/30",
+            )}
+          >
+            <Avatar size="default">
+              <AvatarFallback className="bg-primary text-primary-foreground font-semibold text-sm">
+                {initials}
+              </AvatarFallback>
+            </Avatar>
+            <div className="hidden sm:flex flex-col items-start leading-tight">
+              <span className="max-w-[160px] truncate text-sm font-semibold text-foreground">
+                {userName}
+              </span>
+              <span
+                className={cn(
+                  "mt-0.5 rounded px-1.5 py-0.5 text-[10px] font-medium tracking-wider",
+                  isImpersonating
+                    ? "bg-amber-100 text-amber-700"
+                    : role === Role.SuperAdmin
+                      ? "bg-purple-100 text-purple-700"
+                      : "bg-secondary text-secondary-foreground",
+                )}
+              >
+                {roleLabel}
+              </span>
             </div>
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          {isImpersonating && (
-            <DropdownMenuItem onClick={handleStopImpersonation} className="cursor-pointer">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Super Admin
+            <ChevronDown className="w-4 h-4 text-gray-500 hidden sm:block" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-64 p-2">
+            <DropdownMenuLabel className="px-2 py-1.5 font-normal">
+              <div className="flex flex-col gap-0.5">
+                <p className="text-sm font-semibold text-gray-900 truncate">{userName}</p>
+                <p className="text-xs text-gray-500 truncate">{userEmail}</p>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {isImpersonating && (
+              <DropdownMenuItem onClick={handleStopImpersonation} className="cursor-pointer">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Super Admin
+              </DropdownMenuItem>
+            )}
+            <DropdownMenuItem
+              onClick={handleLogout}
+              className="cursor-pointer text-red-600 focus:text-red-600"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Log out
             </DropdownMenuItem>
-          )}
-          <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-red-600 focus:text-red-600">
-            <LogOut className="w-4 h-4 mr-2" />
-            Log out
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </header>
   );
 }

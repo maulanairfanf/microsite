@@ -13,7 +13,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, description, action, className, backHref }: PageHeaderProps) {
   return (
-    <div className={cn("flex items-center justify-between mb-6", className)}>
+    <div className={cn("mb-8 flex items-center justify-between gap-4", className)}>
       <div className="flex gap-3">
         {backHref && (
           <Link href={backHref} aria-label="Go back">
@@ -23,8 +23,8 @@ export function PageHeader({ title, description, action, className, backHref }: 
           </Link>
         )}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-          {description && <p className="text-gray-500 mt-1">{description}</p>}
+          <h1 className="text-2xl font-semibold tracking-[-0.02em] text-foreground">{title}</h1>
+          {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
         </div>
       </div>
       {action && <div>{action}</div>}

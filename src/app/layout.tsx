@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { Geist } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
-// @ts-ignore: side-effect import of global stylesheet without type declarations
+import { AppearanceScript } from "@/components/AppearanceToggle";
 import "./globals.css";
+
+const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Halamanku",
@@ -14,16 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="antialiased" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geist.className} antialiased`}>
+        <AppearanceScript />
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>

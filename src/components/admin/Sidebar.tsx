@@ -164,7 +164,7 @@ export function Sidebar({
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const navItems =
-    role === "super_admin" && !isImpersonating ? superAdminNavItems : tenantAdminNavItems;
+    role === Role.SuperAdmin && !isImpersonating ? superAdminNavItems : tenantAdminNavItems;
 
   const setMobile = (open: boolean) => {
     onMobileOpenChange?.(open);
@@ -181,12 +181,12 @@ export function Sidebar({
 
       <aside
         className={cn(
-          "fixed lg:static inset-y-0 left-0 z-50 bg-white border-r border-gray-200 transition-all duration-300 flex flex-col",
+          "fixed inset-y-0 left-0 z-50 flex flex-col border-r border-border bg-card transition-all duration-200 lg:static",
           isCollapsed ? "w-18" : "w-64",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         )}
       >
-        <div className="h-16 flex items-center justify-between px-4 border-b border-gray-100">
+        <div className="flex h-16 items-center justify-between border-b border-border px-4">
           <div className="flex items-center gap-2">
             {!isCollapsed && <BrandLogo />}
             {!isCollapsed && role !== "super_admin" && <PlanBadge plan={tenantPlan} />}
@@ -194,12 +194,12 @@ export function Sidebar({
 
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="hidden lg:flex p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+            className="hidden rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted lg:flex"
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             <svg
               className={cn(
-                "w-5 h-5 text-gray-500 transition-transform",
+                "size-5 text-muted-foreground transition-transform",
                 isCollapsed && "rotate-180",
               )}
               fill="none"
@@ -216,7 +216,7 @@ export function Sidebar({
           </button>
           <button
             onClick={() => setMobile(false)}
-            className="lg:hidden p-1.5 hover:bg-gray-100 rounded-lg"
+            className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted lg:hidden"
             aria-label="Close menu"
           >
             <svg
@@ -235,7 +235,7 @@ export function Sidebar({
           </button>
         </div>
 
-        <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
           {navItems.map((item) => {
             const isExactRoute = item.href === "/admin" || item.href === "/super";
             const isActive =
@@ -247,13 +247,13 @@ export function Sidebar({
                 href={item.href}
                 onClick={() => setMobile(false)}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
+                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-200",
                   isActive
-                    ? "bg-primary text-white shadow-md shadow-primary/20"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900",
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
                 )}
               >
-                <span className={cn(isActive && "scale-110")}>{item.icon}</span>
+                <span>{item.icon}</span>
                 {!isCollapsed && <span>{item.label}</span>}
               </Link>
             );

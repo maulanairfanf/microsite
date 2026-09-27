@@ -32,27 +32,29 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
 
   if (ref && !payload && !isPremium) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-50 via-pink-50 to-orange-50 py-12 px-4">
+      <div className="min-h-screen bg-background px-4 py-12">
         <div className="max-w-2xl mx-auto">
           <div className="flex justify-center mb-6">
             <BrandLogo />
           </div>
-          <Card className="p-8 text-center">
-            <h1 className="text-2xl font-bold text-gray-900">This link is invalid or expired</h1>
-            <p className="mt-2 text-sm text-gray-500">
+          <Card className="border border-border p-8 text-center">
+            <h1 className="text-2xl font-semibold text-foreground">
+              This link is invalid or expired
+            </h1>
+            <p className="mt-2 text-sm text-muted-foreground">
               Your checkout session link is no longer valid. It may have expired or already been
               used.
             </p>
             <div className="mt-8 flex gap-3 justify-center">
               <Link
                 href="/checkout?plan=premium"
-                className="px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-all"
+                className="rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
               >
                 Start a new checkout
               </Link>
               <Link
                 href="/admin/billing"
-                className="px-6 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all"
+                className="rounded-xl border border-border px-6 py-3 font-medium text-foreground transition-colors hover:bg-muted"
               >
                 View billing
               </Link>
@@ -64,13 +66,13 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-pink-50 to-orange-50 py-12 px-4">
+    <div className="min-h-screen bg-background px-4 py-12">
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-center mb-6">
           <BrandLogo />
         </div>
 
-        <Card className="p-8 text-center">
+        <Card className="border border-border p-8 text-center">
           <div
             className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl ${
               isPremium ? "bg-green-100 text-green-600" : "bg-amber-100 text-amber-600"
@@ -78,32 +80,32 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
           >
             {isPremium ? "✓" : "⏳"}
           </div>
-          <h1 className="mt-4 text-2xl font-bold text-gray-900">
+          <h1 className="mt-4 text-2xl font-semibold text-foreground">
             {isPremium ? "Welcome to Premium!" : "Almost there…"}
           </h1>
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-2 text-sm text-muted-foreground">
             {isPremium
               ? "Your subscription is active."
               : "Your subscription is being activated. It usually takes a few seconds."}
           </p>
 
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg text-left">
-            <h2 className="text-sm font-semibold text-gray-900 mb-2">Subscription details</h2>
+          <div className="mt-6 rounded-xl border border-border bg-muted/50 p-4 text-left">
+            <h2 className="mb-2 text-sm font-semibold text-foreground">Subscription details</h2>
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-500">Plan</span>
-                <span className="font-medium text-gray-900">
+                <span className="text-muted-foreground">Plan</span>
+                <span className="font-medium text-foreground">
                   {subscription?.plan === "premium" ? "Premium" : "Pending activation"}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Status</span>
-                <span className="font-medium text-gray-900">{subscription?.status ?? "—"}</span>
+                <span className="text-muted-foreground">Status</span>
+                <span className="font-medium text-foreground">{subscription?.status ?? "—"}</span>
               </div>
               {subscription?.currentPeriodEnd && (
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Renews on</span>
-                  <span className="font-medium text-gray-900">
+                  <span className="text-muted-foreground">Renews on</span>
+                  <span className="font-medium text-foreground">
                     {new Date(subscription.currentPeriodEnd).toLocaleDateString()}
                   </span>
                 </div>
@@ -118,13 +120,13 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
           <div className="mt-8 flex gap-3 justify-center">
             <Link
               href="/admin/billing"
-              className="px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-all"
+              className="rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
             >
               View billing
             </Link>
             <Link
               href="/admin"
-              className="px-6 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all"
+              className="rounded-xl border border-border px-6 py-3 font-medium text-foreground transition-colors hover:bg-muted"
             >
               Go to admin
             </Link>

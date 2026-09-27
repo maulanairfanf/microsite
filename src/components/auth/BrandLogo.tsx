@@ -13,7 +13,7 @@ export function BrandLogo({ className = "" }: BrandLogoProps) {
         alt="Halamanku"
         width={140}
         height={36}
-        className={`h-10 w-auto drop-shadow-lg ${className}`}
+        className={`h-9 w-auto ${className}`}
       />
     </Link>
   );

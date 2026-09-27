@@ -10,7 +10,9 @@ export interface ThemeRecord {
   updatedAt: Date | null;
 }
 
-function defaultTheme(theme: ThemeRecord): ThemeType {
+export type ThemeConfigRecord = Pick<ThemeRecord, "id" | "name" | "slug" | "config">;
+
+function defaultTheme(theme: ThemeConfigRecord): ThemeType {
   return {
     id: theme.id,
     name: theme.name,
@@ -20,7 +22,7 @@ function defaultTheme(theme: ThemeRecord): ThemeType {
   };
 }
 
-export function parseThemeConfig(theme: ThemeRecord): ThemeType {
+export function parseThemeConfig(theme: ThemeConfigRecord): ThemeType {
   if (!theme.config) {
     return defaultTheme(theme);
   }

@@ -36,7 +36,7 @@ export function Hero({ data }: { data: HeroComponent }) {
       <button
         type="button"
         onClick={() => setIsShareOpen(true)}
-        className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white shadow-md transition-all cursor-pointer"
+        className="absolute right-4 top-4 z-20 rounded-full border border-black/10 bg-white p-2.5 text-black transition-colors hover:bg-black/5"
         aria-label="Share"
       >
         <Share2 className="w-5 h-5 text-black" />
@@ -46,7 +46,7 @@ export function Hero({ data }: { data: HeroComponent }) {
       <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-18 pb-16">
         {data.logo && (
           <div className="mb-5">
-            <div className="relative h-24 w-24 overflow-hidden rounded-full ">
+            <div className="relative h-24 w-24 overflow-hidden rounded-full">
               <Image
                 src={data.logo}
                 alt={`${data.title} logo`}
@@ -65,11 +65,11 @@ export function Hero({ data }: { data: HeroComponent }) {
 
       {isShareOpen && (
         <div
-          className="fixed inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm px-6"
+          className="fixed inset-0 z-30 flex items-center justify-center bg-black/40 px-6"
           onClick={() => setIsShareOpen(false)}
         >
           <div
-            className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl"
+            className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-5 flex items-center justify-between">
@@ -89,10 +89,10 @@ export function Hero({ data }: { data: HeroComponent }) {
               onClick={handleWhatsAppShare}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-3 rounded-2xl px-5 py-4 transition-colors"
+              className="flex items-center gap-3 rounded-xl border border-black/10 px-5 py-4 transition-colors hover:bg-black/5"
             >
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500">
-                <span className="text-white text-xl">💬</span>
+                <Share2 className="text-xl text-white" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-card">WhatsApp</p>

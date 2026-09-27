@@ -91,7 +91,7 @@ function SortableSectionCard({ section, onDeleted, onError }: DraggableSectionCa
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <h4 className="font-medium text-gray-900 truncate">
+                <h4 className="truncate font-medium text-foreground">
                   {title || section.component?.name || "Untitled"}
                 </h4>
                 {isHero && (
@@ -160,7 +160,7 @@ function StaticSectionRow({ section, onDeleted, onError }: DraggableSectionCardP
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <h4 className="font-medium text-gray-900 truncate">
+              <h4 className="truncate font-medium text-foreground">
                 {title || section.component?.name || "Untitled"}
               </h4>
               {isHero && (

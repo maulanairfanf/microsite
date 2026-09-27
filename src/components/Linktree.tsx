@@ -31,7 +31,7 @@ const iconMap: Record<
 export function Linktree({ data }: { data: LinktreeComponent }) {
   return (
     <section className="w-full py-4 px-6">
-      <h2 className="text-xl font-semibold text-center mb-6 text-header header-font">
+      <h2 className="mb-6 text-center text-xl font-semibold text-header header-font">
         {data.title}
       </h2>
       <div className="flex flex-col gap-3">
@@ -42,11 +42,11 @@ export function Linktree({ data }: { data: LinktreeComponent }) {
               target="_blank"
               key={item.id ?? item.text}
               href={item.url}
-              className="flex items-center gap-4 p-2 rounded-lg transition-all card-bg card-hover-bg card-style"
+              className="card-bg card-hover-bg card-style flex items-center gap-4 rounded-xl p-3 transition-colors"
               rel="noreferrer"
             >
               {Icon && (
-                <div className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg">
                   <Icon className="w-6 h-6 text-card" />
                 </div>
               )}

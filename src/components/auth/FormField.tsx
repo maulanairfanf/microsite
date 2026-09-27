@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { Button } from "@/components/ui/button";
 interface FormFieldProps {
   id: string;
   label: string;
@@ -31,25 +34,42 @@ export function FormField({
   error,
   className = "",
 }: FormFieldProps) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const isPassword = type === "password";
+
   return (
     <div className={className}>
-      <label htmlFor={id} className="block text-sm font-semibold text-white mb-1.5">
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-foreground">
         {label}
       </label>
-      <input
-        id={id}
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        required={required}
-        minLength={minLength}
-        maxLength={maxLength}
-        autoComplete={autoComplete}
-        className="w-full px-4 py-3 rounded-xl bg-white/20 backdrop-blur-md border-2 border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-yellow-300 transition-all"
-      />
+      <div className="relative">
+        <input
+          id={id}
+          type={isPassword && isPasswordVisible ? "text" : type}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          required={required}
+          minLength={minLength}
+          maxLength={maxLength}
+          autoComplete={autoComplete}
+          className={`h-11 w-full rounded-xl border border-input bg-background px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground hover:border-primary/40 focus:border-primary focus:ring-3 focus:ring-primary/20 ${isPassword ? "pr-11" : ""}`}
+        />
+        {isPassword && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-sm"
+            className="absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            onClick={() => setIsPasswordVisible((visible) => !visible)}
+            aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+          >
+            {isPasswordVisible ? <EyeOff /> : <Eye />}
+          </Button>
+        )}
+      </div>
       {(hint || error) && (
-        <p className={`mt-1 text-xs ${error ? "text-red-200" : "text-white/70"}`}>
+        <p className={`mt-1 text-xs ${error ? "text-destructive" : "text-muted-foreground"}`}>
           {error || hint}
         </p>
       )}
