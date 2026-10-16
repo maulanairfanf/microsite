@@ -48,32 +48,32 @@ export function TenantsTable({ tenants, themeMap }: TenantsTableProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+    <div className="bg-card text-card-foreground rounded-lg border border-border overflow-hidden">
       <table className="w-full">
-        <thead className="bg-gray-50 border-b border-gray-200">
+        <thead className="bg-muted border-b border-border">
           <tr>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Tenant
             </th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Status
             </th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Theme
             </th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Showcase
             </th>
-            <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-4 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Actions
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200">
+        <tbody className="divide-y divide-border">
           {localTenants.map((tenant) => {
             const theme = tenant.themeId ? themeMap.get(tenant.themeId) : null;
             return (
-              <tr key={tenant.id} className="hover:bg-gray-50">
+              <tr key={tenant.id} className="hover:bg-muted">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center shrink-0">
@@ -82,15 +82,15 @@ export function TenantsTable({ tenants, themeMap }: TenantsTableProps) {
                       </span>
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">{tenant.name}</div>
-                      <div className="text-sm text-gray-500">/{tenant.tenantId}</div>
+                      <div className="font-medium text-foreground">{tenant.name}</div>
+                      <div className="text-sm text-muted-foreground">/{tenant.tenantId}</div>
                     </div>
                   </div>
                 </td>
                 <td className="px-4 py-3">
                   <Badge
                     variant={tenant.status === "active" ? "default" : "secondary"}
-                    className={tenant.status === "archived" ? "bg-gray-100 text-gray-600" : ""}
+                    className={tenant.status === "archived" ? "bg-muted text-muted-foreground" : ""}
                   >
                     {tenant.status === "active" ? (
                       <span className="flex items-center gap-1">
@@ -99,7 +99,7 @@ export function TenantsTable({ tenants, themeMap }: TenantsTableProps) {
                       </span>
                     ) : (
                       <span className="flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
                         Archived
                       </span>
                     )}
@@ -107,9 +107,9 @@ export function TenantsTable({ tenants, themeMap }: TenantsTableProps) {
                 </td>
                 <td className="px-4 py-3">
                   {theme ? (
-                    <span className="text-sm text-gray-700">{theme.name}</span>
+                    <span className="text-sm text-foreground">{theme.name}</span>
                   ) : (
-                    <span className="text-sm text-gray-400">-</span>
+                    <span className="text-sm text-muted-foreground">-</span>
                   )}
                 </td>
                 <td className="px-4 py-3">
@@ -119,7 +119,7 @@ export function TenantsTable({ tenants, themeMap }: TenantsTableProps) {
                     className={`text-xs font-medium px-2 py-1 rounded border transition-colors ${
                       tenant.showOnLanding
                         ? "bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
-                        : "bg-gray-50 text-gray-500 border-gray-200 hover:bg-gray-100"
+                        : "bg-muted text-muted-foreground border-border hover:bg-secondary"
                     }`}
                   >
                     {tenant.showOnLanding ? "Shown" : "Show"}
