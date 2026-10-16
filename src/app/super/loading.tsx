@@ -1,9 +1,16 @@
-export default function SuperLoading() {
+export default function SuperAdminLoading() {
   return (
-    <div className="min-h-screen bg-gray-50 p-6 space-y-4 animate-pulse">
-      <div className="h-8 w-48 bg-gray-200 rounded" />
-      <div className="h-4 w-96 bg-gray-200 rounded" />
-      <div className="h-64 bg-white rounded-lg border border-gray-200" />
+    <div className="space-y-6">
+      <div className="animate-pulse">
+        <div className="h-8 bg-gray-200 rounded w-1/4 mb-2" />
+        <div className="h-4 bg-gray-200 rounded w-1/2" />
+      </div>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="animate-pulse h-24 bg-gray-200 rounded-lg" />
+        ))}
+      </div>
+      <div className="animate-pulse h-64 bg-gray-200 rounded-lg" />
     </div>
   );
 }

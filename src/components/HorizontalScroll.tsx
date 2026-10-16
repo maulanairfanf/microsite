@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, ReactNode, useState, useEffect } from "react";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface HorizontalScrollProps {
   children: ReactNode;
@@ -41,7 +41,6 @@ export function HorizontalScroll({
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      console.log("scrollAmount:", scrollAmount);
       const container = scrollContainerRef.current;
       const start = container.scrollLeft;
       const target = direction === "left" ? start - scrollAmount : start + scrollAmount;
@@ -79,7 +78,7 @@ export function HorizontalScroll({
           className="absolute left-0 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 cursor-pointer hover:bg-gray-50"
           aria-label="Scroll left"
         >
-          <MdChevronLeft size={chevronSize} className="text-gray-700" />
+          <ChevronLeft size={chevronSize} className="text-gray-700" />
         </button>
       )}
 
@@ -89,7 +88,7 @@ export function HorizontalScroll({
           className="absolute right-0 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 cursor-pointer hover:bg-gray-50"
           aria-label="Scroll right"
         >
-          <MdChevronRight size={chevronSize} className="text-gray-700" />
+          <ChevronRight size={chevronSize} className="text-gray-700" />
         </button>
       )}
 

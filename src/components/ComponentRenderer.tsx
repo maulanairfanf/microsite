@@ -1,11 +1,30 @@
 import { Component } from "@/types/components";
-import { Hero } from "./Hero";
-import { Linktree } from "./Linktree";
-import { ProductsShowcase } from "./ProductsShowcase";
-import { ProductsCatalog } from "./ProductsCatalog";
-import { Banner } from "./Banner";
-import { Footer } from "./Footer";
-import { SocialMedia } from "./SocialMedia";
+import dynamic from "next/dynamic";
+
+const Hero = dynamic(() => import("./Hero").then((mod) => ({ default: mod.Hero })), {
+  ssr: true,
+});
+const Linktree = dynamic(() => import("./Linktree").then((mod) => ({ default: mod.Linktree })), {
+  ssr: true,
+});
+const ProductsShowcase = dynamic(
+  () => import("./ProductsShowcase").then((mod) => ({ default: mod.ProductsShowcase })),
+  { ssr: true },
+);
+const ProductsCatalog = dynamic(
+  () => import("./ProductsCatalog").then((mod) => ({ default: mod.ProductsCatalog })),
+  { ssr: true },
+);
+const Banner = dynamic(() => import("./Banner").then((mod) => ({ default: mod.Banner })), {
+  ssr: true,
+});
+const Footer = dynamic(() => import("./Footer").then((mod) => ({ default: mod.Footer })), {
+  ssr: true,
+});
+const SocialMedia = dynamic(
+  () => import("./SocialMedia").then((mod) => ({ default: mod.SocialMedia })),
+  { ssr: true },
+);
 
 export function ComponentRenderer({ component }: { component: Component }) {
   switch (component.type) {

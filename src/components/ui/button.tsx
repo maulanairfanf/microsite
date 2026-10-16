@@ -52,20 +52,26 @@ function Button({
     asChild?: boolean;
     loading?: boolean;
   }) {
-  const Comp = asChild ? Slot.Root : "button";
+  const sharedProps = {
+    "data-slot": "button",
+    "data-variant": variant,
+    "data-size": size,
+    className: cn(buttonVariants({ variant, size, className })),
+  };
+
+  if (asChild) {
+    return (
+      <Slot.Root {...sharedProps} {...props}>
+        {children}
+      </Slot.Root>
+    );
+  }
 
   return (
-    <Comp
-      data-slot="button"
-      data-variant={variant}
-      data-size={size}
-      className={cn(buttonVariants({ variant, size, className }))}
-      disabled={disabled || loading}
-      {...props}
-    >
+    <button {...sharedProps} disabled={disabled || loading} {...props}>
       {loading && <Loader2 className="animate-spin" />}
       {children}
-    </Comp>
+    </button>
   );
 }
 

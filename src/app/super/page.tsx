@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/admin/PageHeader";
 import { listTenants } from "@/lib/db/tenants";
 import { listThemes } from "@/lib/db/themes";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function SuperDashboard() {
   const tenants = await listTenants();
@@ -46,31 +46,31 @@ export default async function SuperDashboard() {
       </Card>
 
       <div className="mt-8">
-        <h3 className="font-semibold text-gray-900 mb-4">Recent Tenants</h3>
-        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+        <h3 className="font-semibold text-foreground mb-4">Recent Tenants</h3>
+        <div className="bg-card text-card-foreground rounded-lg border border-border overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-muted border-b border-border">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase">
                   Name
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase">
                   URL
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase">
                   Status
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-border">
               {tenants.slice(0, 5).map((tenant) => (
-                <tr key={tenant.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-gray-900">{tenant.name}</td>
-                  <td className="px-4 py-3 text-sm text-gray-500">/{tenant.tenantId}</td>
+                <tr key={tenant.id} className="hover:bg-muted">
+                  <td className="px-4 py-3 text-sm text-foreground">{tenant.name}</td>
+                  <td className="px-4 py-3 text-sm text-muted-foreground">/{tenant.tenantId}</td>
                   <td className="px-4 py-3">
                     <Badge
                       variant={tenant.status === "active" ? "default" : "secondary"}
-                      className={tenant.status === "archived" ? "bg-gray-100 text-gray-600" : ""}
+                      className={tenant.status === "archived" ? "bg-muted text-muted-foreground" : ""}
                     >
                       {tenant.status === "active" ? (
                         <span className="flex items-center gap-1">
@@ -79,7 +79,7 @@ export default async function SuperDashboard() {
                         </span>
                       ) : (
                         <span className="flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
                           Archived
                         </span>
                       )}

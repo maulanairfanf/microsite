@@ -2,24 +2,24 @@ import { Theme, ThemeTokens } from "@/types/components";
 
 export const defaultTokens: ThemeTokens = {
   page: {
-    background: "#e5e7eb",
-    text: "#111827",
-    headerText: "#111827",
+    background: "#F8F8F6",
+    text: "#171717",
+    headerText: "#171717",
   },
   container: {
-    background: "#f3f4f6",
+    background: "#FFFFFF",
     backgroundOpacity: 1,
     radius: "16px",
-    border: "0",
-    shadow: "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+    border: "1px solid #E8E8E5",
+    shadow: "none",
   },
   card: {
     background: "#ffffff",
     hoverOpacity: 7,
-    text: "#111827",
-    border: "0",
-    shadow: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-    radius: "8px",
+    text: "#171717",
+    border: "1px solid #E8E8E5",
+    shadow: "none",
+    radius: "12px",
   },
 };
 

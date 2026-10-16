@@ -22,6 +22,9 @@ model Tenant {
   users         User[]
   subscriptions Subscription[]
 
+  @@index([status])
+  @@index([showOnLanding, status])
+  @@index([themeId])
   @@map("tenants")
 }
 
@@ -47,6 +50,8 @@ model Section {
   updatedAt   DateTime?
   tenant      Tenant    @relation(fields: [tenantId], references: [tenantId], onDelete: Cascade)
 
+  @@index([tenantId])
+  @@index([componentId])
   @@map("sections")
 }
 
@@ -76,6 +81,8 @@ model User {
   updatedAt                           DateTime?
   tenant                              Tenant?   @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
+  @@index([emailVerificationToken])
   @@map("users")
 }
 

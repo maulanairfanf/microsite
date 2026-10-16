@@ -7,7 +7,7 @@ import { listTenants } from "@/lib/db/tenants";
 import { listThemes } from "@/lib/db/themes";
 import { TenantsTable } from "./tenants-table";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function TenantsPage() {
   const tenants = await listTenants({ includeInactive: true });

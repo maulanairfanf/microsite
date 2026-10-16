@@ -100,37 +100,37 @@ export function UsersTable({
         </Button>
       </div>
 
-      <div className="bg-white rounded-lg border">
+      <div className="bg-card text-card-foreground rounded-lg border border-border">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b">
+          <thead className="bg-muted border-b border-border">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+              <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase">
                 Name
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+              <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase">
                 Email
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+              <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase">
                 Role
               </th>
-              <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-4 py-3 text-right text-xs font-medium text-muted-foreground uppercase">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y">
+          <tbody className="divide-y divide-border">
             {users.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50">
+              <tr key={user.id} className="hover:bg-muted">
                 <td className="px-4 py-3">
-                  <div className="font-medium text-gray-900">{user.name}</div>
+                  <div className="font-medium text-foreground">{user.name}</div>
                 </td>
-                <td className="px-4 py-3 text-sm text-gray-500">{user.email}</td>
+                <td className="px-4 py-3 text-sm text-muted-foreground">{user.email}</td>
                 <td className="px-4 py-3">
                   <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                       user.role === "tenant_main_admin"
                         ? "bg-primary/10 text-primary"
-                        : "bg-gray-100 text-gray-600"
+                        : "bg-muted text-muted-foreground"
                     }`}
                   >
                     {getRoleLabel(user.role)}
@@ -140,8 +140,8 @@ export function UsersTable({
                   <div className="flex items-center justify-end gap-2">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <button className="p-2 rounded-lg hover:bg-gray-100">
-                          <MoreHorizontal className="w-4 h-4 text-gray-500" />
+                        <button className="p-2 rounded-lg hover:bg-muted">
+                          <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
                         </button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
@@ -175,7 +175,7 @@ export function UsersTable({
         </table>
 
         {users.length === 0 && (
-          <div className="p-6 text-center text-gray-500">No team members yet</div>
+          <div className="p-6 text-center text-muted-foreground">No team members yet</div>
         )}
       </div>
     </div>

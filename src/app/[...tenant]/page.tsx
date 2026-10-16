@@ -27,12 +27,14 @@ export default async function TenantPage({
 
   const tenantSlug = tenant.join("/");
 
-  const tenantData = await getTenantByTenantId(tenantSlug);
+  const [tenantData, sections] = await Promise.all([
+    getTenantByTenantId(tenantSlug),
+    getSectionsByTenant(tenantSlug),
+  ]);
+
   if (!tenantData) {
     return notFound();
   }
-
-  const sections = await getSectionsByTenant(tenantSlug);
 
   const themeIdToUse = previewThemeId || tenantData.themeId;
 
