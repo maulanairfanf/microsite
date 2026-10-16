@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import { type ThemeRecord } from "@/lib/themeConfig";
 
@@ -5,11 +6,11 @@ export type { ThemeRecord } from "@/lib/themeConfig";
 
 export type Theme = ThemeRecord;
 
-export async function listThemes(): Promise<Theme[]> {
+export const listThemes = cache(async (): Promise<Theme[]> => {
   return prisma.theme.findMany({
     orderBy: { createdAt: "desc" },
   });
-}
+});
 
 export async function getTheme(id: string): Promise<Theme | null> {
   return prisma.theme.findUnique({ where: { id } });
